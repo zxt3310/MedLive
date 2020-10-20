@@ -1,0 +1,17 @@
+//
+//  SKLHeader.pch
+//  MedLiveAPP
+//
+//  Created by zxt3310 on 2020/10/14.
+//  Copyright © 2020 Zxt. All rights reserved.
+//
+
+#ifndef SKLHeader_pch
+#define SKLHeader_pch
+#import <Masonry/Masonry.h>
+#import "UIColor+U32Int.h"
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* SKLHeader_pch */
