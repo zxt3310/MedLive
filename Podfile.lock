@@ -17,10 +17,36 @@ PODS:
   - AgoraRtcEngine_iOS (3.1.2)
   - AgoraRtm_iOS (1.4.1)
   - AxcAE_TabBar (1.0.5)
+  - BRPickerView (2.7.3):
+    - BRPickerView/AddressPickerView (= 2.7.3)
+    - BRPickerView/Base (= 2.7.3)
+    - BRPickerView/DatePickerView (= 2.7.3)
+    - BRPickerView/StringPickerView (= 2.7.3)
+  - BRPickerView/AddressPickerView (2.7.3):
+    - BRPickerView/Base
+  - BRPickerView/Base (2.7.3)
+  - BRPickerView/DatePickerView (2.7.3):
+    - BRPickerView/Base
+  - BRPickerView/StringPickerView (2.7.3):
+    - BRPickerView/Base
   - CocoaLumberjack (3.7.0):
     - CocoaLumberjack/Core (= 3.7.0)
   - CocoaLumberjack/Core (3.7.0)
+  - FlexLib (2.7.0):
+    - FlexLib/standard (= 2.7.0)
+  - FlexLib/preview (2.7.0):
+    - FlexLib/standard
+  - FlexLib/standard (2.7.0):
+    - FlexLib/standard/no-arc (= 2.7.0)
+    - Yoga (= 1.14.0)
+  - FlexLib/standard/no-arc (2.7.0):
+    - Yoga (= 1.14.0)
+  - LGAlertView (2.4.0)
   - Masonry (1.1.0)
+  - MJRefresh (3.5.0)
+  - Yoga (1.14.0)
+  - YTKNetwork (2.1.4):
+    - AFNetworking/NSURLSession (~> 3.0)
   - YYModel (1.0.4)
 
 DEPENDENCIES:
@@ -28,8 +54,14 @@ DEPENDENCIES:
   - AgoraRtcEngine_iOS (= 3.1.2)
   - AgoraRtm_iOS (~> 1.4.0)
   - AxcAE_TabBar (= 1.0.5)
+  - BRPickerView (= 2.7.3)
   - CocoaLumberjack
+  - FlexLib
+  - FlexLib/preview
+  - LGAlertView
   - Masonry (= 1.1.0)
+  - MJRefresh
+  - YTKNetwork
   - YYModel (= 1.0.4)
 
 SPEC REPOS:
@@ -38,8 +70,14 @@ SPEC REPOS:
     - AgoraRtcEngine_iOS
     - AgoraRtm_iOS
     - AxcAE_TabBar
+    - BRPickerView
     - CocoaLumberjack
+    - FlexLib
+    - LGAlertView
     - Masonry
+    - MJRefresh
+    - Yoga
+    - YTKNetwork
     - YYModel
 
 SPEC CHECKSUMS:
@@ -47,10 +85,16 @@ SPEC CHECKSUMS:
   AgoraRtcEngine_iOS: 0628532d3475471d1c352ba548cee98492850cc0
   AgoraRtm_iOS: 3a5b675487b39e51f416e8c8a040f97f0aaad2c1
   AxcAE_TabBar: 1d5bcf6c4921889dc38839b6ba2c584a9b55251a
+  BRPickerView: 9cc11880ac79c4872d081ccb88f306224c1501d7
   CocoaLumberjack: e8955b9d337ac307103b0a34fd141c32f27e53c5
+  FlexLib: db9979dfaf1ff89b7934d694bf4c1235592ac12d
+  LGAlertView: 2f5e83dd5cc2537de57d98727650609e86197d1a
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
+  Yoga: cff67a400f6b74dc38eb0bad4f156673d9aa980c
+  YTKNetwork: 19be749c30f0512ada07180f4637b4b67bc8ddc2
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 43c90b6aaa6e8f1bed23bd92e93d1945286092f6
+PODFILE CHECKSUM: 0ebc3dc941434bb63d733f769857a5f8ac12b7f4
 
 COCOAPODS: 1.9.3

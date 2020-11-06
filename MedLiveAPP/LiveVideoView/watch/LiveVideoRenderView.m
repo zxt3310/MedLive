@@ -7,7 +7,6 @@
 //
 
 #import "LiveVideoRenderView.h"
-#import "LiveRenderMaskView.h"
 
 @implementation LiveVideoRenderView
 {
@@ -15,21 +14,31 @@
     LiveRenderMaskView *maskView;
 }
 @synthesize videoCanvas = _videoCanvas;
+@synthesize videoView = _videoView;
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
+    if (self) {
+        
+    }
+    return self;
+}
+
+-(id)initWithMaskDelegate:(id <RenderMaseDelegate>)delegate{
+    self = [[LiveVideoRenderView alloc] init];
     if (self) {
         //初始化video视图
         _videoView = [[UIView alloc] initWithFrame:CGRectZero];
         maskView = [[LiveRenderMaskView alloc] initWithFrame:CGRectZero];
         [self addSubview:_videoView];
         [self addSubview:maskView];
-        
-        _videoView.backgroundColor = [UIColor whiteColor];
+        maskView.maskDelegate = delegate;
+        _videoView.backgroundColor = [UIColor ColorWithRGB:44 Green:123 Blue:246 Alpha:1];
     }
     return self;
 }
+
 
 - (void)setVideoCanvas:(AgoraRtcVideoCanvas *)videoCanvas{
     _videoCanvas = videoCanvas;
@@ -44,12 +53,11 @@
 
 - (void)drawRect:(CGRect)rect{
     //调整视图尺寸
-    UIEdgeInsets padding = UIEdgeInsetsMake(10, 10, 10, 10);
     [self.videoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self).with.insets(padding);
+        make.edges.equalTo(self);
     }];
     [maskView mas_makeConstraints:^(MASConstraintMaker *make){
-        make.edges.equalTo(self).with.insets(padding);
+        make.edges.equalTo(self);
     }];
 }
 

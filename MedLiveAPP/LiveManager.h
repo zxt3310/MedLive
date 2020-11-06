@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <AgoraRtcKit/AgoraRtcEngineKit.h>
+#import "Utilies/AgoraCenter.h"
+#import "LiveVideoRenderView.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol LiveManagerRemoteCanvasProvideDelegate <NSObject>
 @optional
-- (void)didAddRemoteMember:(UIView *)view;
+- (void)didAddRemoteMember:(NSUInteger)uid;
 - (void)didRemoteLeave:(NSInteger) uid;
 @end
 
@@ -21,9 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak) id<LiveManagerRemoteCanvasProvideDelegate> provideDelegate;
 
 - (void)enableVideo;
-- (void)setupVideoLocalView:(AgoraRtcVideoCanvas *) local;
-- (void)joinRoomByToken:(NSString *)token Room:(NSString *)roomId;
-- (void)switchArea;
+- (void)setupVideoLocalView:(__kindof LiveView *) view;
+- (int)joinRoomByToken:(NSString *)token Room:(NSString *)roomId;
+- (void)setupVideoRemoteView:(UIView *)view Uid:(NSInteger) uid;
+- (MedLiveState)pauseOrPlay:(MedLiveState)stateBefore;
+- (void)leaveRoom;
 @end
 
 NS_ASSUME_NONNULL_END

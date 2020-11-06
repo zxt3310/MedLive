@@ -7,8 +7,11 @@
 //
 
 #import "SKLTeamController.h"
+#import <WebKit/WebKit.h>
+#import <MJRefresh.h>
 
-@interface SKLTeamController ()
+@interface SKLTeamController ()<WKScriptMessageHandler>
+@property (strong,readonly) WKWebView *mainWebView;
 
 @end
 
@@ -16,18 +19,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor redColor];
-    // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+    WKUserContentController *uc = [[WKUserContentController alloc] init];
+    config.userContentController = uc;
+    //[uc addScriptMessageHandler:self name:@"channelInfo"];
+    _mainWebView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
+    [self.view addSubview:_mainWebView];
+    [_mainWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://dev.saikang.ranknowcn.com/h5/expert_list"]]];
+    
+    _mainWebView.scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self.mainWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://dev.saikang.ranknowcn.com/h5/expert_list"]]];
+        [self.mainWebView.scrollView.mj_header endRefreshing];
+    }];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)viewWillLayoutSubviews{
+    [_mainWebView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
 }
-*/
+
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message{
+
+}
+
 
 @end

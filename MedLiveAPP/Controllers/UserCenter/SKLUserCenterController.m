@@ -7,6 +7,7 @@
 //
 
 #import "SKLUserCenterController.h"
+#import "MedLiveLoginController.h"
 
 @interface SKLUserCenterController ()
 
@@ -17,18 +18,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor blueColor];
+    self.view.backgroundColor = [UIColor yellowColor];
     
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setTitle:@"登录" forState:UIControlStateNormal];
+    [button setBackgroundColor:[UIColor blueColor]];
+    [button addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button];
+    
+    [button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.centerY.equalTo(self.view.mas_centerY);
+        make.size.mas_equalTo(CGSizeMake(100, 40));
+    }];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)login{
+    MedLiveLoginController *logVC = [[MedLiveLoginController alloc] init];
+    [self.navigationController pushViewController:logVC animated:YES];
 }
-*/
+
 
 @end

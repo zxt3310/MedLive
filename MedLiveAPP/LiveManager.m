@@ -7,11 +7,11 @@
 //
 
 #import "LiveManager.h"
-#import "Utilies/AgoraCenter.h"
-#import "LiveVideoRenderView.h"
+
 
 @interface LiveManager()<AgoraRtcEngineDelegate>
 @property (readonly)AgoraRtcEngineKit *agorEngine;
+@property BOOL isPlaying;
 @end
 
 @implementation LiveManager
@@ -53,64 +53,70 @@
     [_agorEngine setClientRole:role];
 }
 
-- (void)setupVideoLocalView:(AgoraRtcVideoCanvas *) local{
-    [self.agorEngine setupLocalVideo:local];
-    [areaCollection addObject:local];
+- (void)setupVideoLocalView:(__kindof LiveView *) view{
+    AgoraRtcVideoCanvas *localCanvas = [[AgoraRtcVideoCanvas alloc] init];
+    localCanvas.view = view.videoView;
+    view.videoCanvas = localCanvas;
+    [self.agorEngine setupLocalVideo:localCanvas];
+    [areaCollection addObject:localCanvas];
+}
+
+- (void)setupVideoRemoteView:(LiveVideoRenderView *)view Uid:(NSInteger) uid{
+    AgoraRtcVideoCanvas *remoteArea = [[AgoraRtcVideoCanvas alloc] init];
+    remoteArea.uid = uid;
+    view.uid = uid;
+    view.videoCanvas = remoteArea;
+    remoteArea.view = view.videoView;
+    [self.agorEngine setupRemoteVideo:remoteArea];
 }
 
 - (void)enableVideo{
     [self.agorEngine enableVideo];
-    //[self.agorEngine setParameters:@"{\"che.audio.live_for_comm\":true}"];
-    //[self.agorEngine enableDualStreamMode:YES];
-    //NSLog(@"加载本地视图 %d",res);
 }
 
-- (void)joinRoomByToken:(NSString *)token Room:(NSString *)roomId{
-    [self.agorEngine joinChannelByToken:token channelId:roomId info:nil uid:0 joinSuccess:^(NSString * channel, NSUInteger uid, NSInteger elapsed){
+- (int)joinRoomByToken:(NSString *)token Room:(NSString *)roomId{
+    return [self.agorEngine joinChannelByToken:token channelId:roomId info:nil uid:0 joinSuccess:^(NSString * channel, NSUInteger uid, NSInteger elapsed){
         NSLog(@"进入频道%@   用户:%ld",channel,uid);
     }];
 }
 
+- (void)leaveRoom{
+    [self.agorEngine leaveChannel:^(AgoraChannelStats * _Nonnull stat) {
+        
+    }];
+}
+
+//视频通话有远端用户进入（互相可见）
 - (void)rtcEngine:(AgoraRtcEngineKit *)engine firstRemoteVideoFrameOfUid:(NSUInteger)uid size:(CGSize)size elapsed:(NSInteger)elapsed{
     
 }
 
-- (void)rtcEngine:(AgoraRtcEngineKit *)engine firstRemoteVideoDecodedOfUid:(NSUInteger)uid size:(CGSize)size elapsed:(NSInteger)elapsed{
-    AgoraRtcVideoCanvas *remoteArea = [[AgoraRtcVideoCanvas alloc] init];
-    remoteArea.uid = uid;
-    LiveVideoRenderView *remoteView = [[LiveVideoRenderView alloc] init];
-    remoteView.uid = uid;
-    remoteView.videoCanvas = remoteArea;
-    remoteArea.view = remoteView;
-    if(self.provideDelegate){
-        [self.provideDelegate didAddRemoteMember:remoteView];
-    }
-    [areaCollection addObject:remoteArea];
-    [self.agorEngine setupRemoteVideo:remoteArea];
-}
-
-- (void)rtcEngine:(AgoraRtcEngineKit *)engine remoteVideoStateChangedOfUid:(NSUInteger)uid state:(AgoraVideoRemoteState)state reason:(AgoraVideoRemoteStateReason)reason elapsed:(NSInteger)elapsed{
-    if(state == AgoraVideoRemoteStateStopped){
-        for(AgoraRtcVideoCanvas *area in areaCollection){
-            if(uid == area.uid){
-                [areaCollection removeObject:area];
-                break;
-            }
-        }
-        
-        if(self.provideDelegate){
-            [self.provideDelegate didRemoteLeave:uid];
-        }
+- (void)rtcEngine:(AgoraRtcEngineKit *)engine didJoinedOfUid:(NSUInteger)uid elapsed:(NSInteger)elapsed{
+    if(self.provideDelegate && self.role == AgoraClientRoleAudience){
+        [self.provideDelegate didAddRemoteMember:uid];
     }
 }
 
-- (void)switchArea{
-    
+
+- (MedLiveState)pauseOrPlay:(MedLiveState)stateBefore{
+    if(stateBefore == MedLiveStatePlaying){
+        int res = [_agorEngine muteAllRemoteVideoStreams:YES];
+        if(!res){
+            return MedLiveStatePausing;
+        }
+    }else if(stateBefore == MedLiveStatePausing){
+        int res = [_agorEngine muteAllRemoteVideoStreams:NO];
+        if(!res){
+            return MedLiveStatePlaying;
+        }
+    }
+    return stateBefore;
 }
 
 
 - (void)dealloc{
     [AgoraRtcEngineKit destroy];
+    NSLog(@"agoraEngine destroy");
 }
 
 @end

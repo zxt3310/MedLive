@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "SKLRootNavigator.h"
 #import "MainTabController.h"
+#import "AppPreLaunch.h"
 
 @interface AppDelegate ()
 
@@ -18,11 +19,15 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    FlexRestorePreviewSetting();
+    //启动准备
+    [AppPreLaunch preparBeforUI];
+    
     MainTabController *mainTab = [[MainTabController alloc] init];
     SKLRootNavigator *root = [[SKLRootNavigator alloc] initWithRootViewController:mainTab];
     [[self window] setRootViewController:root];
     [[self window] makeKeyAndVisible];
-
+    
     return YES;
 }
 

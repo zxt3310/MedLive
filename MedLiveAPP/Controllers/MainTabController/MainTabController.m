@@ -12,7 +12,7 @@
 #import "SKLMeetController.h"
 #import "SKLTeamController.h"
 #import "SKLUserCenterController.h"
-#import "ViewController.h"
+//#import "ViewController.h"
 
 @interface MainTabController ()<AxcAE_TabBarDelegate>
 
@@ -29,16 +29,16 @@
     SKLMeetController *meetting = [[SKLMeetController alloc] init];
     SKLTeamController *proTeam = [[SKLTeamController alloc] init];
     SKLUserCenterController *userCenter = [[SKLUserCenterController alloc] init];
-    ViewController *test = [[ViewController alloc] init];
-    self.viewControllers = @[mainPage,meetting,proTeam,userCenter,test];
+    //ViewController *test = [[ViewController alloc] init];
+    self.viewControllers = @[mainPage,meetting,proTeam,userCenter];
     
     AxcAE_TabBarConfigModel *Main = [self ConfigWithDictionary:@{@"title":@"主页",@"icon":@"main"}];
     AxcAE_TabBarConfigModel *meeting = [self ConfigWithDictionary:@{@"title":@"会议",@"icon":@"meetting"}];
     AxcAE_TabBarConfigModel *proteam = [self ConfigWithDictionary:@{@"title":@"专家团队",@"icon":@"proteam"}];
     AxcAE_TabBarConfigModel *user = [self ConfigWithDictionary:@{@"title":@"我的",@"icon":@"user"}];
-    AxcAE_TabBarConfigModel *testmodel = [self ConfigWithDictionary:@{@"title":@"直播测试",@"icon":@"meetting"}];
+//    AxcAE_TabBarConfigModel *testmodel = [self ConfigWithDictionary:@{@"title":@"直播测试",@"icon":@"meetting"}];
     
-    tabbar = [[AxcAE_TabBar alloc] initWithTabBarConfig:@[Main,meeting,proteam,user,testmodel]];
+    tabbar = [[AxcAE_TabBar alloc] initWithTabBarConfig:@[Main,meeting,proteam,user]];
     tabbar.backgroundColor = [UIColor whiteColor];
     tabbar.delegate = self;
     [self.tabBar addSubview:tabbar];

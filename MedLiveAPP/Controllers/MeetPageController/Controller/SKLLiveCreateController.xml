@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UIView layout="flex:1" attr="bgColor:white">
+<FlexScrollView layout="flex:1" attr="vertScroll:true">
+    <UIView class="" layout="paddingHorizontal:20" attr="">
+        <UIView class="" layout="flexDirection:row,paddingVertical:15" attr="">
+            <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:直播主题"/>
+            <UITextField name="titleField" class="" layout="marginLeft:20" attr="fontSize:14,color:black,textAlign:left,placeholder:请输入,text:"/>
+        </UIView>
+
+        <UIView class="" layout="height:1" attr="bgColor:#d0d0d0"/>
+
+        <UIView class="" layout="flexDirection:row,paddingVertical:15,justifyContent:space-between" attr="">
+            <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:直播时间"/>
+            <FlexTouchView onPress="selectDate" layout="flexDirection:row" attr="">
+                <UILabel name="dateLabel" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:请选择"/>
+                <UIImageView layout="" attr="source:right"/>
+            </FlexTouchView>
+        </UIView>
+
+        <UIView class="" layout="height:1" attr="bgColor:#d0d0d0"/>
+
+        <UIView class="" layout="paddingVertical:15" attr="">
+            <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:直播简介"/>
+            <FlexTextView name="introField" class="" layout="" attr="fontSize:14,color:black,textAlign:left,placeholder:请输入"/>
+        </UIView>
+
+        <UIView class="" layout="height:1" attr="bgColor:#d0d0d0"/>
+
+        <UIView class="" layout="flexDirection:row,justifyContent:space-between,paddingVertical:15" attr="">
+            <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:直播介绍图片"/>
+            <FlexTouchView onPress="" layout="flexDirection:row" attr="">
+                <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:请选择"/>
+                <UIImageView layout="" attr="source:right"/>
+            </FlexTouchView>
+        </UIView>
+    
+        <UIView class="" layout="height:1" attr="bgColor:#d0d0d0"/>
+
+        <UIView class="" layout="flexDirection:row,justifyContent:space-between,paddingVertical:15" attr="">
+            <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:封面图片"/>
+            <FlexTouchView onPress="" layout="flexDirection:row" attr="">
+                <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:请选择"/>
+                <UIImageView layout="" attr="source:right"/>
+            </FlexTouchView>
+        </UIView>
+        
+        <UIView class="" layout="height:1" attr="bgColor:#d0d0d0"/>
+    </UIView>
+    <UIView class="" layout="height:200,flexDirection:row,justifyContent:space-evenly,alignItems:center" attr="">
+        <FlexTouchView onPress="createPlan" layout="height:50,aspectRatio:1,justifyContent:center,alignItems:center" attr="bgColor:blue,borderRadius:25">
+            <UILabel name="" class="" layout="" attr="fontSize:14,color:white,text:创建"/>
+        </FlexTouchView>
+        <FlexTouchView onPress="liveDirectly" layout="height:40,width:120,justifyContent:center,alignItems:center" attr="bgColor:lightGray">
+            <UILabel name="" class="" layout="" attr="fontSize:14,color:white,lineBreakMode:truncatingTail,linesNum:1,text:立即开播"/>
+        </FlexTouchView>
+    </UIView>
+
+    <UIView class="" layout="height:200" attr="bgColor:#d0d0d0">
+
+    </UIView>
+</FlexScrollView>
+</UIView>

@@ -1,8 +1,8 @@
 //
-//  LiveRenderMaskView.h
+//  MedLiveBaseVideoController.h
 //  MedLiveAPP
 //
-//  Created by zxt3310 on 2020/10/19.
+//  Created by zxt3310 on 2020/10/30.
 //  Copyright © 2020 Zxt. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LiveRenderMaskView : UIButton
+@interface MedLiveBaseVideoController : UIViewController
 
 @end
 
