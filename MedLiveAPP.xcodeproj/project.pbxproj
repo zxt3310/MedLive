@@ -17,6 +17,7 @@
 		5819CCAE2536EA2400E4DF0C /* UIColor+U32Int.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819CCAD2536EA2400E4DF0C /* UIColor+U32Int.m */; };
 		5833D9D425318A5C0004B10D /* LiveManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5833D9D325318A5C0004B10D /* LiveManager.m */; };
 		5833D9DB253193200004B10D /* AgoraCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5833D9DA253193200004B10D /* AgoraCenter.m */; };
+		5836C27D2557AE89003B281D /* SKLUserCenterController.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5836C27C2557AE89003B281D /* SKLUserCenterController.xml */; };
 		58410DFB254C504A00C0DF2D /* MedLiveBaseVideoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58410DFA254C504A00C0DF2D /* MedLiveBaseVideoController.m */; };
 		58423A522550F9AE004466B9 /* SKLLiveCreateController.xml in Resources */ = {isa = PBXBuildFile; fileRef = 58423A502550F9AE004466B9 /* SKLLiveCreateController.xml */; };
 		5842B8F2255532180049F2EC /* SKLLiveCreateViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5842B8F1255532180049F2EC /* SKLLiveCreateViewModel.m */; };
@@ -45,6 +46,7 @@
 		58711DF52552A468007317B9 /* MedLiveSendMsgRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 58711DF42552A468007317B9 /* MedLiveSendMsgRequest.m */; };
 		58711DFB2552A681007317B9 /* AppPreLaunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 58711DFA2552A681007317B9 /* AppPreLaunch.m */; };
 		58711E022552AB90007317B9 /* MedLiveUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 58711E012552AB90007317B9 /* MedLiveUserModel.m */; };
+		5871F6B52556FEAC00758AF6 /* MedChannelStateRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5871F6B42556FEAC00758AF6 /* MedChannelStateRequest.m */; };
 		5896049324F780F40047B8C6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5896049224F780F40047B8C6 /* AppDelegate.m */; };
 		5896049924F780F40047B8C6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5896049824F780F40047B8C6 /* ViewController.m */; };
 		5896049C24F780F40047B8C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5896049A24F780F40047B8C6 /* Main.storyboard */; };
@@ -98,6 +100,7 @@
 		5833D9D325318A5C0004B10D /* LiveManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveManager.m; sourceTree = "<group>"; };
 		5833D9D9253193200004B10D /* AgoraCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgoraCenter.h; sourceTree = "<group>"; };
 		5833D9DA253193200004B10D /* AgoraCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgoraCenter.m; sourceTree = "<group>"; };
+		5836C27C2557AE89003B281D /* SKLUserCenterController.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SKLUserCenterController.xml; sourceTree = "<group>"; };
 		58410DF9254C504A00C0DF2D /* MedLiveBaseVideoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveBaseVideoController.h; sourceTree = "<group>"; };
 		58410DFA254C504A00C0DF2D /* MedLiveBaseVideoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedLiveBaseVideoController.m; sourceTree = "<group>"; };
 		58423A502550F9AE004466B9 /* SKLLiveCreateController.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SKLLiveCreateController.xml; sourceTree = "<group>"; };
@@ -152,6 +155,8 @@
 		58711DFA2552A681007317B9 /* AppPreLaunch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppPreLaunch.m; sourceTree = "<group>"; };
 		58711E002552AB90007317B9 /* MedLiveUserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveUserModel.h; sourceTree = "<group>"; };
 		58711E012552AB90007317B9 /* MedLiveUserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedLiveUserModel.m; sourceTree = "<group>"; };
+		5871F6B32556FEAC00758AF6 /* MedChannelStateRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedChannelStateRequest.h; sourceTree = "<group>"; };
+		5871F6B42556FEAC00758AF6 /* MedChannelStateRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedChannelStateRequest.m; sourceTree = "<group>"; };
 		5896048E24F780F40047B8C6 /* MedLiveAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MedLiveAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5896049124F780F40047B8C6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5896049224F780F40047B8C6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -253,6 +258,7 @@
 			children = (
 				586E06B02546C27F008504E9 /* Login */,
 				5819CC952536C1C500E4DF0C /* SKLUserCenterController.h */,
+				5836C27C2557AE89003B281D /* SKLUserCenterController.xml */,
 				5819CC962536C1C500E4DF0C /* SKLUserCenterController.m */,
 			);
 			path = UserCenter;
@@ -261,12 +267,12 @@
 		5833D9D8253192CF0004B10D /* Utilies */ = {
 			isa = PBXGroup;
 			children = (
+				58E950902542C29D007F15A0 /* MedLiveheader.h */,
 				585143BC25480C5B0080E65C /* network */,
 				5819CCAC2536EA2400E4DF0C /* UIColor+U32Int.h */,
 				5819CCAD2536EA2400E4DF0C /* UIColor+U32Int.m */,
 				5833D9D9253193200004B10D /* AgoraCenter.h */,
 				5833D9DA253193200004B10D /* AgoraCenter.m */,
-				58E950902542C29D007F15A0 /* MedLiveheader.h */,
 				585143B62547FF4C0080E65C /* UIControl+UniTag.h */,
 				585143B72547FF4C0080E65C /* UIControl+UniTag.m */,
 				584E6BE8254FE51E00315751 /* UIButton+ImageText.h */,
@@ -406,6 +412,8 @@
 		586AF969254BF55400B22AF3 /* viewmodel */ = {
 			isa = PBXGroup;
 			children = (
+				5871F6B32556FEAC00758AF6 /* MedChannelStateRequest.h */,
+				5871F6B42556FEAC00758AF6 /* MedChannelStateRequest.m */,
 				586AF97A254BFD9E00B22AF3 /* MedChannelTokenRequest.h */,
 				586AF97B254BFD9E00B22AF3 /* MedChannelTokenRequest.m */,
 				586AF971254BF95000B22AF3 /* MedLiveViewModel.h */,
@@ -635,6 +643,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5836C27D2557AE89003B281D /* SKLUserCenterController.xml in Resources */,
 				58711DDF25527AB1007317B9 /* SKLMeetCreateController.xml in Resources */,
 				58423A522550F9AE004466B9 /* SKLLiveCreateController.xml in Resources */,
 				589604A124F780F50047B8C6 /* LaunchScreen.storyboard in Resources */,
@@ -796,6 +805,7 @@
 				58711E022552AB90007317B9 /* MedLiveUserModel.m in Sources */,
 				5819CCAE2536EA2400E4DF0C /* UIColor+U32Int.m in Sources */,
 				584E6BEA254FE51E00315751 /* UIButton+ImageText.m in Sources */,
+				5871F6B52556FEAC00758AF6 /* MedChannelStateRequest.m in Sources */,
 				5842B8F2255532180049F2EC /* SKLLiveCreateViewModel.m in Sources */,
 				584E6BF9254FFF1200315751 /* SKLLiveCreateView.m in Sources */,
 				586AF97C254BFD9E00B22AF3 /* MedChannelTokenRequest.m in Sources */,
@@ -976,6 +986,7 @@
 			baseConfigurationReference = E4B655FE5C81B2A59C4796AA /* Pods-MedLiveAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 429WZWZX68;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SKLHeader.pch";
@@ -995,6 +1006,7 @@
 			baseConfigurationReference = A91C010CDE475800136F2D3D /* Pods-MedLiveAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 429WZWZX68;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SKLHeader.pch";

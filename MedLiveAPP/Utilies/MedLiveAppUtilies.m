@@ -11,16 +11,22 @@
 
 @implementation MedLiveAppUtilies
 
-+ (void)checkForm:(NSArray <NSString *> *)formAry Aleart:(NSArray <NSString *>*)alearAry Complate:(void(^)(bool,NSString *))result{
-    BOOL res = YES;
-    NSString *emptyStr;
++ (void)checkForm:(NSArray <NSString *> *)formAry Aleart:(NSArray <NSString *>*)alearAry Complate:(void(^)(BOOL, NSString * _Nullable))result{
+    if (formAry.count != alearAry.count) {
+        result(NO,@"参数有误，有nil");
+        return;
+    }
+    __block BOOL res = YES;
+    __block NSString *emptyStr = nil;
     [formAry enumerateObjectsUsingBlock:^(NSString * obj, NSUInteger idx, BOOL * stop) {
         if (KIsBlankString(obj)) {
-            result(NO,obj);
+            emptyStr = alearAry[idx];
+            res = NO;
             *stop = YES;
             return;
         }
     }];
+    result(res,emptyStr);
 }
 
 #pragma 正则匹配手机号

@@ -14,11 +14,11 @@
     NSString *uid;
 }
 
-- (instancetype)initWithRoomId:(NSString *)roomId Uid:(NSString *)uid
+- (instancetype)initWithRoomId:(NSString *)channelId Uid:(NSString *)uid
 {
     self = [super init];
     if (self) {
-        self->roomId = roomId;
+        roomId = channelId;
         self->uid = uid;
     }
     return self;

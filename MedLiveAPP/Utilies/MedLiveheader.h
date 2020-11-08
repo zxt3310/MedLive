@@ -32,6 +32,10 @@ typedef enum : NSUInteger {
     MedLiveTypeMeetting
 } MedLiveType;
 
+typedef enum : NSUInteger {
+    MedLiveRoomStateStart,
+    MedLiveRoomStateEnd
+} MedLiveRoomState;
 
 #endif /* MedLiveheader_h */
 

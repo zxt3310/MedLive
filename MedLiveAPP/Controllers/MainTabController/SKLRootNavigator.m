@@ -8,7 +8,7 @@
 
 #import "SKLRootNavigator.h"
 
-@interface SKLRootNavigator ()
+@interface SKLRootNavigator ()<UINavigationBarDelegate>
 
 @end
 
@@ -19,5 +19,7 @@
     self.navigationBar.hidden = YES;
 }
 
-
+- (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item{
+    return YES;
+}
 @end

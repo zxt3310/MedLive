@@ -21,6 +21,7 @@ target 'MedLiveAPP' do
   pod 'FlexLib/preview'
   pod 'BRPickerView', '2.7.3'
   pod 'LGAlertView'
+  pod 'TZImagePickerController'
 #  pod 'AliyunOSSiOS'
 
   # Pods for MedLiveAPP

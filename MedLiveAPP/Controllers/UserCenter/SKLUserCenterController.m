@@ -10,7 +10,11 @@
 #import "MedLiveLoginController.h"
 
 @interface SKLUserCenterController ()
-
+{
+    UIView *topView;
+    UILabel *mobileLabel;
+    UIView *vipView;
+}
 @end
 
 @implementation SKLUserCenterController
@@ -18,19 +22,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor yellowColor];
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setTitle:@"登录" forState:UIControlStateNormal];
-    [button setBackgroundColor:[UIColor blueColor]];
-    [button addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button];
+}
+- (void)viewDidLayoutSubviews{
     
-    [button mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view.mas_centerX);
-        make.centerY.equalTo(self.view.mas_centerY);
-        make.size.mas_equalTo(CGSizeMake(100, 40));
-    }];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        CGFloat statusBarHeight = self.view.safeAreaInsets.top;
+        //[topView enableFlexLayout:YES];
+        [topView setLayoutAttr:@"height" Value:[NSString stringWithFormat:@"%f",statusBarHeight]];
+        [topView markDirty];
+    });
 }
 
 - (void)login{
@@ -38,5 +44,9 @@
     [self.navigationController pushViewController:logVC animated:YES];
 }
 
-
+- (UIEdgeInsets)getSafeArea:(BOOL)portrait{
+    UIEdgeInsets insets = self.view.safeAreaInsets;
+    insets.top = 0;
+    return insets;
+}
 @end

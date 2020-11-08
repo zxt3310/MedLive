@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MedLiveUserModel : NSObject
-@property NSInteger uid;
+@property NSString *uid;
 @property NSString *userName;
 @property NSString *mobile;
 @end

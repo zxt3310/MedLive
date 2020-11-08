@@ -9,6 +9,7 @@
 #import "MedLiveViewModel.h"
 #import "MedCreateLiveRequest.h"
 #import "MedChannelTokenRequest.h"
+#import "MedChannelStateRequest.h"
 #import "LiveManager.h"
 
 @implementation MedLiveViewModel
@@ -34,15 +35,22 @@
     return [liveManager joinRoomByToken:token Room:channelName];
 }
 
-- (void)createRoomWithTitle:(NSString *)title Description:(NSString *)desc Complate:(void(^)(NSString* chanlId, NSString *chanlToken, NSString *roomID))complateBlock{
-    MedCreateLiveRequest *req = [[MedCreateLiveRequest alloc] initWithTitle:title Desc:desc Uid:@"" Start:@"" picUrl:@""];
-    [req startWithSucBlock:^(NSString * _Nonnull channelId, NSString * _Nonnull title, NSString * _Nonnull roomId) {
-        NSLog(@"创建频道 %@, 标题: %@, 本地id:%@",channelId,title,roomId);
-        MedChannelTokenRequest *tokReq = [[MedChannelTokenRequest alloc] initWithRoomId:channelId Uid:@"0"];
-        [tokReq startWithSucBlock:^(NSString * _Nonnull token) {
-            NSLog(@"认证房间");
-            complateBlock(channelId,token,roomId);
-        }];
+- (void)createRoomWithTitle:(NSString *)title ChannelId:(NSString *)channelId Complate:(void(^)(NSString *chanlToken))complateBlock{
+    MedChannelTokenRequest *tokReq = [[MedChannelTokenRequest alloc] initWithRoomId:channelId Uid:@"0"];
+    [tokReq startWithSucBlock:^(NSString * _Nonnull token) {
+        NSLog(@"认证房间");
+        complateBlock(token);
+    }];
+}
+
+- (void)sendLiveState:(MedLiveRoomState)state RoomId:(NSString *)roomId UserId:(NSString *)uid{
+    MedChannelStateRequest *request= [[MedChannelStateRequest alloc] initWithState:state RoomId:roomId Uid:uid];
+    [request requestRoomState:^{
+        if (state == MedLiveRoomStateStart) {
+            NSLog(@"开播");
+        }else{
+            NSLog(@"下播");
+        }
     }];
 }
 

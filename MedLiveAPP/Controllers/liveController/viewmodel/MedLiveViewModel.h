@@ -14,7 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setupLocalView:(__kindof UIView *)view;
 - (int)joinChannel:(NSString *)channelName Token:(NSString *)token;
-- (void)createRoomWithTitle:(NSString *)title Description:(NSString *)desc Complate:(void(^)(NSString* chanlId, NSString *chanlToken, NSString *roomID))complateBlock;
+- (void)createRoomWithTitle:(NSString *)title ChannelId:(NSString *)channelId Complate:(void(^)(NSString *chanlToken))complateBlock;
+- (void)sendLiveState:(MedLiveRoomState)state RoomId:(NSString *)roomId UserId:(NSString *)uid;
 - (void)stopLive;
 @end
 

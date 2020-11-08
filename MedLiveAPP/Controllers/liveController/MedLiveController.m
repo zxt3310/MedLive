@@ -27,10 +27,14 @@
     self.view = bordView;
     
     [viewModel setupLocalView:bordView];
-    [viewModel createRoomWithTitle:self.titleName Description:@"" Complate:^(NSString * _Nonnull chanlId, NSString * _Nonnull chanlToken, NSString * _Nonnull roomID) {
-        int isJoin = [self->viewModel joinChannel:chanlId Token:chanlToken];
-        if (isJoin != 0) {
-            
+
+    [viewModel createRoomWithTitle:self.title ChannelId:self.channelId Complate:^(NSString *chanlToken) {
+        int res = [viewModel joinChannel:self.channelId Token:chanlToken];
+        if (res == 0) {
+            //发送开播信号
+            [viewModel sendLiveState:MedLiveRoomStateStart
+                              RoomId:self.roomId
+                              UserId:[AppCommondCenter sharedCenter].currentUser.uid];
         }
     }];
 }
@@ -38,6 +42,9 @@
 
 - (void)bordcastViewDidEnd{
     [viewModel stopLive];
+    [viewModel sendLiveState:MedLiveRoomStateEnd
+                      RoomId:self.roomId
+                      UserId:[AppCommondCenter sharedCenter].currentUser.uid];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

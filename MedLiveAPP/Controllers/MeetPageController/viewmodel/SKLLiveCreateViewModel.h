@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SKLLiveCreateViewModel : NSObject
-
+- (void)createLivePlanWithTitle:(NSString *)title Desc:(NSString *)description Uid:(NSString *)uid Start:(NSString *)start picUrl:(NSString *)url Complete:(void(^)(NSString *channelId,NSString *title,NSString *roomId))success;
 @end
 
 NS_ASSUME_NONNULL_END

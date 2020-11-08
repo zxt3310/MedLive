@@ -29,6 +29,8 @@
 	<string>call for live broadcast</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>call for live broadcast</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>call for pic broadcast</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

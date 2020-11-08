@@ -44,9 +44,8 @@ PODS:
   - LGAlertView (2.4.0)
   - Masonry (1.1.0)
   - MJRefresh (3.5.0)
+  - TZImagePickerController (3.4.4)
   - Yoga (1.14.0)
-  - YTKNetwork (2.1.4):
-    - AFNetworking/NSURLSession (~> 3.0)
   - YYModel (1.0.4)
 
 DEPENDENCIES:
@@ -61,7 +60,7 @@ DEPENDENCIES:
   - LGAlertView
   - Masonry (= 1.1.0)
   - MJRefresh
-  - YTKNetwork
+  - TZImagePickerController
   - YYModel (= 1.0.4)
 
 SPEC REPOS:
@@ -76,8 +75,8 @@ SPEC REPOS:
     - LGAlertView
     - Masonry
     - MJRefresh
+    - TZImagePickerController
     - Yoga
-    - YTKNetwork
     - YYModel
 
 SPEC CHECKSUMS:
@@ -91,10 +90,10 @@ SPEC CHECKSUMS:
   LGAlertView: 2f5e83dd5cc2537de57d98727650609e86197d1a
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
+  TZImagePickerController: 45a4082c62bf2b3ac63148d7d3b7afc3f4ee1fa0
   Yoga: cff67a400f6b74dc38eb0bad4f156673d9aa980c
-  YTKNetwork: 19be749c30f0512ada07180f4637b4b67bc8ddc2
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 0ebc3dc941434bb63d733f769857a5f8ac12b7f4
+PODFILE CHECKSUM: 5ef61be4262e0ea15b014a38f6f2583cc2f2a428
 
 COCOAPODS: 1.9.3

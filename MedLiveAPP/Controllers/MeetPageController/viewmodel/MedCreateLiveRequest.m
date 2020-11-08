@@ -22,7 +22,7 @@
             @"desc":description,
             @"user_id":uid,
             @"begin_time":start,
-            @"cover_pic":@""
+            @"cover_pic":url
         };
     }
     return self;

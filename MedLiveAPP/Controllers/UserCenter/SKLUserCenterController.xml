@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UIView layout="flex:1" attr="bgColor:white">
+    <UIView class="" layout="padding:20,paddingTop:10" attr="bgColor:#2B7BF6">
+        <UIView name="topView" class="" layout="" attr="">
+        <!-- 状态条站位 -->
+        </UIView>
+        <UIView class="" layout="flexDirection:row" attr="">
+            <UIImageView layout="width:75,aspectRatio:1" attr="source:header"/>
+            
+            <UIView class="" layout="flex:1,padding:10" attr="hidden:true">
+                <UILabel name="mobileLabel" class="" layout="" attr="fontSize:14,color:white,text:"/>
+            </UIView>
+            <UIView class="" layout="flex:1, padding:10" attr="">
+                <FlexTouchView onPress="login" layout="" attr="">
+                    <UILabel name="" class="" layout="" attr="fontSize:16,color:white,text:立即登录"/>
+                </FlexTouchView>
+            </UIView>
+
+            <FlexTouchView onPress="" layout="marginTop:10" attr="">
+                <UIImageView layout="width:20,aspectRatio:1" attr="source:usersetting"/>
+            </FlexTouchView>
+        </UIView>
+        <UIView class="" layout="height:40" attr="">
+            <!-- 下方站位 -->
+        </UIView>
+        <!-- vip浮动 -->
+        <UIView name="vipView" class="" layout="flexDirection:row,position:absolute,justifyContent:space-between,alignItems:center,height:70,left:20,right:20,bottom:-35,padding:15/10/15/10" attr="borderRadius:10,bgColor:#EFBC5D">
+            <UIView class="" layout="" attr="">
+                <UIView class="" layout="flexDirection:row,alignItems:center" attr="">
+                    <UIImageView layout="20,aspectRatio:1" attr="source:vip"/>
+                    <UILabel name="" class="" layout="marginLeft:8" attr="fontSize:16,color:#333333,text:健康VIP会员"/>
+                </UIView>
+                <UILabel name="" class="" layout="marginTop:10" attr="fontSize:10,color:#333333,text:·会诊记录无线回放·一对一专属客服"/>
+            </UIView>
+            <FlexTouchView onPress="" layout="paddingHorizontal:15,paddingVertical:10" attr="borderRadius:10,bgColor:#373737">
+                <UILabel name="" class="" layout="" attr="fontSize:13,color:#EFBC5D,text:立即领取"/>
+                <UIImageView layout="position:absolute,left:-42,top:-23,width:80,aspectRatio:1" attr="source:circle"/>
+            </FlexTouchView>
+        </UIView>
+    </UIView>
+    <UIView class="" layout="" attr="">
+        <UIView class="" layout="padding:20/50/20/0" attr="">
+            <UIView class="" layout="padding:15,paddingBottom:5" attr="bgColor:white,borderRadius:10,shadowColor:black,shadowOpacity:0.1,shadowRadius:5">
+                <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:我的会议活动"/>
+                <UIView class="" layout="flexDirection:row,justifyContent:space-around,paddingHorizontal:30,paddingVertical:10" attr="">
+                    <FlexTouchView onPress="" layout="alignItems:center" attr="">
+                        <UIImageView layout="width:44,height:38" attr="source:mylive"/>
+                        <UILabel name="" class="" layout="marginTop:10" attr="fontSize:12,color:#333333,text:直播"/>
+                    </FlexTouchView>
+
+                    <FlexTouchView onPress="" layout="alignItems:center" attr="">
+                        <UIImageView layout="width:41,height:38" attr="source:myhuizhen"/>
+                        <UILabel name="" class="" layout="marginTop:10" attr="fontSize:12,color:#333333,text:会诊"/>
+                    </FlexTouchView>
+
+                    <FlexTouchView onPress="" layout="alignItems:center" attr="">
+                        <UIImageView layout="width:41,height:38" attr="source:mymeetting"/>
+                        <UILabel name="" class="" layout="marginTop:10" attr="fontSize:12,color:#333333,text:会议"/>
+                    </FlexTouchView>
+                </UIView>
+            </UIView>
+        </UIView>
+        <UIView class="" layout="margin:20" attr="">
+            <UIView class="" layout="paddingHorizontal:15" attr="bgColor:white,borderRadius:10,shadowColor:black,shadowOpacity:0.1,shadowRadius:5">
+                <FlexTouchView onPress="" layout="flexDirection:row,paddingVertical:18" attr="">
+                    <UIImageView layout="width:19,height:16" attr="source:tuiguang"/>
+                    <UILabel name="" class="" layout="marginLeft:10" attr="fontSize:14,color:#333333,text:推广记录"/>
+                </FlexTouchView>
+                <UIView class="" layout="height:1" attr="bgColor:#f1f1f1"/>
+
+                <FlexTouchView onPress="" layout="flexDirection:row,paddingVertical:18" attr="">
+                    <UIImageView layout="width:16,height:15" attr="source:vlog"/>
+                    <UILabel name="" class="" layout="marginLeft:10" attr="fontSize:14,color:#333333,text:我的Vlog"/>
+                </FlexTouchView>
+                <UIView class="" layout="height:1" attr="bgColor:#f1f1f1"/>
+
+                <FlexTouchView onPress="" layout="flexDirection:row,paddingVertical:18" attr="">
+                    <UIImageView layout="width:18,height:18" attr="source:shoucang"/>
+                    <UILabel name="" class="" layout="marginLeft:10" attr="fontSize:14,color:#333333,text:我的收藏"/>
+                </FlexTouchView>
+                <UIView class="" layout="height:1" attr="bgColor:#f1f1f1"/>
+
+                <FlexTouchView onPress="" layout="flexDirection:row,paddingVertical:18" attr="">
+                    <UIImageView layout="width:19,height:19" attr="source:helpcenter"/>
+                    <UILabel name="" class="" layout="marginLeft:10" attr="fontSize:14,color:#333333,text:帮助中心"/>
+                </FlexTouchView>
+                <UIView class="" layout="height:1" attr="bgColor:#f1f1f1"/>
+            </UIView>
+            
+        </UIView>
+    </UIView>
+</UIView>

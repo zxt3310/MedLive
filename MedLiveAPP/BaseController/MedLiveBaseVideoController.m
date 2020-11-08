@@ -8,7 +8,7 @@
 
 #import "MedLiveBaseVideoController.h"
 
-@interface MedLiveBaseVideoController ()
+@interface MedLiveBaseVideoController ()<UIGestureRecognizerDelegate>
 
 @end
 
@@ -20,11 +20,20 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
+    self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    
+    //YES：允许右滑返回  NO：禁止右滑返回
+    return NO;
+    
 }
 
 - (void)dealloc{

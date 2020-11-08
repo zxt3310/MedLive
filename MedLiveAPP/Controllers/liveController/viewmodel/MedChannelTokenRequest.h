@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MedChannelTokenRequest : MedBaseRequest
-- (instancetype)initWithRoomId:(NSString *)roomId Uid:(NSString *)uid;
+- (instancetype)initWithRoomId:(NSString *)channelId Uid:(NSString *)uid;
 - (void)startWithSucBlock:(void(^)(NSString *token)) block;
 @end
 

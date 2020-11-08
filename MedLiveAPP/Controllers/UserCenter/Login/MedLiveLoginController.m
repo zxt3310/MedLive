@@ -43,14 +43,11 @@
     MedLiveLoginRequest *request = [[MedLiveLoginRequest alloc] initWithMobile:mobile Code:code];
     [request requestLogin:^(id userInfo) {
         AppCommondCenter *center = [AppCommondCenter sharedCenter];
-        center.currentUser.mobile = mobile;
-        center.currentUser.uid = [[userInfo valueForKey:@"uid"] integerValue];
-        [self.navigationController popViewControllerAnimated:YES];
+        [center loginWithMobile:mobile Uid:[userInfo valueForKey:@"user_id"] Name:nil];
     }];
 }
 
 - (void)loginView:(MedLiveLoginView *)view SendMobileMsg:(NSString *)mobile Complete:(void (^)(NSString *code , BOOL success))completeBlock{
-    completeBlock(@"1234",YES);
     MedLiveSendMsgRequest *request = [[MedLiveSendMsgRequest alloc] initWithMobile:mobile];
     [request sendMessageSuccess:^(NSString * _Nonnull code) {
         completeBlock(code,YES);

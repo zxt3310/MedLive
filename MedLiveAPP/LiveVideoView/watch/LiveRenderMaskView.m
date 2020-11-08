@@ -150,7 +150,6 @@ typedef enum : NSUInteger {
 - (void)buildFounctionBar{
     //加载TitleBar
     titleBar = [[UIView alloc] init];
-    titleBar.alpha = 0;
     [self addSubview:titleBar];
     
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -169,7 +168,6 @@ typedef enum : NSUInteger {
     
     //加载BottomBar
     bottomBar = [[UIView alloc] init];
-    bottomBar.alpha = 0;
     [self addSubview:bottomBar];
     playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [playBtn setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateNormal];
@@ -263,7 +261,14 @@ typedef enum : NSUInteger {
 }
 
 - (void)touchesEndedWithPoint:(CGPoint) point{
-
+    if (volumeBrightView.alpha == 1) {
+        [UIView animateWithDuration:0.3
+                              delay:1.0
+                            options:UIViewAnimationOptionCurveLinear
+                         animations:^{
+            self->volumeBrightView.alpha = 0;
+        } completion:nil];
+    }
 }
 
 - (void)touchesMovedWithPoint:(CGPoint) point{
@@ -325,7 +330,7 @@ typedef enum : NSUInteger {
 
 //处理功能条隐藏和显示
 - (void)showFunctionBar{
-    static BOOL isShow = NO;
+    static BOOL isShow = YES;
     if(!isShow){
         titleBar.alpha = 1;
         bottomBar.alpha = 1;

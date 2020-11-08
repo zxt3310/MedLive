@@ -12,7 +12,7 @@
 
 static AppCommondCenter *center = nil;
 
-+ (id)sharedCenter{
++ (instancetype)sharedCenter{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         center = [[[self class] alloc] init];
@@ -24,9 +24,17 @@ static AppCommondCenter *center = nil;
 {
     self = [super init];
     if (self) {
+        self.hasLogin = NO;
         self.currentUser = [[MedLiveUserModel alloc] init];
     }
     return self;
+}
+
+- (void)loginWithMobile:(NSString *)mobile Uid:(NSString *)uid Name:(NSString *)username{
+    self.currentUser.mobile = mobile;
+    self.currentUser.uid = uid;
+    self.currentUser.userName = username;
+    self.hasLogin = YES;
 }
 
 @end

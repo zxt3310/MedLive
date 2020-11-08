@@ -12,10 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AppCommondCenter : NSObject
 
+@property BOOL hasLogin;
+
 @property MedLiveUserModel *currentUser;
 
-+ (id)sharedCenter;
++ (instancetype)sharedCenter;
 
+- (void)loginWithMobile:(NSString *)mobile Uid:(NSString *)uid Name:(NSString * _Nullable)username;
 @end
 
 NS_ASSUME_NONNULL_END
