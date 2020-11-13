@@ -60,7 +60,7 @@
     MedChannelTokenRequest *req = [[MedChannelTokenRequest alloc] initWithRoomId:self.channelId Uid:@"0"];
     __weak typeof(self) weakSelf = self;
     [req startWithSucBlock:^(NSString * _Nonnull token) {
-        [self->liveManager joinRoomByToken:token Room:weakSelf.channelId];
+        [self->liveManager joinRoomByToken:token Room:weakSelf.channelId Uid:[AppCommondCenter sharedCenter].currentUser.uid];
     }];
     
 }
@@ -87,14 +87,7 @@
 }
 
 - (void)didAddRemoteMember:(NSUInteger) uid{
-//    NSInteger count = videoCollection.count;
-//    CGRect frame = CGRectMake(self.view.bounds.size.width - 100 * (count+1) - 10*count
-//                              , self.view.bounds.size.height - 200, 100, 150);
-//    [view setFrame:frame];
-//    [videoCollection addObject:view];
-//    [self.view addSubview:view];
-    
-    [liveManager setupVideoRemoteView:pushView Uid:uid];
+
 }
 
 - (void)didRemoteLeave:(NSInteger)uid{

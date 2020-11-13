@@ -8,6 +8,7 @@
 
 #import "SKLLiveCreateViewModel.h"
 #import "MedCreateLiveRequest.h"
+#import "MedUploadPhotoRequest.h"
 
 @implementation SKLLiveCreateViewModel
 
@@ -27,4 +28,36 @@
     }];
 }
 
+- (void)uploadPicture:(UIImage *)image CompleteBlock:(void(^)(NSString *picUrl)) success fail:(void(^)(void))fail{
+    MedUploadPhotoRequest *request = [[MedUploadPhotoRequest alloc] initWithImage:image];
+    [request uploadWithComplete:^(NSString *picUrl){
+        success(picUrl);
+    } fail:^{
+        fail();
+    }];
+}
+
+- (void)uploadPictures:(NSArray <UIImage*> *)imageSet success:(void (^)(NSString *,UIImage* ))success fail:(void(^)(void))fail finaly:(void(^)(int suc,int failure)) finish{
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t uploadQueue = dispatch_queue_create("com.saikang.multiupload",DISPATCH_QUEUE_SERIAL);
+    __block int suc = 0;
+    __block int failure = 0;
+    for (UIImage *img in imageSet) {
+        dispatch_group_enter(group);
+        dispatch_async(uploadQueue, ^{
+            [self uploadPicture:img CompleteBlock:^(NSString * _Nonnull picUrl) {
+                success(picUrl,img);
+                suc++;
+                dispatch_group_leave(group);
+            } fail:^{
+                fail();
+                failure++;
+                dispatch_group_leave(group);
+            }];
+        });
+    }
+    dispatch_group_notify(group,dispatch_get_main_queue(),^{
+        finish(suc,failure);
+    });
+}
 @end

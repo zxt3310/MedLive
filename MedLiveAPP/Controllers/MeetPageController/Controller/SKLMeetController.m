@@ -12,6 +12,7 @@
 #import "SKLMeetView.h"
 #import "SKLLiveCreateController.h"
 #import "SKLMeetCreateController.h"
+#import "MedMultipleMeettingController.h"
 
 #import "IMManager.h"
 
@@ -26,33 +27,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    UIButton *createLiveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [createLiveBtn setBackgroundColor:[UIColor blueColor]];
-//    [createLiveBtn setTitle:@"我要直播" forState:UIControlStateNormal];
-//    [createLiveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [createLiveBtn addTarget:self action:@selector(liveUpAction) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:createLiveBtn];
-//
-//    [createLiveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.equalTo(self.view.mas_centerX);
-//        make.centerY.equalTo(self.view.mas_centerY);
-//        make.size.mas_equalTo(CGSizeMake(120, 50));
-//    }];
-//
-//    UITextField *titleField = [[UITextField alloc] init];
-//    titleField.backgroundColor = [UIColor whiteColor];
-//    [titleField addTarget:self action:@selector(titleChanged:) forControlEvents:UIControlEventEditingChanged];
-//    titleField.placeholder = @"房间主题，默认：ios测试";
-//    titleField.layer.borderWidth = 1;
-//    titleField.textAlignment = NSTextAlignmentCenter;
-//    [self.view addSubview:titleField];
-//
-//    [titleField mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.equalTo(createLiveBtn.mas_centerX);
-//        make.bottom.equalTo(createLiveBtn.mas_top).with.offset(-30);
-//        make.size.mas_equalTo(CGSizeMake(250, 50));
-//    }];
     
     SKLMeetView *view = [[SKLMeetView alloc] init];
     view.meetViewDelegate = self;
@@ -80,15 +54,21 @@
     [im loginToAgoraServiceWithId:@"smandll" Token:nil];
 }
 - (void)meetViewActCreateMeet{
-    SKLMeetCreateController *createMeet = [[SKLMeetCreateController alloc] init];
-    [self.navigationController pushViewController:createMeet animated:YES];
+    if(![MedLiveAppUtilies needLogin]){
+        SKLMeetCreateController *createMeet = [[SKLMeetCreateController alloc] init];
+        [self.navigationController pushViewController:createMeet animated:YES];
+    }
 }
 - (void)meetViewActCreateLive{
-    SKLLiveCreateController *creatLive = [[SKLLiveCreateController alloc] init];
-    [self.navigationController pushViewController:creatLive animated:YES];
+    if (![MedLiveAppUtilies needLogin]) {
+        SKLLiveCreateController *creatLive = [[SKLLiveCreateController alloc] init];
+        [self.navigationController pushViewController:creatLive animated:YES];
+    }
 }
 - (void)meetViewActJoin{
-    [FlexSetPreviewVC presentInVC:self];
+    //[FlexSetPreviewVC presentInVC:self];
+    MedMultipleMeettingController *vc = [[MedMultipleMeettingController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

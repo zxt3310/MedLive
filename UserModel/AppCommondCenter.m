@@ -35,6 +35,8 @@ static AppCommondCenter *center = nil;
     self.currentUser.uid = uid;
     self.currentUser.userName = username;
     self.hasLogin = YES;
+    
+    NSLog(@"登录成功 mobile:%@ uid:%@",mobile, uid);
 }
 
 @end

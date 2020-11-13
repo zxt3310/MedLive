@@ -1,8 +1,8 @@
 //
-//  MedLiveController.h
+//  MedMultipleMeettingController.h
 //  MedLiveAPP
 //
-//  Created by zxt3310 on 2020/10/30.
+//  Created by zxt3310 on 2020/11/12.
 //  Copyright © 2020 Zxt. All rights reserved.
 //
 
@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MedLiveController : MedLiveBaseVideoController
+@interface MedMultipleMeettingController : FlexBaseVC
 
 @end
 

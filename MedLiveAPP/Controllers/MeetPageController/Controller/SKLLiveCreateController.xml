@@ -34,7 +34,7 @@
             </FlexTouchView>
         </UIView>
 
-        <UIView name="introPicView" layout="" attr=""></UIView>
+        <UIView name="introPicView" layout="flexDirection:row,flexWrap:wrap" attr=""></UIView>
     
         <UIView class="" layout="height:1" attr="bgColor:#d0d0d0"/>
 
@@ -57,10 +57,6 @@
         <FlexTouchView onPress="liveDirectly" layout="height:40,width:120,justifyContent:center,alignItems:center" attr="bgColor:lightGray">
             <UILabel name="" class="" layout="" attr="fontSize:14,color:white,lineBreakMode:truncatingTail,linesNum:1,text:立即开播"/>
         </FlexTouchView>
-    </UIView>
-
-    <UIView class="" layout="height:200" attr="bgColor:#d0d0d0">
-
     </UIView>
 </FlexScrollView>
 </UIView>

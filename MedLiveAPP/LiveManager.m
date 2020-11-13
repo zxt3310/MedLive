@@ -16,7 +16,7 @@
 
 @implementation LiveManager
 {
-    NSMutableArray<AgoraRtcVideoCanvas*> *areaCollection;
+    
 }
 @synthesize role = _role;
 
@@ -24,47 +24,42 @@
 {
     self = [super init];
     if (self) {
-        
+        //注册组件
+        _agorEngine = [AgoraRtcEngineKit sharedEngineWithAppId:[AgoraCenter appId] delegate:self];
+        //默认设置频道模式 AgoraChannelProfileCommunication 视频一对一通话  AgoraChannelProfileLiveBroadcasting 直播
+        [_agorEngine setChannelProfile:AgoraChannelProfileLiveBroadcasting];
     }
     return self;
 }
 
 - (void)setRole:(AgoraClientRole)role{
-    if(self.agorEngine){
-        _role = role;
-        [self.agorEngine setClientRole:role];
-    }else{
-        _role = role;
-        [self prepareToLive:role];
-    }
+    _role = role;
+    [_agorEngine setClientRole:role];
 }
 
 - (AgoraClientRole)role{
     return _role;
 }
 
-
-- (void)prepareToLive:(AgoraClientRole) role{
-    //注册组件
-    _agorEngine = [AgoraRtcEngineKit sharedEngineWithAppId:[AgoraCenter appId] delegate:self];
-    //设置频道模式 AgoraChannelProfileCommunication 视频一对一通话  AgoraChannelProfileLiveBroadcasting 直播
-    [_agorEngine setChannelProfile:AgoraChannelProfileLiveBroadcasting];
-    //设置角色
-    [_agorEngine setClientRole:role];
+- (void)settingEnvtype:(MedLiveType) type{
+    if (type == MedLiveTypeBordcast) {
+        [_agorEngine setChannelProfile:AgoraChannelProfileLiveBroadcasting];
+    }else if (type == MedLiveTypeMeetting){
+        [_agorEngine setChannelProfile:AgoraChannelProfileCommunication];
+    }
 }
 
 - (void)setupVideoLocalView:(__kindof LiveView *) view{
     AgoraRtcVideoCanvas *localCanvas = [[AgoraRtcVideoCanvas alloc] init];
+    localCanvas.uid = view.uid;
     localCanvas.view = view.videoView;
     view.videoCanvas = localCanvas;
     [self.agorEngine setupLocalVideo:localCanvas];
-    [areaCollection addObject:localCanvas];
 }
 
-- (void)setupVideoRemoteView:(LiveVideoRenderView *)view Uid:(NSInteger) uid{
+- (void)setupVideoRemoteView:(__kindof LiveView *)view{
     AgoraRtcVideoCanvas *remoteArea = [[AgoraRtcVideoCanvas alloc] init];
-    remoteArea.uid = uid;
-    view.uid = uid;
+    remoteArea.uid = view.uid;
     view.videoCanvas = remoteArea;
     remoteArea.view = view.videoView;
     [self.agorEngine setupRemoteVideo:remoteArea];
@@ -74,8 +69,12 @@
     [self.agorEngine enableVideo];
 }
 
-- (int)joinRoomByToken:(NSString *)token Room:(NSString *)roomId{
-    return [self.agorEngine joinChannelByToken:token channelId:roomId info:nil uid:0 joinSuccess:^(NSString * channel, NSUInteger uid, NSInteger elapsed){
+- (int)joinRoomByToken:(NSString *)token Room:(NSString *)roomId Uid:(NSString *)uid{
+    return [self.agorEngine joinChannelByToken:token
+                                     channelId:roomId
+                                          info:nil
+                                           uid:uid.integerValue
+                                   joinSuccess:^(NSString * channel, NSUInteger uid, NSInteger elapsed){
         NSLog(@"进入频道%@   用户:%ld",channel,uid);
     }];
 }
@@ -87,15 +86,28 @@
 }
 
 //视频通话有远端用户进入（互相可见）
-- (void)rtcEngine:(AgoraRtcEngineKit *)engine firstRemoteVideoFrameOfUid:(NSUInteger)uid size:(CGSize)size elapsed:(NSInteger)elapsed{
-    
-}
-
-- (void)rtcEngine:(AgoraRtcEngineKit *)engine didJoinedOfUid:(NSUInteger)uid elapsed:(NSInteger)elapsed{
-    if(self.provideDelegate && self.role == AgoraClientRoleAudience){
+- (void)rtcEngine:(AgoraRtcEngineKit *)engine firstRemoteVideoDecodedOfUid:(NSUInteger)uid size:(CGSize)size elapsed:(NSInteger)elapsed{
+    if(self.provideDelegate){
         [self.provideDelegate didAddRemoteMember:uid];
     }
 }
+//- (void)rtcEngine:(AgoraRtcEngineKit *)engine firstRemoteVideoFrameOfUid:(NSUInteger)uid size:(CGSize)size elapsed:(NSInteger)elapsed{
+//    if(self.provideDelegate){
+//        [self.provideDelegate didAddRemoteMember:uid];
+//    }
+//}
+
+- (void)rtcEngine:(AgoraRtcEngineKit *)engine remoteVideoStateChangedOfUid:(NSUInteger)uid state:(AgoraVideoRemoteState)state reason:(AgoraVideoRemoteStateReason)reason elapsed:(NSInteger)elapsed{
+    if(self.provideDelegate && state == AgoraVideoRemoteStateStopped){
+        [self.provideDelegate didRemoteLeave:uid];
+    }
+}
+
+//- (void)rtcEngine:(AgoraRtcEngineKit *)engine didJoinedOfUid:(NSUInteger)uid elapsed:(NSInteger)elapsed{
+//    if(self.provideDelegate && self.role == AgoraClientRoleAudience){
+//        [self.provideDelegate didAddRemoteMember:uid];
+//    }
+//}
 
 
 - (MedLiveState)pauseOrPlay:(MedLiveState)stateBefore{

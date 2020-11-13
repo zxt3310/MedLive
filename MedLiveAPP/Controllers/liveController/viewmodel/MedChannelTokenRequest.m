@@ -37,6 +37,7 @@
     [self startRequestCompletionWithSuccess:^(__kindof MedBaseRequest * _Nonnull request) {
         NSDictionary *dic = request.responseObject;
         block(dic[@"data"][@"token"]);
+        NSLog(@"token: %@",dic[@"data"][@"token"]);
     } failure:^(__kindof MedBaseRequest * _Nonnull request) {
         
     }];

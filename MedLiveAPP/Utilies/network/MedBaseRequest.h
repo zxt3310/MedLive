@@ -54,6 +54,8 @@ typedef void(^MLRequestCompletionBlock)(__kindof MedBaseRequest* request);
 - (RequestMethodType)requestMethod;
 - (NSDictionary *)requestHeader;
 - (void)startRequestCompletionWithSuccess:(MLRequestCompletionBlock) success failure:(MLRequestCompletionBlock) failure;
+//图片专用
+- (void)startUploadImage:(UIImage *)image success:(MLRequestCompletionBlock) success failure:(MLRequestCompletionBlock) failure;
 //基础错误处理
 + (void)commonFailure:(__kindof MedBaseRequest *)request;
 @end

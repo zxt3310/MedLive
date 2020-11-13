@@ -20,6 +20,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIImageView *bgVIew = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    bgVIew.image = [UIImage imageNamed:@"loginBGI"];
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.startPoint = CGPointMake(.5, 0);
+    gradient.endPoint = CGPointMake(.5, .7);
+    UIColor *startColor = [UIColor ColorWithRGB:33 Green:89 Blue:187 Alpha:0.7];
+    UIColor *endColor = [UIColor ColorWithRGB:33 Green:89 Blue:187 Alpha:1];
+    gradient.colors = @[(id)startColor.CGColor,(id)endColor.CGColor];
+    gradient.frame = self.view.bounds;
+    [bgVIew.layer insertSublayer:gradient atIndex:0];
+    [self.view addSubview:bgVIew];
     
     MedLiveLoginView *loginUI = [[MedLiveLoginView alloc] init];
     loginUI.loginDelegate = self;
@@ -28,8 +39,6 @@
     [loginUI mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    
-    
 }
 
 - (void)loginStart{
@@ -44,6 +53,7 @@
     [request requestLogin:^(id userInfo) {
         AppCommondCenter *center = [AppCommondCenter sharedCenter];
         [center loginWithMobile:mobile Uid:[userInfo valueForKey:@"user_id"] Name:nil];
+        [self.navigationController popViewControllerAnimated:YES];
     }];
 }
 
@@ -55,6 +65,10 @@
         completeBlock(errMsg,NO);
     }];
     
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
 }
  
 - (void)dealloc

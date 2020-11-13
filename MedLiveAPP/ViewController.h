@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "MedLiveBaseVideoController.h"
 @interface ViewController : MedLiveBaseVideoController
-@property (strong)NSString *liveTitle;
-@property (strong)NSString *roomId;
-@property (strong)NSString *channelId;
+
 @end
 

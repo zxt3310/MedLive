@@ -20,11 +20,13 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear: animated];
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
     self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }

@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MedLiveAppUtilies : NSObject
 + (void)checkForm:(NSArray <NSString *> *)formAry Aleart:(NSArray <NSString *>*)alearAry Complate:(void(^)(bool, NSString * _Nullable))result;
 + (BOOL) checkTelNumber:(NSString *)telNumber;
++ (BOOL)needLogin;
 @end
 
 @interface NSString(ex)

@@ -32,11 +32,14 @@
 }
 
 - (int)joinChannel:(NSString *)channelName Token:(NSString *)token{
-    return [liveManager joinRoomByToken:token Room:channelName];
+    return [liveManager joinRoomByToken:token
+                                   Room:channelName
+                                    Uid:[AppCommondCenter sharedCenter].currentUser.uid];
 }
 
 - (void)createRoomWithTitle:(NSString *)title ChannelId:(NSString *)channelId Complate:(void(^)(NSString *chanlToken))complateBlock{
-    MedChannelTokenRequest *tokReq = [[MedChannelTokenRequest alloc] initWithRoomId:channelId Uid:@"0"];
+    MedChannelTokenRequest *tokReq = [[MedChannelTokenRequest alloc] initWithRoomId:channelId
+                                                                            Uid:[AppCommondCenter sharedCenter].currentUser.uid];
     [tokReq startWithSucBlock:^(NSString * _Nonnull token) {
         NSLog(@"认证房间");
         complateBlock(token);

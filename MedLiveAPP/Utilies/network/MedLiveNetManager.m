@@ -85,4 +85,26 @@ static NSString *BaseUrl = nil;
     }];
 }
 
+- (void)uploadImageWith:(UIImage *)image Url:(NSString *)url Header:(NSDictionary *)header Success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success Failure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError* _Nullable))failure{
+    NSString* finalUrl = url;
+    if (BaseUrl && BaseUrl.length>0) {
+        finalUrl = [BaseUrl stringByAppendingPathComponent:url];
+    }
+    
+    if(header){
+        [self settingHeader:header];
+    }
+    
+    NSData *imageData = UIImageJPEGRepresentation(image, 1);
+    [afManager POST:finalUrl
+              parameters:nil
+constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:imageData name:@"file" fileName:@"image" mimeType:@"image/jpeg"];
+    }           progress:nil
+                 success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(task,responseObject);
+    }            failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(task,error);
+    }];
+}
 @end

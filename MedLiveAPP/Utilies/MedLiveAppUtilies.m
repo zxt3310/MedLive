@@ -7,6 +7,7 @@
 //
 
 #import "MedLiveAppUtilies.h"
+#import "MedLiveLoginController.h"
 #import <CommonCrypto/CommonDigest.h>
 
 @implementation MedLiveAppUtilies
@@ -132,6 +133,36 @@
         }
     }
     return NO;
+}
+
++ (BOOL)needLogin{
+    AppCommondCenter *center = [AppCommondCenter sharedCenter];
+    if (!center.hasLogin) {
+        MedLiveLoginController *logVC = [[MedLiveLoginController alloc] init];
+        [[self topViewController].navigationController pushViewController:logVC animated:YES];
+        return YES;
+    }
+    return NO;
+}
+
++ (UIViewController *)topViewController {
+  UIViewController *resultVC;
+  resultVC = [self _topViewController:[[UIApplication sharedApplication].keyWindow rootViewController]];
+  while (resultVC.presentedViewController) {
+    resultVC = [self _topViewController:resultVC.presentedViewController];
+  }
+   return resultVC;
+}
+
++ (UIViewController *)_topViewController:(UIViewController *)vc {
+  if ([vc isKindOfClass:[UINavigationController class]]) {
+    return [self _topViewController:[(UINavigationController *)vc topViewController]];
+  }else if ([vc isKindOfClass:[UITabBarController class]]) {
+     return [self _topViewController:[(UITabBarController *)vc selectedViewController]];
+  } else {
+     return vc;
+  }
+ return nil;
 }
 
 @end

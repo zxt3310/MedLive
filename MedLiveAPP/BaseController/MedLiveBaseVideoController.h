@@ -11,7 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MedLiveBaseVideoController : UIViewController
-
+@property NSString *titleName;
+@property NSString *channelId;
+@property NSString *roomId;
 @end
 
 NS_ASSUME_NONNULL_END

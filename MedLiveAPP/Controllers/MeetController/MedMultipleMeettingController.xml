@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UIView name="containor" layout="flex:1" attr="bgColor:white">
+    <FlexScrollView layout="flex:1" attr="vertScroll:true">
+        <!-- 流媒体容器 -->
+        <UIView name="streamView" layout="padding:5,flexDirection:row,flexWrap:wrap" attr="">
+            
+        </UIView>
+    </FlexScrollView>
+</UIView>

@@ -21,6 +21,7 @@ typedef enum : NSUInteger {
 - (void)httpGetRequestWithUrl:(NSString *)url Header:(NSDictionary *)header Success:(void(^)(NSURLSessionDataTask * _Nonnull , id  _Nullable)) success  Failure:(void(^)(NSURLSessionDataTask * _Nonnull , NSError*  _Nullable)) failure;
 - (void)httpPostRequestWithUrl:(NSString *)url Param:(id)param Header:(NSDictionary *)header Success:(void(^)(NSURLSessionDataTask * _Nonnull , id  _Nullable)) success  Failure:(void(^)(NSURLSessionDataTask * _Nonnull , NSError*  _Nullable)) failure;
 
+- (void)uploadImageWith:(UIImage *)image Url:(NSString *)url Header:(NSDictionary *)header Success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success Failure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError* _Nullable))failure;
 @end
 
 NS_ASSUME_NONNULL_END

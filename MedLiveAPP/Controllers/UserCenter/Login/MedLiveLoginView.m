@@ -29,7 +29,6 @@
 
 - (void)setupUI{
     UIView *titleView = [[UIView alloc] init];
-    self.backgroundColor = [UIColor ColorWithRGB:53 Green:87 Blue:158 Alpha:1];
     UILabel *title1 = [[UILabel alloc] init];
     UILabel *title2 = [[UILabel alloc] init];
     title1.text = @"赛康";
@@ -59,7 +58,7 @@
     UITextField *codeFiled = [[UITextField alloc] init];
     codeFiled.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"code"]];
     codeFiled.leftViewMode = UITextFieldViewModeAlways;
-    codeFiled.layer.cornerRadius = 5;
+    codeFiled.layer.cornerRadius = 10;
     codeFiled.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.3];
     codeFiled.textColor = [UIColor whiteColor];
     codeFiled.uniTag = @"code";
@@ -71,7 +70,7 @@
     [self addSubview:codeFiled];
     
     sendCodeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    sendCodeBtn.layer.cornerRadius = 5;
+    sendCodeBtn.layer.cornerRadius = 10;
     [sendCodeBtn setBackgroundColor:[UIColor ColorWithRGB:101 Green:157 Blue:248 Alpha:1]];
     [sendCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
     [sendCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -79,7 +78,7 @@
     [self addSubview:sendCodeBtn];
     
     UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    loginBtn.layer.cornerRadius = 5;
+    loginBtn.layer.cornerRadius = 10;
     [loginBtn setBackgroundColor:[UIColor ColorWithRGB:101 Green:157 Blue:248 Alpha:1]];
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -88,7 +87,7 @@
     
     [titleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).with.offset(30);
-        make.top.equalTo(self.mas_top).with.offset(120);
+        make.top.equalTo(self.mas_top).with.offset(180);
         make.right.equalTo(self.mas_right).with.offset(-20);
         make.height.mas_equalTo(60);
     }];

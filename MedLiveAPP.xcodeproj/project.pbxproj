@@ -18,17 +18,23 @@
 		5833D9D425318A5C0004B10D /* LiveManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5833D9D325318A5C0004B10D /* LiveManager.m */; };
 		5833D9DB253193200004B10D /* AgoraCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5833D9DA253193200004B10D /* AgoraCenter.m */; };
 		5836C27D2557AE89003B281D /* SKLUserCenterController.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5836C27C2557AE89003B281D /* SKLUserCenterController.xml */; };
+		5840DD38255D806E000CC7FE /* NSArray+Sudoku.m in Sources */ = {isa = PBXBuildFile; fileRef = 5840DD36255D806E000CC7FE /* NSArray+Sudoku.m */; };
 		58410DFB254C504A00C0DF2D /* MedLiveBaseVideoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58410DFA254C504A00C0DF2D /* MedLiveBaseVideoController.m */; };
 		58423A522550F9AE004466B9 /* SKLLiveCreateController.xml in Resources */ = {isa = PBXBuildFile; fileRef = 58423A502550F9AE004466B9 /* SKLLiveCreateController.xml */; };
 		5842B8F2255532180049F2EC /* SKLLiveCreateViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5842B8F1255532180049F2EC /* SKLLiveCreateViewModel.m */; };
+		58442648255E2CB2004C3845 /* MedMultipleMeettingController.xml in Resources */ = {isa = PBXBuildFile; fileRef = 58442647255E2CB2004C3845 /* MedMultipleMeettingController.xml */; };
 		5844E32B25539860003D8540 /* AppCommondCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5844E32A25539860003D8540 /* AppCommondCenter.m */; };
 		5844E33A25540014003D8540 /* MedLiveAppUtilies.m in Sources */ = {isa = PBXBuildFile; fileRef = 5844E33925540014003D8540 /* MedLiveAppUtilies.m */; };
 		584E6BE1254FAC2300315751 /* SKLMeetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 584E6BE0254FAC2300315751 /* SKLMeetView.m */; };
 		584E6BEA254FE51E00315751 /* UIButton+ImageText.m in Sources */ = {isa = PBXBuildFile; fileRef = 584E6BE9254FE51E00315751 /* UIButton+ImageText.m */; };
 		584E6BF3254FFD8400315751 /* SKLLiveCreateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 584E6BF2254FFD8400315751 /* SKLLiveCreateController.m */; };
 		584E6BF9254FFF1200315751 /* SKLLiveCreateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 584E6BF8254FFF1200315751 /* SKLLiveCreateView.m */; };
+		584EE8FA255D2FF400563DBE /* MedMultipleMeettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 584EE8F9255D2FF400563DBE /* MedMultipleMeettingController.m */; };
+		584EE904255D30D500563DBE /* MutipleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 584EE903255D30D500563DBE /* MutipleView.m */; };
+		584EE911255D320700563DBE /* MutipleMeettingViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 584EE910255D320700563DBE /* MutipleMeettingViewModel.m */; };
 		584F2000253D3B5E003CAFBF /* LiveRenderMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 584F1FFF253D3B5E003CAFBF /* LiveRenderMaskView.m */; };
 		584F57CE253401550013AF08 /* LiveVideoRenderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 584F57CD253401550013AF08 /* LiveVideoRenderView.m */; };
+		5850A9F125590FD300FB7AD8 /* MedUploadPhotoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5850A9F025590FD300FB7AD8 /* MedUploadPhotoRequest.m */; };
 		585143B82547FF4C0080E65C /* UIControl+UniTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 585143B72547FF4C0080E65C /* UIControl+UniTag.m */; };
 		585143BF25480C710080E65C /* MedLiveNetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 585143BE25480C710080E65C /* MedLiveNetManager.m */; };
 		586AF935254BB5D200B22AF3 /* MedChainRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 586AF934254BB5D200B22AF3 /* MedChainRequest.m */; };
@@ -101,11 +107,14 @@
 		5833D9D9253193200004B10D /* AgoraCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgoraCenter.h; sourceTree = "<group>"; };
 		5833D9DA253193200004B10D /* AgoraCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgoraCenter.m; sourceTree = "<group>"; };
 		5836C27C2557AE89003B281D /* SKLUserCenterController.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SKLUserCenterController.xml; sourceTree = "<group>"; };
+		5840DD36255D806E000CC7FE /* NSArray+Sudoku.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Sudoku.m"; sourceTree = "<group>"; };
+		5840DD37255D806E000CC7FE /* NSArray+Sudoku.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Sudoku.h"; sourceTree = "<group>"; };
 		58410DF9254C504A00C0DF2D /* MedLiveBaseVideoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveBaseVideoController.h; sourceTree = "<group>"; };
 		58410DFA254C504A00C0DF2D /* MedLiveBaseVideoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedLiveBaseVideoController.m; sourceTree = "<group>"; };
 		58423A502550F9AE004466B9 /* SKLLiveCreateController.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SKLLiveCreateController.xml; sourceTree = "<group>"; };
 		5842B8F0255532180049F2EC /* SKLLiveCreateViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKLLiveCreateViewModel.h; sourceTree = "<group>"; };
 		5842B8F1255532180049F2EC /* SKLLiveCreateViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKLLiveCreateViewModel.m; sourceTree = "<group>"; };
+		58442647255E2CB2004C3845 /* MedMultipleMeettingController.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MedMultipleMeettingController.xml; sourceTree = "<group>"; };
 		5844E32925539860003D8540 /* AppCommondCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppCommondCenter.h; sourceTree = "<group>"; };
 		5844E32A25539860003D8540 /* AppCommondCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppCommondCenter.m; sourceTree = "<group>"; };
 		5844E33825540014003D8540 /* MedLiveAppUtilies.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveAppUtilies.h; sourceTree = "<group>"; };
@@ -118,10 +127,18 @@
 		584E6BF2254FFD8400315751 /* SKLLiveCreateController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKLLiveCreateController.m; sourceTree = "<group>"; };
 		584E6BF7254FFF1200315751 /* SKLLiveCreateView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKLLiveCreateView.h; sourceTree = "<group>"; };
 		584E6BF8254FFF1200315751 /* SKLLiveCreateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKLLiveCreateView.m; sourceTree = "<group>"; };
+		584EE8F8255D2FF400563DBE /* MedMultipleMeettingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedMultipleMeettingController.h; sourceTree = "<group>"; };
+		584EE8F9255D2FF400563DBE /* MedMultipleMeettingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedMultipleMeettingController.m; sourceTree = "<group>"; };
+		584EE902255D30D500563DBE /* MutipleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MutipleView.h; sourceTree = "<group>"; };
+		584EE903255D30D500563DBE /* MutipleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MutipleView.m; sourceTree = "<group>"; };
+		584EE90F255D320700563DBE /* MutipleMeettingViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MutipleMeettingViewModel.h; sourceTree = "<group>"; };
+		584EE910255D320700563DBE /* MutipleMeettingViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MutipleMeettingViewModel.m; sourceTree = "<group>"; };
 		584F1FFE253D3B5E003CAFBF /* LiveRenderMaskView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveRenderMaskView.h; sourceTree = "<group>"; };
 		584F1FFF253D3B5E003CAFBF /* LiveRenderMaskView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveRenderMaskView.m; sourceTree = "<group>"; };
 		584F57CC253401550013AF08 /* LiveVideoRenderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveVideoRenderView.h; sourceTree = "<group>"; };
 		584F57CD253401550013AF08 /* LiveVideoRenderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveVideoRenderView.m; sourceTree = "<group>"; };
+		5850A9EF25590FD300FB7AD8 /* MedUploadPhotoRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedUploadPhotoRequest.h; sourceTree = "<group>"; };
+		5850A9F025590FD300FB7AD8 /* MedUploadPhotoRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedUploadPhotoRequest.m; sourceTree = "<group>"; };
 		585143B62547FF4C0080E65C /* UIControl+UniTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIControl+UniTag.h"; sourceTree = "<group>"; };
 		585143B72547FF4C0080E65C /* UIControl+UniTag.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIControl+UniTag.m"; sourceTree = "<group>"; };
 		585143BD25480C710080E65C /* MedLiveNetManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveNetManager.h; sourceTree = "<group>"; };
@@ -267,6 +284,7 @@
 		5833D9D8253192CF0004B10D /* Utilies */ = {
 			isa = PBXGroup;
 			children = (
+				5840DD35255D803F000CC7FE /* Masonry+Extens */,
 				58E950902542C29D007F15A0 /* MedLiveheader.h */,
 				585143BC25480C5B0080E65C /* network */,
 				5819CCAC2536EA2400E4DF0C /* UIColor+U32Int.h */,
@@ -283,6 +301,15 @@
 				5844E33925540014003D8540 /* MedLiveAppUtilies.m */,
 			);
 			path = Utilies;
+			sourceTree = "<group>";
+		};
+		5840DD35255D803F000CC7FE /* Masonry+Extens */ = {
+			isa = PBXGroup;
+			children = (
+				5840DD37255D806E000CC7FE /* NSArray+Sudoku.h */,
+				5840DD36255D806E000CC7FE /* NSArray+Sudoku.m */,
+			);
+			path = "Masonry+Extens";
 			sourceTree = "<group>";
 		};
 		58410DF8254C500C00C0DF2D /* BaseController */ = {
@@ -327,6 +354,37 @@
 				586AF96B254BF57400B22AF3 /* MedCreateLiveRequest.m */,
 				5842B8F0255532180049F2EC /* SKLLiveCreateViewModel.h */,
 				5842B8F1255532180049F2EC /* SKLLiveCreateViewModel.m */,
+				5850A9EF25590FD300FB7AD8 /* MedUploadPhotoRequest.h */,
+				5850A9F025590FD300FB7AD8 /* MedUploadPhotoRequest.m */,
+			);
+			path = viewmodel;
+			sourceTree = "<group>";
+		};
+		584EE8F7255D2F9E00563DBE /* MeetController */ = {
+			isa = PBXGroup;
+			children = (
+				584EE90E255D31F100563DBE /* viewmodel */,
+				584EE8F8255D2FF400563DBE /* MedMultipleMeettingController.h */,
+				58442647255E2CB2004C3845 /* MedMultipleMeettingController.xml */,
+				584EE8F9255D2FF400563DBE /* MedMultipleMeettingController.m */,
+			);
+			path = MeetController;
+			sourceTree = "<group>";
+		};
+		584EE901255D309E00563DBE /* multipleView */ = {
+			isa = PBXGroup;
+			children = (
+				584EE902255D30D500563DBE /* MutipleView.h */,
+				584EE903255D30D500563DBE /* MutipleView.m */,
+			);
+			path = multipleView;
+			sourceTree = "<group>";
+		};
+		584EE90E255D31F100563DBE /* viewmodel */ = {
+			isa = PBXGroup;
+			children = (
+				584EE90F255D320700563DBE /* MutipleMeettingViewModel.h */,
+				584EE910255D320700563DBE /* MutipleMeettingViewModel.m */,
 			);
 			path = viewmodel;
 			sourceTree = "<group>";
@@ -334,6 +392,7 @@
 		584F1FFD253D3B08003CAFBF /* LiveVideoView */ = {
 			isa = PBXGroup;
 			children = (
+				584EE901255D309E00563DBE /* multipleView */,
 				586AF952254BE92F00B22AF3 /* LiveView.h */,
 				586AF953254BE92F00B22AF3 /* LiveView.m */,
 				586AF948254BE82C00B22AF3 /* watch */,
@@ -358,6 +417,7 @@
 		5857955E2536ABE1001A0CEF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				584EE8F7255D2F9E00563DBE /* MeetController */,
 				586AF939254BE7A900B22AF3 /* liveController */,
 				5819CC762536BF7100E4DF0C /* UserCenter */,
 				5819CC752536BF6300E4DF0C /* ProTeamController */,
@@ -439,8 +499,8 @@
 			children = (
 				58711E002552AB90007317B9 /* MedLiveUserModel.h */,
 				58711E012552AB90007317B9 /* MedLiveUserModel.m */,
-				5844E32925539860003D8540 /* AppCommondCenter.h */,
 				5844E32A25539860003D8540 /* AppCommondCenter.m */,
+				5844E32925539860003D8540 /* AppCommondCenter.h */,
 			);
 			path = UserModel;
 			sourceTree = "<group>";
@@ -644,6 +704,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5836C27D2557AE89003B281D /* SKLUserCenterController.xml in Resources */,
+				58442648255E2CB2004C3845 /* MedMultipleMeettingController.xml in Resources */,
 				58711DDF25527AB1007317B9 /* SKLMeetCreateController.xml in Resources */,
 				58423A522550F9AE004466B9 /* SKLLiveCreateController.xml in Resources */,
 				589604A124F780F50047B8C6 /* LaunchScreen.storyboard in Resources */,
@@ -811,12 +872,17 @@
 				586AF97C254BFD9E00B22AF3 /* MedChannelTokenRequest.m in Sources */,
 				586AF935254BB5D200B22AF3 /* MedChainRequest.m in Sources */,
 				5833D9D425318A5C0004B10D /* LiveManager.m in Sources */,
+				584EE911255D320700563DBE /* MutipleMeettingViewModel.m in Sources */,
+				584EE904255D30D500563DBE /* MutipleView.m in Sources */,
 				584E6BF3254FFD8400315751 /* SKLLiveCreateController.m in Sources */,
 				584F57CE253401550013AF08 /* LiveVideoRenderView.m in Sources */,
 				585143B82547FF4C0080E65C /* UIControl+UniTag.m in Sources */,
+				584EE8FA255D2FF400563DBE /* MedMultipleMeettingController.m in Sources */,
+				5850A9F125590FD300FB7AD8 /* MedUploadPhotoRequest.m in Sources */,
 				5833D9DB253193200004B10D /* AgoraCenter.m in Sources */,
 				5844E33A25540014003D8540 /* MedLiveAppUtilies.m in Sources */,
 				5819CC7C2536C02100E4DF0C /* MainTabController.m in Sources */,
+				5840DD38255D806E000CC7FE /* NSArray+Sudoku.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -921,7 +987,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -973,7 +1039,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

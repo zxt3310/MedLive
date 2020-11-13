@@ -7,10 +7,10 @@
         <UIView class="" layout="flexDirection:row" attr="">
             <UIImageView layout="width:75,aspectRatio:1" attr="source:header"/>
             
-            <UIView class="" layout="flex:1,padding:10" attr="hidden:true">
+            <UIView name="infoView" layout="flex:1,padding:10" attr="hidden:true">
                 <UILabel name="mobileLabel" class="" layout="" attr="fontSize:14,color:white,text:"/>
             </UIView>
-            <UIView class="" layout="flex:1, padding:10" attr="">
+            <UIView name="loginEntry" layout="flex:1, padding:10" attr="">
                 <FlexTouchView onPress="login" layout="" attr="">
                     <UILabel name="" class="" layout="" attr="fontSize:16,color:white,text:立即登录"/>
                 </FlexTouchView>

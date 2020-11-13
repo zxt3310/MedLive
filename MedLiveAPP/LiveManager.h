@@ -21,11 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LiveManager : NSObject
 @property (nonatomic) AgoraClientRole role;
 @property (weak) id<LiveManagerRemoteCanvasProvideDelegate> provideDelegate;
-
+- (void)settingEnvtype:(MedLiveType) type;
 - (void)enableVideo;
 - (void)setupVideoLocalView:(__kindof LiveView *) view;
-- (int)joinRoomByToken:(NSString *)token Room:(NSString *)roomId;
-- (void)setupVideoRemoteView:(UIView *)view Uid:(NSInteger) uid;
+- (int)joinRoomByToken:(NSString *)token Room:(NSString *)roomId Uid:(NSString *)uid;
+- (void)setupVideoRemoteView:(UIView *)view;
 - (MedLiveState)pauseOrPlay:(MedLiveState)stateBefore;
 - (void)leaveRoom;
 @end
