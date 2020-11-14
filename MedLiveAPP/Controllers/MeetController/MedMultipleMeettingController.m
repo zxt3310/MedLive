@@ -24,10 +24,19 @@
     MutipleMeettingViewModel *viewModel;
     NSMutableArray <MutipleView*> *memberAry; //参会人员视图
     UIView *streamView;
+    
+    UIImageView *micOnImg;
+    UIImageView *micOffImg;
+    UIImageView *cameraOnImg;
+    UIImageView *cameraOffImg;
+    
+    UILabel *micLabel;
+    UILabel *cameraLabel;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    [self.view enableFlexLayout:YES];
     memberAry = [NSMutableArray array];
     
     viewModel = [[MutipleMeettingViewModel alloc] init];
@@ -65,7 +74,6 @@
     MutipleView *view = [[MutipleView alloc] init];
     view.uid = uid;
     [view enableFlexLayout:YES];
-    view.layer.borderWidth = 1;
     [streamView addSubview:view];
     
     //插入视图表
@@ -75,11 +83,29 @@
     //载入远端流
     [viewModel setupRemoteView:view];
     
-    __weak UIView *weakView = streamView;
+    __weak UIView *weakContainor = streamView;
+    __weak MutipleView *weakView = view;
+    CGFloat newWidth = containor.bounds.size.width;
+    CGFloat newHeight = containor.bounds.size.height;
+    WeakSelf
     view.screenBlock = ^BOOL{
-        if ([[weakView.subviews firstObject] isEqual:view]) {
+        static BOOL isFullScreen = NO;
+        if (!isFullScreen) {
+            [weakView setLayoutAttrStrings:@[
+                @"width",[NSString stringWithFormat:@"%f",newWidth],
+                @"height",[NSString stringWithFormat:@"%f",newHeight],
+                @"margin",@"0",
+                @"position",@"absolute"
+            ]];
             
+            [weakContainor markDirty];
+            isFullScreen = YES;
+            
+        }else{
+            [weakSelf layoutMemberWindow];
+            isFullScreen = NO;
         }
+        return isFullScreen;
     };
 }
 
@@ -96,6 +122,7 @@
                 @"width",[NSString stringWithFormat:@"%f",lineWidth],
                 @"height",[NSString stringWithFormat:@"%f",lineWidth*1.3],
                 @"margin",[NSString stringWithFormat:@"%f",HoritonSpace],
+                @"position",@"ralative"
             ]];
         }
     }else{
@@ -106,16 +133,19 @@
         UIView *view = [memberAry firstObject];
         [view setLayoutAttrStrings:@[
             @"width",[NSString stringWithFormat:@"%f",width],
-            @"height",[NSString stringWithFormat:@"%f",height]
+            @"height",[NSString stringWithFormat:@"%f",height],
+            @"margin",@"0",
         ]];
     }
     [streamView markDirty];
 }
 
+#pragma viewModel Delegate
+//进入
 - (void)meetingDidJoinMember:(NSInteger)uid{
     [self addView:uid];
 }
-
+//离开
 - (void)meetingDidLeaveMember:(NSInteger)uid{
     MutipleView *targetView;
     for (MutipleView *view in memberAry) {
@@ -125,13 +155,66 @@
             break;;
         }
     }
-    [streamView markDirty];
     [memberAry removeObject:targetView];
+    [self layoutMemberWindow];
     targetView = nil;
+}
+//音量
+- (void)meettingMemberSpeaking:(NSInteger)uid{
+    [memberAry enumerateObjectsUsingBlock:^(MutipleView *view, NSUInteger idx, BOOL *stop) {
+        if (view.uid == uid) {
+            view.micView.hidden = NO;
+            view.micView.alpha = 1;
+            [UIView animateWithDuration:0.2 delay:0.8 options:UIViewAnimationOptionCurveLinear animations:^{
+                view.micView.alpha = 0;
+            } completion:nil];
+            *stop = YES;
+        }
+       
+    }];
+}
+
+#pragma 功能条
+//静音
+- (void)mute{
+    static BOOL isMute = YES;
+    if (isMute) {
+        micOnImg.hidden = YES;
+        micOffImg.hidden = NO;
+        micLabel.text = @"启用";
+    }else{
+        micOnImg.hidden = NO;
+        micOffImg.hidden = YES;
+        micLabel.text = @"静音";
+    }
+    isMute = !isMute;
+}
+//关摄像头
+- (void)startVideo{
+    static BOOL cameraOff = YES;
+    if (cameraOff) {
+        cameraOnImg.hidden = YES;
+        cameraOffImg.hidden = NO;
+        cameraLabel.text = @"开启视频";
+    }else{
+        cameraOnImg.hidden = NO;
+        cameraOffImg.hidden = YES;
+        cameraLabel.text = @"关闭视频";
+    }
+    cameraOff = !cameraOff;
+}
+//共享屏幕
+- (void)shareScreen{
+    
+}
+//挂断
+- (void)getEnd{
+    [viewModel stopLive];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
-    [viewModel stopLive];
+    
 }
 
 - (void)dealloc

@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 - (void)meetingDidJoinMember:(NSInteger) uid;
 - (void)meetingDidLeaveMember:(NSInteger) uid;
+- (void)meettingMemberSpeaking:(NSInteger)uid;
 @end
 
 @interface MutipleMeettingViewModel : NSObject

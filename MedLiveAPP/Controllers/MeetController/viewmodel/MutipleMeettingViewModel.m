@@ -22,6 +22,7 @@
         _manager.provideDelegate = self;
         [_manager settingEnvtype:MedLiveTypeMeetting];
         _manager.role = AgoraClientRoleBroadcaster;
+        [_manager settingOpenVolumeIndication:YES];
     }
     return self;
 }
@@ -59,6 +60,14 @@
 - (void)didRemoteLeave:(NSInteger) uid{
     if (self.meettingDelegate) {
         [self.meettingDelegate meetingDidLeaveMember:uid];
+    }
+}
+
+- (void)didReceiveRemoteAudio:(NSArray<AgoraRtcAudioVolumeInfo *> *)speakers{
+    if (self.meettingDelegate) {
+        [speakers enumerateObjectsUsingBlock:^(AgoraRtcAudioVolumeInfo * info, NSUInteger idx, BOOL * stop) {
+            [self.meettingDelegate meettingMemberSpeaking:info.uid];
+        }];
     }
 }
 

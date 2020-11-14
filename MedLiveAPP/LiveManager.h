@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 - (void)didAddRemoteMember:(NSUInteger)uid;
 - (void)didRemoteLeave:(NSInteger) uid;
+- (void)didReceiveRemoteAudio:(NSArray <AgoraRtcAudioVolumeInfo*>*) speakers;
 @end
 
 @interface LiveManager : NSObject
@@ -28,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setupVideoRemoteView:(UIView *)view;
 - (MedLiveState)pauseOrPlay:(MedLiveState)stateBefore;
 - (void)leaveRoom;
+- (void)settingOpenVolumeIndication:(BOOL) open;
 @end
 
 NS_ASSUME_NONNULL_END

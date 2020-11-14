@@ -23,7 +23,8 @@
         [self setupVideoView];
         [self setupScaleBtn];
         
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fullScreen)];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                          action:@selector(fullScreen)];
         [self addGestureRecognizer:tap];
     }
     return self;
@@ -52,6 +53,19 @@
         @"flex",@"1"
     ]];
     [self addSubview:_videoView];
+    
+    _micView = [[UIImageView alloc] init];
+    [_micView enableFlexLayout:YES];
+    _micView.image = [UIImage imageNamed:@"mic"];
+    _micView.hidden = YES;
+    [_micView setLayoutAttrStrings:@[
+        @"left",@"10",
+        @"bottom",@"10",
+        @"width",@"20",
+        @"aspectRatio",@"1",
+        @"position",@"absolute"
+    ]];
+    [self addSubview:_micView];
 }
 
 - (void)setupScaleBtn{
@@ -64,8 +78,8 @@
         @"width",@"25",
         @"height",@"25",
         @"position",@"absolute",
-        @"left",@"20",
-        @"top",@"20"
+        @"left",@"15",
+        @"top",@"20",
     ]];
     [self addSubview:scaleBtn];
 }

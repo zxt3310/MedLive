@@ -48,17 +48,19 @@
     [self.navigationController pushViewController:ctr animated:YES];
 }
 
-
+//会诊
 - (void)meetViewActCreateConsultation{
-    IMManager *im = [IMManager sharedManager];
-    [im loginToAgoraServiceWithId:@"smandll" Token:nil];
+    
+    [FlexSetPreviewVC presentInVC:self];
 }
+//会议
 - (void)meetViewActCreateMeet{
     if(![MedLiveAppUtilies needLogin]){
         SKLMeetCreateController *createMeet = [[SKLMeetCreateController alloc] init];
         [self.navigationController pushViewController:createMeet animated:YES];
     }
 }
+//直播
 - (void)meetViewActCreateLive{
     if (![MedLiveAppUtilies needLogin]) {
         SKLLiveCreateController *creatLive = [[SKLLiveCreateController alloc] init];
@@ -66,7 +68,6 @@
     }
 }
 - (void)meetViewActJoin{
-    //[FlexSetPreviewVC presentInVC:self];
     MedMultipleMeettingController *vc = [[MedMultipleMeettingController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }

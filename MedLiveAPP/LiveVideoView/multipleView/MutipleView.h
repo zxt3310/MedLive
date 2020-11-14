@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef BOOL(^fullScrBlk)(void);
 @interface MutipleView : LiveView
 @property fullScrBlk screenBlock;
+@property UIImageView *micView;
 @end
 
 NS_ASSUME_NONNULL_END

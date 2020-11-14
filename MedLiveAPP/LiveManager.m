@@ -31,7 +31,7 @@
     }
     return self;
 }
-
+//设置角色
 - (void)setRole:(AgoraClientRole)role{
     _role = role;
     [_agorEngine setClientRole:role];
@@ -40,13 +40,19 @@
 - (AgoraClientRole)role{
     return _role;
 }
-
+//设置使用场景
 - (void)settingEnvtype:(MedLiveType) type{
     if (type == MedLiveTypeBordcast) {
         [_agorEngine setChannelProfile:AgoraChannelProfileLiveBroadcasting];
     }else if (type == MedLiveTypeMeetting){
         [_agorEngine setChannelProfile:AgoraChannelProfileCommunication];
     }
+}
+//设置开启发言检测
+- (void)settingOpenVolumeIndication:(BOOL) open{
+    NSInteger interval = 0;
+    interval = open?500:0;
+    [self.agorEngine enableAudioVolumeIndication:interval smooth:2 report_vad:NO];
 }
 
 - (void)setupVideoLocalView:(__kindof LiveView *) view{
@@ -91,23 +97,20 @@
         [self.provideDelegate didAddRemoteMember:uid];
     }
 }
-//- (void)rtcEngine:(AgoraRtcEngineKit *)engine firstRemoteVideoFrameOfUid:(NSUInteger)uid size:(CGSize)size elapsed:(NSInteger)elapsed{
-//    if(self.provideDelegate){
-//        [self.provideDelegate didAddRemoteMember:uid];
-//    }
-//}
 
+//远端视频状态改变 （失败 结束 延迟）
 - (void)rtcEngine:(AgoraRtcEngineKit *)engine remoteVideoStateChangedOfUid:(NSUInteger)uid state:(AgoraVideoRemoteState)state reason:(AgoraVideoRemoteStateReason)reason elapsed:(NSInteger)elapsed{
-    if(self.provideDelegate && state == AgoraVideoRemoteStateStopped){
+    if(self.provideDelegate && (state == AgoraVideoRemoteStateStopped || state == AgoraVideoRemoteStateFailed)){
         [self.provideDelegate didRemoteLeave:uid];
     }
 }
 
-//- (void)rtcEngine:(AgoraRtcEngineKit *)engine didJoinedOfUid:(NSUInteger)uid elapsed:(NSInteger)elapsed{
-//    if(self.provideDelegate && self.role == AgoraClientRoleAudience){
-//        [self.provideDelegate didAddRemoteMember:uid];
-//    }
-//}
+- (void)rtcEngine:(AgoraRtcEngineKit *)engine reportAudioVolumeIndicationOfSpeakers:(NSArray<AgoraRtcAudioVolumeInfo *> *)speakers totalVolume:(NSInteger)totalVolume{
+    AgoraRtcAudioVolumeInfo *info = [speakers firstObject];
+    if (info.uid !=0 && self.provideDelegate && [self.provideDelegate respondsToSelector:@selector(didReceiveRemoteAudio:)]) {
+        [self.provideDelegate didReceiveRemoteAudio:speakers];
+    }
+}
 
 
 - (MedLiveState)pauseOrPlay:(MedLiveState)stateBefore{
