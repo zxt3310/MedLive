@@ -8,6 +8,7 @@
 
 #import "SKLUserCenterController.h"
 #import "MedLiveLoginController.h"
+#import "MedLiveWebContoller.h"
 
 @interface SKLUserCenterController ()
 {
@@ -65,6 +66,27 @@
     return insets;
 }
 
+- (void)myLive{
+    NSString *url = [NSString stringWithFormat:@"%@/h5/boardcast_list?user_id=%@",Domain,[AppCommondCenter sharedCenter].currentUser.uid];
+    [self pushWebVC:url Title:@"我的直播"];
+}
+
+- (void)myMeetting{
+    NSString *url = [NSString stringWithFormat:@"%@/h5/meetting_list?user_id=%@",Domain,[AppCommondCenter sharedCenter].currentUser.uid];
+    [self pushWebVC:url Title:@"我的会议"];
+}
+
+- (void)myConsultation{
+    NSString *url = [NSString stringWithFormat:@"%@/h5/consultation_list?user_id=%@",Domain,[AppCommondCenter sharedCenter].currentUser.uid];
+    [self pushWebVC:url Title:@"我的会诊"];
+}
+
+- (void)pushWebVC:(NSString *)url Title:(NSString *)title{
+    MedLiveWebContoller *webVC = [[MedLiveWebContoller alloc] init];
+    webVC.urlStr = url;
+    webVC.title = title;
+    [self.navigationController pushViewController:webVC animated:YES];
+}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {

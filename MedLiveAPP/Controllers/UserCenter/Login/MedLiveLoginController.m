@@ -11,6 +11,7 @@
 #import "MedLiveNetManager.h"
 #import "MedLiveSendMsgRequest.h"
 #import "MedLiveLoginRequest.h"
+#import "IMManager.h"
 
 @interface MedLiveLoginController ()<LoginViewDelegate>
 
@@ -21,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     UIImageView *bgVIew = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    bgVIew.contentMode = UIViewContentModeScaleAspectFill;
     bgVIew.image = [UIImage imageNamed:@"loginBGI"];
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.startPoint = CGPointMake(.5, 0);
@@ -51,9 +53,12 @@
 - (void)loginView:(MedLiveLoginView *)view StartLoginWithMobile:(NSString *)mobile Code:(NSString *)code{
     MedLiveLoginRequest *request = [[MedLiveLoginRequest alloc] initWithMobile:mobile Code:code];
     [request requestLogin:^(id userInfo) {
+        NSString *uid = [[userInfo valueForKey:@"user_id"] stringValue];
         AppCommondCenter *center = [AppCommondCenter sharedCenter];
-        [center loginWithMobile:mobile Uid:[userInfo valueForKey:@"user_id"] Name:nil];
+        [center loginWithMobile:mobile Uid:uid Name:nil];
         [self.navigationController popViewControllerAnimated:YES];
+        
+        [[IMManager sharedManager] loginToAgoraServiceWithId:uid];
     }];
 }
 

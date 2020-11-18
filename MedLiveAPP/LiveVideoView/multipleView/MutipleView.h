@@ -14,6 +14,7 @@ typedef BOOL(^fullScrBlk)(void);
 @interface MutipleView : LiveView
 @property fullScrBlk screenBlock;
 @property UIImageView *micView;
+- (void)layoutVideoOffMask:(BOOL)hide;
 @end
 
 NS_ASSUME_NONNULL_END

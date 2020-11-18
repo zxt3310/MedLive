@@ -11,6 +11,7 @@
 @implementation MutipleView
 {
     UIButton *scaleBtn;
+    UIView *maskView;
 }
 @synthesize videoView = _videoView;
 @synthesize videoCanvas = _videoCanvas;
@@ -53,6 +54,28 @@
         @"flex",@"1"
     ]];
     [self addSubview:_videoView];
+    //禁用摄像头遮罩
+    maskView = [[UIView alloc] init];
+    maskView.backgroundColor = [UIColor ColorWithRGB:160 Green:160 Blue:160 Alpha:1];
+    maskView.hidden = YES;
+    [maskView enableFlexLayout:YES];
+    [maskView setLayoutAttrStrings:@[
+        @"flex",@"1",
+        @"width",@"100%",
+        @"height",@"100%",
+        @"position",@"absolute",
+        @"justifyContent",@"center",
+        @"alignItems",@"center"
+    ]];
+    UIImageView *cameraOffView = [[UIImageView alloc] init];
+    cameraOffView.image = [UIImage imageNamed:@"video_off"];
+    [cameraOffView enableFlexLayout:YES];
+    [cameraOffView setLayoutAttrStrings:@[
+        @"width",@"64",
+        @"height",@"64"
+    ]];
+    [maskView addSubview:cameraOffView];
+    [self addSubview:maskView];
     
     _micView = [[UIImageView alloc] init];
     [_micView enableFlexLayout:YES];
@@ -66,6 +89,10 @@
         @"position",@"absolute"
     ]];
     [self addSubview:_micView];
+}
+
+- (void)layoutVideoOffMask:(BOOL)hide{
+    maskView.hidden = hide;
 }
 
 - (void)setupScaleBtn{

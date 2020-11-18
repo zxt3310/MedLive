@@ -23,11 +23,15 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    
+    self.title = @"创建会议";
     datePicker = [[BRDatePickerView alloc] init];
     datePicker.pickerMode = BRDatePickerModeMDHM;
     datePicker.title = @"开始时间";
-    datePicker.minDate = [NSDate now];
+    if (@available(iOS 13.0, *)) {
+        datePicker.minDate = [NSDate now];
+    } else {
+        datePicker.minDate = [NSDate date];
+    };
     datePicker.showUnitType = BRShowUnitTypeAll;
     datePicker.resultBlock = ^(NSDate* selectDate, NSString* selectValue) {
         

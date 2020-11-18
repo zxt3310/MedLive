@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SKLMeetCreateController : FlexBaseVC
+@interface SKLMeetCreateController : MedLiveBaseFlexViewController
 
 @end
 

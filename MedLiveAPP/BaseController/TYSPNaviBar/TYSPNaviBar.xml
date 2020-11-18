@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UIView name="_barView" layout="flex:1, flexDirection:col-reverse" attr="">
+    <UIView layout="flexDirection:row,justifyContent:space-between,padding:5,height:44,alignItems:center" attr="clipsToBounds:true">
+        <FlexTouchView onPress="popView" layout="height:30,width:50,justifyContent:center,alignItems:center" attr="">
+            <UIImageView layout="width:20,height:20" attr="source:left"/>
+        </FlexTouchView>
+
+        <UIView layout="flex:1,flexDirection:row" attr="">
+            <UILabel name="_titleLb" layout="width:100%" attr="font:PingFangSC-Medium|16,textAlign:center,text:"/>
+        </UIView>
+
+        <FlexTouchView onPress="rightItemAction" layout="height:30,width:50,justifyContent:center,alignItems:center,padding:10" attr="">
+            <UIImageView name="_rightItemView" attr="source:"/>
+            <UILabel name="_rightItemLb" layout="" attr="font:PingFangSC-Medium|12,color:white,lineBreakMode:truncatingTail,linesNum:1,text:"/>
+        </FlexTouchView>
+    </UIView>
+</UIView>

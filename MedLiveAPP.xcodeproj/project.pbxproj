@@ -18,13 +18,27 @@
 		5833D9D425318A5C0004B10D /* LiveManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5833D9D325318A5C0004B10D /* LiveManager.m */; };
 		5833D9DB253193200004B10D /* AgoraCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5833D9DA253193200004B10D /* AgoraCenter.m */; };
 		5836C27D2557AE89003B281D /* SKLUserCenterController.xml in Resources */ = {isa = PBXBuildFile; fileRef = 5836C27C2557AE89003B281D /* SKLUserCenterController.xml */; };
-		5840DD38255D806E000CC7FE /* NSArray+Sudoku.m in Sources */ = {isa = PBXBuildFile; fileRef = 5840DD36255D806E000CC7FE /* NSArray+Sudoku.m */; };
 		58410DFB254C504A00C0DF2D /* MedLiveBaseVideoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58410DFA254C504A00C0DF2D /* MedLiveBaseVideoController.m */; };
+		58412AB02562584B004020F8 /* AgoraVideoSourceCustomor.m in Sources */ = {isa = PBXBuildFile; fileRef = 58412AAF2562584B004020F8 /* AgoraVideoSourceCustomor.m */; };
+		58412AB72562617C004020F8 /* AgoraUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58412AB62562617C004020F8 /* AgoraUploader.swift */; };
+		58420A7E256376140076F47D /* MedLiveBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58420A7D256376140076F47D /* MedLiveBaseViewController.m */; };
+		58420A862563762D0076F47D /* MedLiveBaseFlexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58420A852563762D0076F47D /* MedLiveBaseFlexViewController.m */; };
+		58420ACE2563C61E0076F47D /* TYSPNaviBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 58420ACB2563C61E0076F47D /* TYSPNaviBar.m */; };
+		58420ACF2563C61E0076F47D /* TYSPNaviBar.xml in Resources */ = {isa = PBXBuildFile; fileRef = 58420ACC2563C61E0076F47D /* TYSPNaviBar.xml */; };
 		58423A522550F9AE004466B9 /* SKLLiveCreateController.xml in Resources */ = {isa = PBXBuildFile; fileRef = 58423A502550F9AE004466B9 /* SKLLiveCreateController.xml */; };
 		5842B8F2255532180049F2EC /* SKLLiveCreateViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5842B8F1255532180049F2EC /* SKLLiveCreateViewModel.m */; };
 		58442648255E2CB2004C3845 /* MedMultipleMeettingController.xml in Resources */ = {isa = PBXBuildFile; fileRef = 58442647255E2CB2004C3845 /* MedMultipleMeettingController.xml */; };
+		58449E432562C2DB00EB31DC /* MedLiveWebContoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 58449E422562C2DB00EB31DC /* MedLiveWebContoller.m */; };
 		5844E32B25539860003D8540 /* AppCommondCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5844E32A25539860003D8540 /* AppCommondCenter.m */; };
 		5844E33A25540014003D8540 /* MedLiveAppUtilies.m in Sources */ = {isa = PBXBuildFile; fileRef = 5844E33925540014003D8540 /* MedLiveAppUtilies.m */; };
+		5846859425624D6B007E9788 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5846859325624D6B007E9788 /* ReplayKit.framework */; };
+		5846859825624D6B007E9788 /* SampleHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5846859725624D6B007E9788 /* SampleHandler.m */; };
+		5846859F25624D6B007E9788 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5846859325624D6B007E9788 /* ReplayKit.framework */; };
+		584685A125624D6B007E9788 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 584685A025624D6B007E9788 /* UIKit.framework */; };
+		584685A525624D6B007E9788 /* BroadcastSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 584685A425624D6B007E9788 /* BroadcastSetupViewController.m */; };
+		584685A925624D6B007E9788 /* MedLiveAPP-BroadcastSetupUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5846859E25624D6B007E9788 /* MedLiveAPP-BroadcastSetupUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		584685AC25624D6B007E9788 /* MedLiveAPP-Broadcast.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5846859225624D6B007E9788 /* MedLiveAPP-Broadcast.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5849A21B25657A8B009124ED /* MedLiveInteractView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5849A21A25657A8B009124ED /* MedLiveInteractView.m */; };
 		584E6BE1254FAC2300315751 /* SKLMeetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 584E6BE0254FAC2300315751 /* SKLMeetView.m */; };
 		584E6BEA254FE51E00315751 /* UIButton+ImageText.m in Sources */ = {isa = PBXBuildFile; fileRef = 584E6BE9254FE51E00315751 /* UIButton+ImageText.m */; };
 		584E6BF3254FFD8400315751 /* SKLLiveCreateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 584E6BF2254FFD8400315751 /* SKLLiveCreateController.m */; };
@@ -37,6 +51,11 @@
 		5850A9F125590FD300FB7AD8 /* MedUploadPhotoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5850A9F025590FD300FB7AD8 /* MedUploadPhotoRequest.m */; };
 		585143B82547FF4C0080E65C /* UIControl+UniTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 585143B72547FF4C0080E65C /* UIControl+UniTag.m */; };
 		585143BF25480C710080E65C /* MedLiveNetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 585143BE25480C710080E65C /* MedLiveNetManager.m */; };
+		586935AC2564C173004B2379 /* MedRtmTokenRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 586935AB2564C173004B2379 /* MedRtmTokenRequest.m */; };
+		586935BE2564F064004B2379 /* IMChannelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 586935BD2564F064004B2379 /* IMChannelManager.m */; };
+		586935C7256500D5004B2379 /* MedChannelMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 586935C6256500D5004B2379 /* MedChannelMessage.m */; };
+		586935D62565087D004B2379 /* MedRTMTest.xml in Resources */ = {isa = PBXBuildFile; fileRef = 586935D42565087D004B2379 /* MedRTMTest.xml */; };
+		586935D72565087D004B2379 /* MedRTMTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 586935D52565087D004B2379 /* MedRTMTest.m */; };
 		586AF935254BB5D200B22AF3 /* MedChainRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 586AF934254BB5D200B22AF3 /* MedChainRequest.m */; };
 		586AF93C254BE7CE00B22AF3 /* MedLiveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586AF93B254BE7CE00B22AF3 /* MedLiveController.m */; };
 		586AF94B254BE88400B22AF3 /* MedBordcastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 586AF94A254BE88400B22AF3 /* MedBordcastView.m */; };
@@ -68,6 +87,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		584685A725624D6B007E9788 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5896048624F780F40047B8C6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5846859D25624D6B007E9788;
+			remoteInfo = "MedLiveAPP-BroadcastSetupUI";
+		};
+		584685AA25624D6B007E9788 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5896048624F780F40047B8C6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5846859125624D6B007E9788;
+			remoteInfo = "MedLiveAPP-Broadcast";
+		};
 		589604AA24F780F50047B8C6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5896048624F780F40047B8C6 /* Project object */;
@@ -83,6 +116,21 @@
 			remoteInfo = MedLiveAPP;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		584685B325624D6B007E9788 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				584685A925624D6B007E9788 /* MedLiveAPP-BroadcastSetupUI.appex in Embed App Extensions */,
+				584685AC25624D6B007E9788 /* MedLiveAPP-Broadcast.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		21EC66A4C1F7CAD1261823CD /* Pods-MedLiveAPP-MedLiveAPPUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MedLiveAPP-MedLiveAPPUITests.release.xcconfig"; path = "Target Support Files/Pods-MedLiveAPP-MedLiveAPPUITests/Pods-MedLiveAPP-MedLiveAPPUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -107,18 +155,41 @@
 		5833D9D9253193200004B10D /* AgoraCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgoraCenter.h; sourceTree = "<group>"; };
 		5833D9DA253193200004B10D /* AgoraCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgoraCenter.m; sourceTree = "<group>"; };
 		5836C27C2557AE89003B281D /* SKLUserCenterController.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SKLUserCenterController.xml; sourceTree = "<group>"; };
-		5840DD36255D806E000CC7FE /* NSArray+Sudoku.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Sudoku.m"; sourceTree = "<group>"; };
-		5840DD37255D806E000CC7FE /* NSArray+Sudoku.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Sudoku.h"; sourceTree = "<group>"; };
 		58410DF9254C504A00C0DF2D /* MedLiveBaseVideoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveBaseVideoController.h; sourceTree = "<group>"; };
 		58410DFA254C504A00C0DF2D /* MedLiveBaseVideoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedLiveBaseVideoController.m; sourceTree = "<group>"; };
+		58412AAE2562584B004020F8 /* AgoraVideoSourceCustomor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AgoraVideoSourceCustomor.h; sourceTree = "<group>"; };
+		58412AAF2562584B004020F8 /* AgoraVideoSourceCustomor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AgoraVideoSourceCustomor.m; sourceTree = "<group>"; };
+		58412AB62562617C004020F8 /* AgoraUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgoraUploader.swift; sourceTree = "<group>"; };
+		58420A7C256376140076F47D /* MedLiveBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveBaseViewController.h; sourceTree = "<group>"; };
+		58420A7D256376140076F47D /* MedLiveBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedLiveBaseViewController.m; sourceTree = "<group>"; };
+		58420A842563762D0076F47D /* MedLiveBaseFlexViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveBaseFlexViewController.h; sourceTree = "<group>"; };
+		58420A852563762D0076F47D /* MedLiveBaseFlexViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedLiveBaseFlexViewController.m; sourceTree = "<group>"; };
+		58420ACB2563C61E0076F47D /* TYSPNaviBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYSPNaviBar.m; sourceTree = "<group>"; };
+		58420ACC2563C61E0076F47D /* TYSPNaviBar.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TYSPNaviBar.xml; sourceTree = "<group>"; };
+		58420ACD2563C61E0076F47D /* TYSPNaviBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYSPNaviBar.h; sourceTree = "<group>"; };
 		58423A502550F9AE004466B9 /* SKLLiveCreateController.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SKLLiveCreateController.xml; sourceTree = "<group>"; };
 		5842B8F0255532180049F2EC /* SKLLiveCreateViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKLLiveCreateViewModel.h; sourceTree = "<group>"; };
 		5842B8F1255532180049F2EC /* SKLLiveCreateViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKLLiveCreateViewModel.m; sourceTree = "<group>"; };
+		584301EA256414FA00B5A461 /* MedLiveAPP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MedLiveAPP.entitlements; sourceTree = "<group>"; };
 		58442647255E2CB2004C3845 /* MedMultipleMeettingController.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MedMultipleMeettingController.xml; sourceTree = "<group>"; };
+		58449E412562C2DB00EB31DC /* MedLiveWebContoller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveWebContoller.h; sourceTree = "<group>"; };
+		58449E422562C2DB00EB31DC /* MedLiveWebContoller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedLiveWebContoller.m; sourceTree = "<group>"; };
 		5844E32925539860003D8540 /* AppCommondCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppCommondCenter.h; sourceTree = "<group>"; };
 		5844E32A25539860003D8540 /* AppCommondCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppCommondCenter.m; sourceTree = "<group>"; };
 		5844E33825540014003D8540 /* MedLiveAppUtilies.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveAppUtilies.h; sourceTree = "<group>"; };
 		5844E33925540014003D8540 /* MedLiveAppUtilies.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedLiveAppUtilies.m; sourceTree = "<group>"; };
+		5846859225624D6B007E9788 /* MedLiveAPP-Broadcast.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "MedLiveAPP-Broadcast.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5846859325624D6B007E9788 /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
+		5846859625624D6B007E9788 /* SampleHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SampleHandler.h; sourceTree = "<group>"; };
+		5846859725624D6B007E9788 /* SampleHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SampleHandler.m; sourceTree = "<group>"; };
+		5846859925624D6B007E9788 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5846859E25624D6B007E9788 /* MedLiveAPP-BroadcastSetupUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "MedLiveAPP-BroadcastSetupUI.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		584685A025624D6B007E9788 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		584685A325624D6B007E9788 /* BroadcastSetupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BroadcastSetupViewController.h; sourceTree = "<group>"; };
+		584685A425624D6B007E9788 /* BroadcastSetupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BroadcastSetupViewController.m; sourceTree = "<group>"; };
+		584685A625624D6B007E9788 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5849A21925657A8B009124ED /* MedLiveInteractView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveInteractView.h; sourceTree = "<group>"; };
+		5849A21A25657A8B009124ED /* MedLiveInteractView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedLiveInteractView.m; sourceTree = "<group>"; };
 		584E6BDF254FAC2300315751 /* SKLMeetView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKLMeetView.h; sourceTree = "<group>"; };
 		584E6BE0254FAC2300315751 /* SKLMeetView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKLMeetView.m; sourceTree = "<group>"; };
 		584E6BE8254FE51E00315751 /* UIButton+ImageText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+ImageText.h"; sourceTree = "<group>"; };
@@ -143,6 +214,15 @@
 		585143B72547FF4C0080E65C /* UIControl+UniTag.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIControl+UniTag.m"; sourceTree = "<group>"; };
 		585143BD25480C710080E65C /* MedLiveNetManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveNetManager.h; sourceTree = "<group>"; };
 		585143BE25480C710080E65C /* MedLiveNetManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedLiveNetManager.m; sourceTree = "<group>"; };
+		586935AA2564C173004B2379 /* MedRtmTokenRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedRtmTokenRequest.h; sourceTree = "<group>"; };
+		586935AB2564C173004B2379 /* MedRtmTokenRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedRtmTokenRequest.m; sourceTree = "<group>"; };
+		586935BC2564F064004B2379 /* IMChannelManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMChannelManager.h; sourceTree = "<group>"; };
+		586935BD2564F064004B2379 /* IMChannelManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMChannelManager.m; sourceTree = "<group>"; };
+		586935C5256500D5004B2379 /* MedChannelMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedChannelMessage.h; sourceTree = "<group>"; };
+		586935C6256500D5004B2379 /* MedChannelMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedChannelMessage.m; sourceTree = "<group>"; };
+		586935D32565087D004B2379 /* MedRTMTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedRTMTest.h; sourceTree = "<group>"; };
+		586935D42565087D004B2379 /* MedRTMTest.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MedRTMTest.xml; sourceTree = "<group>"; };
+		586935D52565087D004B2379 /* MedRTMTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedRTMTest.m; sourceTree = "<group>"; };
 		586AF933254BB5D200B22AF3 /* MedChainRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedChainRequest.h; sourceTree = "<group>"; };
 		586AF934254BB5D200B22AF3 /* MedChainRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedChainRequest.m; sourceTree = "<group>"; };
 		586AF93A254BE7CE00B22AF3 /* MedLiveController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveController.h; sourceTree = "<group>"; };
@@ -205,6 +285,23 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5846858F25624D6B007E9788 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5846859425624D6B007E9788 /* ReplayKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5846859B25624D6B007E9788 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5846859F25624D6B007E9788 /* ReplayKit.framework in Frameworks */,
+				584685A125624D6B007E9788 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5896048B24F780F40047B8C6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -238,6 +335,8 @@
 				960327736A3A0F2029AD688D /* Pods_MedLiveAPP.framework */,
 				768CB87C63D86DDF991A7DEF /* Pods_MedLiveAPP_MedLiveAPPUITests.framework */,
 				B763B32D066E51C821CE6300 /* Pods_MedLiveAPPTests.framework */,
+				5846859325624D6B007E9788 /* ReplayKit.framework */,
+				584685A025624D6B007E9788 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -284,7 +383,6 @@
 		5833D9D8253192CF0004B10D /* Utilies */ = {
 			isa = PBXGroup;
 			children = (
-				5840DD35255D803F000CC7FE /* Masonry+Extens */,
 				58E950902542C29D007F15A0 /* MedLiveheader.h */,
 				585143BC25480C5B0080E65C /* network */,
 				5819CCAC2536EA2400E4DF0C /* UIColor+U32Int.h */,
@@ -303,22 +401,28 @@
 			path = Utilies;
 			sourceTree = "<group>";
 		};
-		5840DD35255D803F000CC7FE /* Masonry+Extens */ = {
-			isa = PBXGroup;
-			children = (
-				5840DD37255D806E000CC7FE /* NSArray+Sudoku.h */,
-				5840DD36255D806E000CC7FE /* NSArray+Sudoku.m */,
-			);
-			path = "Masonry+Extens";
-			sourceTree = "<group>";
-		};
 		58410DF8254C500C00C0DF2D /* BaseController */ = {
 			isa = PBXGroup;
 			children = (
+				58420ACA2563C61E0076F47D /* TYSPNaviBar */,
 				58410DF9254C504A00C0DF2D /* MedLiveBaseVideoController.h */,
 				58410DFA254C504A00C0DF2D /* MedLiveBaseVideoController.m */,
+				58420A7C256376140076F47D /* MedLiveBaseViewController.h */,
+				58420A7D256376140076F47D /* MedLiveBaseViewController.m */,
+				58420A842563762D0076F47D /* MedLiveBaseFlexViewController.h */,
+				58420A852563762D0076F47D /* MedLiveBaseFlexViewController.m */,
 			);
 			path = BaseController;
+			sourceTree = "<group>";
+		};
+		58420ACA2563C61E0076F47D /* TYSPNaviBar */ = {
+			isa = PBXGroup;
+			children = (
+				58420ACB2563C61E0076F47D /* TYSPNaviBar.m */,
+				58420ACC2563C61E0076F47D /* TYSPNaviBar.xml */,
+				58420ACD2563C61E0076F47D /* TYSPNaviBar.h */,
+			);
+			path = TYSPNaviBar;
 			sourceTree = "<group>";
 		};
 		58423A5D2550F9C8004466B9 /* Controller */ = {
@@ -336,6 +440,89 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		58449E402562C2B200EB31DC /* WebController */ = {
+			isa = PBXGroup;
+			children = (
+				58449E412562C2DB00EB31DC /* MedLiveWebContoller.h */,
+				58449E422562C2DB00EB31DC /* MedLiveWebContoller.m */,
+			);
+			path = WebController;
+			sourceTree = "<group>";
+		};
+		5846859525624D6B007E9788 /* MedLiveAPP-Broadcast */ = {
+			isa = PBXGroup;
+			children = (
+				58412AB62562617C004020F8 /* AgoraUploader.swift */,
+				5846859625624D6B007E9788 /* SampleHandler.h */,
+				5846859725624D6B007E9788 /* SampleHandler.m */,
+				5846859925624D6B007E9788 /* Info.plist */,
+			);
+			path = "MedLiveAPP-Broadcast";
+			sourceTree = "<group>";
+		};
+		584685A225624D6B007E9788 /* MedLiveAPP-BroadcastSetupUI */ = {
+			isa = PBXGroup;
+			children = (
+				584685A325624D6B007E9788 /* BroadcastSetupViewController.h */,
+				584685A425624D6B007E9788 /* BroadcastSetupViewController.m */,
+				584685A625624D6B007E9788 /* Info.plist */,
+			);
+			path = "MedLiveAPP-BroadcastSetupUI";
+			sourceTree = "<group>";
+		};
+		5849A22125657AB8009124ED /* WatchLive */ = {
+			isa = PBXGroup;
+			children = (
+				5849A21925657A8B009124ED /* MedLiveInteractView.h */,
+				5849A21A25657A8B009124ED /* MedLiveInteractView.m */,
+				5896049724F780F40047B8C6 /* ViewController.h */,
+				5896049824F780F40047B8C6 /* ViewController.m */,
+			);
+			path = WatchLive;
+			sourceTree = "<group>";
+		};
+		5849A22225657B1B009124ED /* LiveController */ = {
+			isa = PBXGroup;
+			children = (
+				586AF969254BF55400B22AF3 /* viewmodel */,
+				586AF93A254BE7CE00B22AF3 /* MedLiveController.h */,
+				586AF93B254BE7CE00B22AF3 /* MedLiveController.m */,
+			);
+			path = LiveController;
+			sourceTree = "<group>";
+		};
+		5849A22325657B74009124ED /* NetworkBase */ = {
+			isa = PBXGroup;
+			children = (
+				585143BD25480C710080E65C /* MedLiveNetManager.h */,
+				585143BE25480C710080E65C /* MedLiveNetManager.m */,
+				58DA33482549432A00895AE5 /* MedBaseRequest.h */,
+				58DA33492549432A00895AE5 /* MedBaseRequest.m */,
+				586AF933254BB5D200B22AF3 /* MedChainRequest.h */,
+				586AF934254BB5D200B22AF3 /* MedChainRequest.m */,
+			);
+			path = NetworkBase;
+			sourceTree = "<group>";
+		};
+		5849A22425657B90009124ED /* NetworkModel */ = {
+			isa = PBXGroup;
+			children = (
+				58DA334F25495D1300895AE5 /* MedLiveLoginRequest.h */,
+				58DA335025495D1300895AE5 /* MedLiveLoginRequest.m */,
+				58711DF32552A468007317B9 /* MedLiveSendMsgRequest.h */,
+				58711DF42552A468007317B9 /* MedLiveSendMsgRequest.m */,
+				586AF96A254BF57400B22AF3 /* MedCreateLiveRequest.h */,
+				586AF96B254BF57400B22AF3 /* MedCreateLiveRequest.m */,
+				5850A9EF25590FD300FB7AD8 /* MedUploadPhotoRequest.h */,
+				5850A9F025590FD300FB7AD8 /* MedUploadPhotoRequest.m */,
+				5871F6B32556FEAC00758AF6 /* MedChannelStateRequest.h */,
+				5871F6B42556FEAC00758AF6 /* MedChannelStateRequest.m */,
+				586AF97A254BFD9E00B22AF3 /* MedChannelTokenRequest.h */,
+				586AF97B254BFD9E00B22AF3 /* MedChannelTokenRequest.m */,
+			);
+			path = NetworkModel;
+			sourceTree = "<group>";
+		};
 		584E6BDD254FABDB00315751 /* view */ = {
 			isa = PBXGroup;
 			children = (
@@ -350,12 +537,8 @@
 		584E6BDE254FABE000315751 /* viewmodel */ = {
 			isa = PBXGroup;
 			children = (
-				586AF96A254BF57400B22AF3 /* MedCreateLiveRequest.h */,
-				586AF96B254BF57400B22AF3 /* MedCreateLiveRequest.m */,
 				5842B8F0255532180049F2EC /* SKLLiveCreateViewModel.h */,
 				5842B8F1255532180049F2EC /* SKLLiveCreateViewModel.m */,
-				5850A9EF25590FD300FB7AD8 /* MedUploadPhotoRequest.h */,
-				5850A9F025590FD300FB7AD8 /* MedUploadPhotoRequest.m */,
 			);
 			path = viewmodel;
 			sourceTree = "<group>";
@@ -404,12 +587,8 @@
 		585143BC25480C5B0080E65C /* network */ = {
 			isa = PBXGroup;
 			children = (
-				585143BD25480C710080E65C /* MedLiveNetManager.h */,
-				585143BE25480C710080E65C /* MedLiveNetManager.m */,
-				58DA33482549432A00895AE5 /* MedBaseRequest.h */,
-				58DA33492549432A00895AE5 /* MedBaseRequest.m */,
-				586AF933254BB5D200B22AF3 /* MedChainRequest.h */,
-				586AF934254BB5D200B22AF3 /* MedChainRequest.m */,
+				5849A22425657B90009124ED /* NetworkModel */,
+				5849A22325657B74009124ED /* NetworkBase */,
 			);
 			path = network;
 			sourceTree = "<group>";
@@ -417,8 +596,9 @@
 		5857955E2536ABE1001A0CEF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				584EE8F7255D2F9E00563DBE /* MeetController */,
 				586AF939254BE7A900B22AF3 /* liveController */,
+				5849A22125657AB8009124ED /* WatchLive */,
+				58449E402562C2B200EB31DC /* WebController */,
 				5819CC762536BF7100E4DF0C /* UserCenter */,
 				5819CC752536BF6300E4DF0C /* ProTeamController */,
 				5819CC742536BF5100E4DF0C /* MeetPageController */,
@@ -439,12 +619,53 @@
 			path = MainTabController;
 			sourceTree = "<group>";
 		};
+		586935A82564C0F4004B2379 /* IMManager */ = {
+			isa = PBXGroup;
+			children = (
+				586935C425650098004B2379 /* messageModel */,
+				586935AA2564C173004B2379 /* MedRtmTokenRequest.h */,
+				586935AB2564C173004B2379 /* MedRtmTokenRequest.m */,
+				58711DEA25529A65007317B9 /* IMManager.h */,
+				58711DEB25529A65007317B9 /* IMManager.m */,
+				586935BC2564F064004B2379 /* IMChannelManager.h */,
+				586935BD2564F064004B2379 /* IMChannelManager.m */,
+			);
+			path = IMManager;
+			sourceTree = "<group>";
+		};
+		586935A92564C10E004B2379 /* LiveManager */ = {
+			isa = PBXGroup;
+			children = (
+				5833D9D225318A5C0004B10D /* LiveManager.h */,
+				5833D9D325318A5C0004B10D /* LiveManager.m */,
+			);
+			path = LiveManager;
+			sourceTree = "<group>";
+		};
+		586935C425650098004B2379 /* messageModel */ = {
+			isa = PBXGroup;
+			children = (
+				586935C5256500D5004B2379 /* MedChannelMessage.h */,
+				586935C6256500D5004B2379 /* MedChannelMessage.m */,
+			);
+			path = messageModel;
+			sourceTree = "<group>";
+		};
+		586935D225650868004B2379 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				586935D32565087D004B2379 /* MedRTMTest.h */,
+				586935D42565087D004B2379 /* MedRTMTest.xml */,
+				586935D52565087D004B2379 /* MedRTMTest.m */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
 		586AF939254BE7A900B22AF3 /* liveController */ = {
 			isa = PBXGroup;
 			children = (
-				586AF969254BF55400B22AF3 /* viewmodel */,
-				586AF93A254BE7CE00B22AF3 /* MedLiveController.h */,
-				586AF93B254BE7CE00B22AF3 /* MedLiveController.m */,
+				5849A22225657B1B009124ED /* LiveController */,
+				584EE8F7255D2F9E00563DBE /* MeetController */,
 			);
 			path = liveController;
 			sourceTree = "<group>";
@@ -472,10 +693,6 @@
 		586AF969254BF55400B22AF3 /* viewmodel */ = {
 			isa = PBXGroup;
 			children = (
-				5871F6B32556FEAC00758AF6 /* MedChannelStateRequest.h */,
-				5871F6B42556FEAC00758AF6 /* MedChannelStateRequest.m */,
-				586AF97A254BFD9E00B22AF3 /* MedChannelTokenRequest.h */,
-				586AF97B254BFD9E00B22AF3 /* MedChannelTokenRequest.m */,
 				586AF971254BF95000B22AF3 /* MedLiveViewModel.h */,
 				586AF972254BF95000B22AF3 /* MedLiveViewModel.m */,
 			);
@@ -485,7 +702,6 @@
 		586E06B02546C27F008504E9 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				58DA334E25495CF900895AE5 /* viewmodel */,
 				586E06AA2546BF0A008504E9 /* MedLiveLoginController.h */,
 				586E06AB2546BF0A008504E9 /* MedLiveLoginController.m */,
 				586E06B12546C2B1008504E9 /* MedLiveLoginView.h */,
@@ -510,6 +726,8 @@
 			children = (
 				58711DFF2552AB7C007317B9 /* UserModel */,
 				5819CCA42536E8C900E4DF0C /* SKLHeader.pch */,
+				5846859525624D6B007E9788 /* MedLiveAPP-Broadcast */,
+				584685A225624D6B007E9788 /* MedLiveAPP-BroadcastSetupUI */,
 				298839F6A23EF617A0F7949D /* Frameworks */,
 				5896049024F780F40047B8C6 /* MedLiveAPP */,
 				589604AC24F780F50047B8C6 /* MedLiveAPPTests */,
@@ -525,6 +743,8 @@
 				5896048E24F780F40047B8C6 /* MedLiveAPP.app */,
 				589604A924F780F50047B8C6 /* MedLiveAPPTests.xctest */,
 				589604B424F780F50047B8C6 /* MedLiveAPPUITests.xctest */,
+				5846859225624D6B007E9788 /* MedLiveAPP-Broadcast.appex */,
+				5846859E25624D6B007E9788 /* MedLiveAPP-BroadcastSetupUI.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -532,18 +752,18 @@
 		5896049024F780F40047B8C6 /* MedLiveAPP */ = {
 			isa = PBXGroup;
 			children = (
+				586935D225650868004B2379 /* test */,
+				584301EA256414FA00B5A461 /* MedLiveAPP.entitlements */,
 				58410DF8254C500C00C0DF2D /* BaseController */,
 				584F1FFD253D3B08003CAFBF /* LiveVideoView */,
 				5857955E2536ABE1001A0CEF /* Controllers */,
 				5833D9D8253192CF0004B10D /* Utilies */,
 				5896049124F780F40047B8C6 /* AppDelegate.h */,
 				5896049224F780F40047B8C6 /* AppDelegate.m */,
-				5896049724F780F40047B8C6 /* ViewController.h */,
-				5896049824F780F40047B8C6 /* ViewController.m */,
-				58711DEA25529A65007317B9 /* IMManager.h */,
-				58711DEB25529A65007317B9 /* IMManager.m */,
-				5833D9D225318A5C0004B10D /* LiveManager.h */,
-				5833D9D325318A5C0004B10D /* LiveManager.m */,
+				586935A82564C0F4004B2379 /* IMManager */,
+				586935A92564C10E004B2379 /* LiveManager */,
+				58412AAE2562584B004020F8 /* AgoraVideoSourceCustomor.h */,
+				58412AAF2562584B004020F8 /* AgoraVideoSourceCustomor.m */,
 				5896049A24F780F40047B8C6 /* Main.storyboard */,
 				5896049D24F780F50047B8C6 /* Assets.xcassets */,
 				5896049F24F780F50047B8C6 /* LaunchScreen.storyboard */,
@@ -571,17 +791,6 @@
 			path = MedLiveAPPUITests;
 			sourceTree = "<group>";
 		};
-		58DA334E25495CF900895AE5 /* viewmodel */ = {
-			isa = PBXGroup;
-			children = (
-				58DA334F25495D1300895AE5 /* MedLiveLoginRequest.h */,
-				58DA335025495D1300895AE5 /* MedLiveLoginRequest.m */,
-				58711DF32552A468007317B9 /* MedLiveSendMsgRequest.h */,
-				58711DF42552A468007317B9 /* MedLiveSendMsgRequest.m */,
-			);
-			path = viewmodel;
-			sourceTree = "<group>";
-		};
 		766BA7D7E1394611DA451FED /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -598,6 +807,40 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5846859125624D6B007E9788 /* MedLiveAPP-Broadcast */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 584685B025624D6B007E9788 /* Build configuration list for PBXNativeTarget "MedLiveAPP-Broadcast" */;
+			buildPhases = (
+				5846858E25624D6B007E9788 /* Sources */,
+				5846858F25624D6B007E9788 /* Frameworks */,
+				5846859025624D6B007E9788 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MedLiveAPP-Broadcast";
+			productName = "MedLiveAPP-Broadcast";
+			productReference = 5846859225624D6B007E9788 /* MedLiveAPP-Broadcast.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		5846859D25624D6B007E9788 /* MedLiveAPP-BroadcastSetupUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 584685AD25624D6B007E9788 /* Build configuration list for PBXNativeTarget "MedLiveAPP-BroadcastSetupUI" */;
+			buildPhases = (
+				5846859A25624D6B007E9788 /* Sources */,
+				5846859B25624D6B007E9788 /* Frameworks */,
+				5846859C25624D6B007E9788 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MedLiveAPP-BroadcastSetupUI";
+			productName = "MedLiveAPP-BroadcastSetupUI";
+			productReference = 5846859E25624D6B007E9788 /* MedLiveAPP-BroadcastSetupUI.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		5896048D24F780F40047B8C6 /* MedLiveAPP */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 589604BD24F780F50047B8C6 /* Build configuration list for PBXNativeTarget "MedLiveAPP" */;
@@ -607,10 +850,13 @@
 				5896048B24F780F40047B8C6 /* Frameworks */,
 				5896048C24F780F40047B8C6 /* Resources */,
 				AD0A43404694270B2AE06A32 /* [CP] Embed Pods Frameworks */,
+				584685B325624D6B007E9788 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				584685A825624D6B007E9788 /* PBXTargetDependency */,
+				584685AB25624D6B007E9788 /* PBXTargetDependency */,
 			);
 			name = MedLiveAPP;
 			productName = MedLiveAPP;
@@ -665,6 +911,13 @@
 				LastUpgradeCheck = 1160;
 				ORGANIZATIONNAME = Zxt;
 				TargetAttributes = {
+					5846859125624D6B007E9788 = {
+						CreatedOnToolsVersion = 12.2;
+						LastSwiftMigration = 1220;
+					};
+					5846859D25624D6B007E9788 = {
+						CreatedOnToolsVersion = 12.2;
+					};
 					5896048D24F780F40047B8C6 = {
 						CreatedOnToolsVersion = 11.6;
 					};
@@ -694,16 +947,34 @@
 				5896048D24F780F40047B8C6 /* MedLiveAPP */,
 				589604A824F780F50047B8C6 /* MedLiveAPPTests */,
 				589604B324F780F50047B8C6 /* MedLiveAPPUITests */,
+				5846859125624D6B007E9788 /* MedLiveAPP-Broadcast */,
+				5846859D25624D6B007E9788 /* MedLiveAPP-BroadcastSetupUI */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5846859025624D6B007E9788 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5846859C25624D6B007E9788 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5896048C24F780F40047B8C6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				5836C27D2557AE89003B281D /* SKLUserCenterController.xml in Resources */,
+				586935D62565087D004B2379 /* MedRTMTest.xml in Resources */,
+				58420ACF2563C61E0076F47D /* TYSPNaviBar.xml in Resources */,
 				58442648255E2CB2004C3845 /* MedMultipleMeettingController.xml in Resources */,
 				58711DDF25527AB1007317B9 /* SKLMeetCreateController.xml in Resources */,
 				58423A522550F9AE004466B9 /* SKLLiveCreateController.xml in Resources */,
@@ -833,6 +1104,23 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5846858E25624D6B007E9788 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				58412AB72562617C004020F8 /* AgoraUploader.swift in Sources */,
+				5846859825624D6B007E9788 /* SampleHandler.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5846859A25624D6B007E9788 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				584685A525624D6B007E9788 /* BroadcastSetupViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5896048A24F780F40047B8C6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -843,6 +1131,7 @@
 				586E06AC2546BF0A008504E9 /* MedLiveLoginController.m in Sources */,
 				586AF973254BF95000B22AF3 /* MedLiveViewModel.m in Sources */,
 				5819CCA02536E7D400E4DF0C /* SKLRootNavigator.m in Sources */,
+				58449E432562C2DB00EB31DC /* MedLiveWebContoller.m in Sources */,
 				58711DF52552A468007317B9 /* MedLiveSendMsgRequest.m in Sources */,
 				58DA334A2549432A00895AE5 /* MedBaseRequest.m in Sources */,
 				5896049324F780F40047B8C6 /* AppDelegate.m in Sources */,
@@ -854,23 +1143,32 @@
 				584E6BE1254FAC2300315751 /* SKLMeetView.m in Sources */,
 				586E06B32546C2B1008504E9 /* MedLiveLoginView.m in Sources */,
 				5819CC882536C19000E4DF0C /* SKLMeetController.m in Sources */,
+				58420ACE2563C61E0076F47D /* TYSPNaviBar.m in Sources */,
 				5819CC822536C0EF00E4DF0C /* SKLMainPageController.m in Sources */,
 				58711DE025527AB1007317B9 /* SKLMeetCreateController.m in Sources */,
 				586AF96C254BF57400B22AF3 /* MedCreateLiveRequest.m in Sources */,
+				58420A862563762D0076F47D /* MedLiveBaseFlexViewController.m in Sources */,
+				58412AB02562584B004020F8 /* AgoraVideoSourceCustomor.m in Sources */,
 				586AF93C254BE7CE00B22AF3 /* MedLiveController.m in Sources */,
 				58DA335125495D1300895AE5 /* MedLiveLoginRequest.m in Sources */,
+				586935BE2564F064004B2379 /* IMChannelManager.m in Sources */,
+				586935D72565087D004B2379 /* MedRTMTest.m in Sources */,
 				584F2000253D3B5E003CAFBF /* LiveRenderMaskView.m in Sources */,
 				586AF954254BE92F00B22AF3 /* LiveView.m in Sources */,
 				5844E32B25539860003D8540 /* AppCommondCenter.m in Sources */,
 				58711DFB2552A681007317B9 /* AppPreLaunch.m in Sources */,
 				58711E022552AB90007317B9 /* MedLiveUserModel.m in Sources */,
 				5819CCAE2536EA2400E4DF0C /* UIColor+U32Int.m in Sources */,
+				58420A7E256376140076F47D /* MedLiveBaseViewController.m in Sources */,
 				584E6BEA254FE51E00315751 /* UIButton+ImageText.m in Sources */,
 				5871F6B52556FEAC00758AF6 /* MedChannelStateRequest.m in Sources */,
 				5842B8F2255532180049F2EC /* SKLLiveCreateViewModel.m in Sources */,
 				584E6BF9254FFF1200315751 /* SKLLiveCreateView.m in Sources */,
 				586AF97C254BFD9E00B22AF3 /* MedChannelTokenRequest.m in Sources */,
+				586935AC2564C173004B2379 /* MedRtmTokenRequest.m in Sources */,
+				586935C7256500D5004B2379 /* MedChannelMessage.m in Sources */,
 				586AF935254BB5D200B22AF3 /* MedChainRequest.m in Sources */,
+				5849A21B25657A8B009124ED /* MedLiveInteractView.m in Sources */,
 				5833D9D425318A5C0004B10D /* LiveManager.m in Sources */,
 				584EE911255D320700563DBE /* MutipleMeettingViewModel.m in Sources */,
 				584EE904255D30D500563DBE /* MutipleView.m in Sources */,
@@ -882,7 +1180,6 @@
 				5833D9DB253193200004B10D /* AgoraCenter.m in Sources */,
 				5844E33A25540014003D8540 /* MedLiveAppUtilies.m in Sources */,
 				5819CC7C2536C02100E4DF0C /* MainTabController.m in Sources */,
-				5840DD38255D806E000CC7FE /* NSArray+Sudoku.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -905,6 +1202,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		584685A825624D6B007E9788 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5846859D25624D6B007E9788 /* MedLiveAPP-BroadcastSetupUI */;
+			targetProxy = 584685A725624D6B007E9788 /* PBXContainerItemProxy */;
+		};
+		584685AB25624D6B007E9788 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5846859125624D6B007E9788 /* MedLiveAPP-Broadcast */;
+			targetProxy = 584685AA25624D6B007E9788 /* PBXContainerItemProxy */;
+		};
 		589604AB24F780F50047B8C6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5896048D24F780F40047B8C6 /* MedLiveAPP */;
@@ -937,6 +1244,91 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		584685AE25624D6B007E9788 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 429WZWZX68;
+				INFOPLIST_FILE = "MedLiveAPP-BroadcastSetupUI/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.saikang.MedLiveAPP.MedLiveAPP-BroadcastSetupUI";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		584685AF25624D6B007E9788 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 429WZWZX68;
+				INFOPLIST_FILE = "MedLiveAPP-BroadcastSetupUI/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.saikang.MedLiveAPP.MedLiveAPP-BroadcastSetupUI";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		584685B125624D6B007E9788 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 429WZWZX68;
+				INFOPLIST_FILE = "MedLiveAPP-Broadcast/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.saikang.MedLiveAPP.MedLiveAPP-Broadcast";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		584685B225624D6B007E9788 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 429WZWZX68;
+				INFOPLIST_FILE = "MedLiveAPP-Broadcast/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.saikang.MedLiveAPP.MedLiveAPP-Broadcast";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		589604BB24F780F50047B8C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1051,8 +1443,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4B655FE5C81B2A59C4796AA /* Pods-MedLiveAPP.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
+				CODE_SIGN_ENTITLEMENTS = MedLiveAPP/MedLiveAPP.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 429WZWZX68;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SKLHeader.pch";
@@ -1061,7 +1455,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pro.MedLiveAPP;
+				PRODUCT_BUNDLE_IDENTIFIER = com.saikang.MedLiveAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1071,8 +1465,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A91C010CDE475800136F2D3D /* Pods-MedLiveAPP.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
+				CODE_SIGN_ENTITLEMENTS = MedLiveAPP/MedLiveAPP.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 429WZWZX68;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SKLHeader.pch";
@@ -1081,7 +1477,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pro.MedLiveAPP;
+				PRODUCT_BUNDLE_IDENTIFIER = com.saikang.MedLiveAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1170,6 +1566,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		584685AD25624D6B007E9788 /* Build configuration list for PBXNativeTarget "MedLiveAPP-BroadcastSetupUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				584685AE25624D6B007E9788 /* Debug */,
+				584685AF25624D6B007E9788 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		584685B025624D6B007E9788 /* Build configuration list for PBXNativeTarget "MedLiveAPP-Broadcast" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				584685B125624D6B007E9788 /* Debug */,
+				584685B225624D6B007E9788 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5896048924F780F40047B8C6 /* Build configuration list for PBXProject "MedLiveAPP" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

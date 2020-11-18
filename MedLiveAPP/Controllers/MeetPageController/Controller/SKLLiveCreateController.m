@@ -32,13 +32,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"创建直播";
     
     viewModel = [[SKLLiveCreateViewModel alloc] init];
     
     datePicker = [[BRDatePickerView alloc] init];
     datePicker.pickerMode = BRDatePickerModeMDHM;
     datePicker.title = @"选择开播时间";
-    datePicker.minDate = [NSDate now];
+    if (@available(iOS 13.0, *)) {
+        datePicker.minDate = [NSDate now];
+    } else {
+        datePicker.minDate = [NSDate date];
+    }
     datePicker.showUnitType = BRShowUnitTypeAll;
     
     __weak UILabel *weakLabel = dateLabel;

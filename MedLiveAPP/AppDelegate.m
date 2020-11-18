@@ -39,6 +39,29 @@
     }
 }
 
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler{
+    if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
+        NSURL *url = userActivity.webpageURL;
+        NSLog(@"%@",url);
+    }
+    return YES;
+}
 
+//- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler {
+//    if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb])
+//    {
+//        NSURL *url = userActivity.webpageURL;
+//        if (1)
+//        {
+//            //进行我们的处理
+//        }
+//        else
+//        {
+//            [[UIApplication sharedApplication] openURL:url];
+//        }
+//    }
+//
+//    return YES;
+//}
 
 @end
