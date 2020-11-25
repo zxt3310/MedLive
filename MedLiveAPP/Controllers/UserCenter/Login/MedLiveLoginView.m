@@ -170,9 +170,9 @@
                         sender.enabled = YES;
                     }
                 }];
-#ifdef DEBUG
+//#ifdef DEBUG
                 self->code = messageCode;
-#endif
+//#endif
             }
         }];
     }

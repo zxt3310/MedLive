@@ -86,6 +86,13 @@ static NSString *BaseUrl = nil;
 }
 
 - (void)uploadImageWith:(UIImage *)image Url:(NSString *)url Header:(NSDictionary *)header Success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success Failure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError* _Nullable))failure{
+    
+    NSData *imageData = UIImageJPEGRepresentation(image, 1);
+    [self uploadFileWith:imageData FileName:@"image.jpeg" MimeType:@"image/jpeg" Url:url Header:header Success:success Failure:failure];
+}
+
+
+- (void)uploadFileWith:(NSData *)fileData FileName:(NSString*)fileName MimeType:(NSString *)mimeType Url:(NSString *)url Header:(NSDictionary *)header Success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success Failure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError* _Nullable))failure{
     NSString* finalUrl = url;
     if (BaseUrl && BaseUrl.length>0) {
         finalUrl = [BaseUrl stringByAppendingPathComponent:url];
@@ -95,16 +102,30 @@ static NSString *BaseUrl = nil;
         [self settingHeader:header];
     }
     
-    NSData *imageData = UIImageJPEGRepresentation(image, 1);
     [afManager POST:finalUrl
               parameters:nil
 constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:imageData name:@"file" fileName:@"image" mimeType:@"image/jpeg"];
+        [formData appendPartWithFileData:fileData name:@"file" fileName:fileName mimeType:mimeType];
     }           progress:nil
                  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success(task,responseObject);
     }            failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(task,error);
     }];
+}
+
+- (NSString *)getMimeTypeFromUrl:(NSURL *)url{
+    __block NSString *mimeType;
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:2.0];
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        mimeType = response.MIMEType;
+        dispatch_semaphore_signal(semaphore);
+    }];
+    
+    [task resume];
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    return mimeType;
 }
 @end

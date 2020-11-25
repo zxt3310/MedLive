@@ -68,21 +68,22 @@
 
 - (void)myLive{
     NSString *url = [NSString stringWithFormat:@"%@/h5/boardcast_list?user_id=%@",Domain,[AppCommondCenter sharedCenter].currentUser.uid];
-    [self pushWebVC:url Title:@"我的直播"];
+    [self pushWebVC:url Type:@"boardcast" Title:@"我的直播"];
 }
 
 - (void)myMeetting{
-    NSString *url = [NSString stringWithFormat:@"%@/h5/meetting_list?user_id=%@",Domain,[AppCommondCenter sharedCenter].currentUser.uid];
-    [self pushWebVC:url Title:@"我的会议"];
+    NSString *url = [NSString stringWithFormat:@"%@/h5/meeting_list?user_id=%@",Domain,[AppCommondCenter sharedCenter].currentUser.uid];
+    [self pushWebVC:url Type:@"meeting" Title:@"我的会议"];
 }
 
 - (void)myConsultation{
     NSString *url = [NSString stringWithFormat:@"%@/h5/consultation_list?user_id=%@",Domain,[AppCommondCenter sharedCenter].currentUser.uid];
-    [self pushWebVC:url Title:@"我的会诊"];
+    [self pushWebVC:url Type:@"consultation" Title:@"我的会诊"];
 }
 
-- (void)pushWebVC:(NSString *)url Title:(NSString *)title{
+- (void)pushWebVC:(NSString *)url Type:(NSString *)type Title:(NSString *)title{
     MedLiveWebContoller *webVC = [[MedLiveWebContoller alloc] init];
+    webVC.roomType = type;
     webVC.urlStr = url;
     webVC.title = title;
     [self.navigationController pushViewController:webVC animated:YES];

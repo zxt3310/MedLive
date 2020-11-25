@@ -9,16 +9,18 @@
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
+@class MedLiveRoomMeetting;
 @protocol MedMutipleMeetingDelegate <NSObject>
 @optional
 - (void)meetingDidJoinMember:(NSInteger) uid;
 - (void)meetingDidLeaveMember:(NSInteger) uid;
 - (void)meettingMemberSpeaking:(NSInteger)uid;
+- (void)meettingMember:(NSInteger)uid DidCloseCamera:(BOOL) closed;
 @end
 
 @interface MutipleMeettingViewModel : NSObject
 @property (weak) id<MedMutipleMeetingDelegate> meettingDelegate;
+- (void)fetchRoomInfoWithRoomId:(NSString *)roomId Complete:(void(^)(MedLiveRoomMeetting* ))res;
 - (void)setupLocalView:(__kindof UIView *)localView;
 - (void)setupRemoteView:(__kindof UIView*)remoteView;
 - (void)joinMeetting:(NSString *)channelId;

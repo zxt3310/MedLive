@@ -4,7 +4,7 @@
         <UIView class="" layout="paddingHorizontal:20" attr="">
             <UIView class="" layout="flexDirection:row,paddingVertical:15" attr="">
                 <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:直播主题"/>
-                <UITextField name="titleField" class="" layout="marginLeft:20" attr="fontSize:14,color:black,textAlign:left,placeholder:请输入,text:"/>
+                <UITextField name="titleField" class="" layout="flex:1,marginLeft:20" attr="fontSize:14,color:black,textAlign:left,placeholder:请输入,text:"/>
             </UIView>
 
             <UIView class="" layout="height:1" attr="bgColor:#d0d0d0"/>

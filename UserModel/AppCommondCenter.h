@@ -10,12 +10,25 @@
 #import "MedLiveUserModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
+UIKIT_EXTERN NSString *const RTCEngineDidReceiveMessage;
+UIKIT_EXTERN NSString *const MedLoginCall;
+UIKIT_EXTERN NSString *const MedRtmRejoinCall;
+
+@protocol ThirdPlatDelegate <NSObject>
+@optional
+//- (void)appDidEvocatedToBoardcastWithRoom:(NSString *)roomId;
+//- (void)appDidEvocatedToMeettingWithRoom:(NSString *)roomId;
+//- (void)appDidEvocatedToConsultationWithRoom:(NSString *)roomId;
+- (void)appDidEvocatedToLiveWithUrl:(NSString *)url;
+@end
+
 @interface AppCommondCenter : NSObject
 
 @property BOOL hasLogin;
 
 @property MedLiveUserModel *currentUser;
 
+@property (weak) id<ThirdPlatDelegate> evocateDelegate;
 + (instancetype)sharedCenter;
 
 - (void)loginWithMobile:(NSString *)mobile Uid:(NSString *)uid Name:(NSString * _Nullable)username;

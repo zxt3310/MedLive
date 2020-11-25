@@ -53,6 +53,13 @@
     }];
 }
 
+- (void)rejoinChannel{
+    [self leaveChannel];
+    [memberDic removeAllObjects];
+    self.imChannel = [[IMManager sharedManager] createChannelWithId:channelId ChannelDelegate:self];
+    [self rtmJoinChannel];
+}
+
 - (void)sendTextMessage:(NSString *)text{
     AgoraRtmMessage *msg = [[AgoraRtmMessage alloc] initWithText:text];
     [self.imChannel sendMessage:msg completion:^(AgoraRtmSendChannelMessageErrorCode errorCode) {
@@ -89,6 +96,9 @@
     AgoraRtmRawMessage *rawMsg = (AgoraRtmRawMessage *)message;
     NSData *rawData = rawMsg.rawData;
     MedChannelMessage *msg = [NSKeyedUnarchiver unarchiveObjectWithData:rawData];
+    if (self.channelDelegate) {
+        [self.channelDelegate channelDidReceiveMessage:msg];
+    }
     
     NSLog(@"频道%@ 收到来自%@ 的消息:%@",member.channelId,member.userId,msg.context);
 }

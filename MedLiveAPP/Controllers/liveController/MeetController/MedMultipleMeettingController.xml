@@ -33,7 +33,7 @@
 
         <FlexTouchView onPress="" layout="alignItems:center" attr="">
             <UIImageView layout="width:25,aspectRatio:1" attr="source:member"/>
-            <UILabel name="" layout="marginTop:5" attr="fontSize:12,color:#333333,text:人数(12)"/>
+            <UILabel name="memberCountLabel" layout="marginTop:5" attr="fontSize:12,color:#333333,text:人数(1)"/>
         </FlexTouchView>
 
         <FlexTouchView onPress="otherFunc" layout="alignItems:center" attr="">

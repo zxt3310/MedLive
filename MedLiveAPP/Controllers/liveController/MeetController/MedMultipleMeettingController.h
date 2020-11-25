@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MedMultipleMeettingController : FlexBaseVC
-
+@property NSString *roomId;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -8,7 +8,8 @@ target 'MedLiveAPP' do
   
   pod 'AxcAE_TabBar', '1.0.5'
   pod 'YYModel', '1.0.4'
-  pod 'Masonry', '1.1.0'
+  pod 'YYWebImage'
+  pod 'Masonry'
   
   pod 'AFNetworking', '~> 3.2.1'
 #  pod 'Whiteboard', '2.6.4'

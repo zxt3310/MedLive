@@ -127,11 +127,13 @@
     //远端关闭摄像头
     if (self.provideDelegate && (state == AgoraVideoRemoteStateStopped && reason == AgoraVideoRemoteStateReasonRemoteMuted)) {
         NSLog(@"远端关闭摄像头");
+        [self.provideDelegate remote:uid DidDisabledCamera:YES];
     }
     
     //远端恢复摄像头
     if (self.provideDelegate && (state == AgoraVideoRemoteStateDecoding && reason == AgoraVideoRemoteStateReasonRemoteUnmuted)) {
         NSLog(@"远端恢复摄像头");
+        [self.provideDelegate remote:uid DidDisabledCamera:NO];
     }
     
     //远端网络堵塞

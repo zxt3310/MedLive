@@ -11,6 +11,7 @@
 #import "MedChannelTokenRequest.h"
 #import "MedChannelStateRequest.h"
 #import "LiveManager.h"
+#import "MedLiveRoomInfoRequest.h"
 
 @implementation MedLiveViewModel
 {
@@ -35,6 +36,15 @@
     return [liveManager joinRoomByToken:token
                                    Room:channelName
                                     Uid:[AppCommondCenter sharedCenter].currentUser.uid];
+}
+
+- (void)fetchRoomInfo:(NSString *)roomId Complete:(void(^)(MedLiveRoomBoardcast* ))res{
+    MedLiveRoomInfoRequest *request = [[MedLiveRoomInfoRequest alloc] initWithRoomId:roomId];
+    [request fetchWithComplete:^(__kindof MedLiveRoom *room) {
+        MedLiveRoomBoardcast *bordcastRoom = (MedLiveRoomBoardcast *)room;
+        res(bordcastRoom);
+    }];
+   
 }
 
 - (void)createRoomWithTitle:(NSString *)title ChannelId:(NSString *)channelId Complate:(void(^)(NSString *chanlToken))complateBlock{

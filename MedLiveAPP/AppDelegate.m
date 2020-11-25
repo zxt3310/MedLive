@@ -41,27 +41,25 @@
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler{
     if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
-        NSURL *url = userActivity.webpageURL;
-        NSLog(@"%@",url);
+        id<ThirdPlatDelegate> delegate = [AppCommondCenter sharedCenter].evocateDelegate;
+        NSURLComponents *components = [[NSURLComponents alloc] initWithString:userActivity.webpageURL.absoluteString];
+        NSArray <NSURLQueryItem*>*items = components.queryItems;
+        NSMutableDictionary *queryDic = [NSMutableDictionary dictionary];
+        [items enumerateObjectsUsingBlock:^(NSURLQueryItem *obj, NSUInteger idx, BOOL *stop) {
+            [queryDic setValue:obj.value forKey:obj.name];
+        }];
+        if (delegate)
+        {
+            //进行我们的处理
+            
+        }
+        else
+        {
+            
+        }
+        
     }
     return YES;
 }
-
-//- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler {
-//    if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb])
-//    {
-//        NSURL *url = userActivity.webpageURL;
-//        if (1)
-//        {
-//            //进行我们的处理
-//        }
-//        else
-//        {
-//            [[UIApplication sharedApplication] openURL:url];
-//        }
-//    }
-//
-//    return YES;
-//}
 
 @end

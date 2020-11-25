@@ -14,7 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LiveVideoRenderView : LiveView
 
 -(id)initWithMaskDelegate:(id <RenderMaseDelegate>)delegate;
-
+- (void)fillTitle:(NSString *)title;
+- (void)showPlaceView:(BOOL)show CenterTip:(nullable NSString *)tip;
 @end
 
 NS_ASSUME_NONNULL_END

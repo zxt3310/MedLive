@@ -43,6 +43,11 @@ static IMManager *manager = nil;
             //登录结果
             if (errorCode == 0) {
                 NSLog(@"成功登录聊天系统");
+                [[NSNotificationCenter defaultCenter] postNotificationName:MedRtmRejoinCall object:nil];
+            }else if (errorCode == AgoraRtmLoginErrorAlreadyLogin){
+                [self.rtmEngine logoutWithCompletion:^(AgoraRtmLogoutErrorCode errorCode) {
+                    [self loginToAgoraServiceWithId:userId];
+                }];
             }
         }];
     }];

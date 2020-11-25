@@ -13,8 +13,6 @@
 #import "SKLLiveCreateController.h"
 #import "SKLMeetCreateController.h"
 #import "MedMultipleMeettingController.h"
-#import "MedRTMTest.h"
-#import "IMManager.h"
 
 @interface SKLMeetController ()<SKLMeetViewDelegate>
 
@@ -55,14 +53,9 @@
 }
 //会议
 - (void)meetViewActCreateMeet{
-//    if(![MedLiveAppUtilies needLogin]){
-//        SKLMeetCreateController *createMeet = [[SKLMeetCreateController alloc] init];
-//        [self.navigationController pushViewController:createMeet animated:YES];
-//    }
-    
     if(![MedLiveAppUtilies needLogin]){
-        MedRTMTest *testVC = [[MedRTMTest alloc] init];
-        [self.navigationController pushViewController:testVC animated:YES];
+        SKLMeetCreateController *createMeet = [[SKLMeetCreateController alloc] init];
+        [self.navigationController pushViewController:createMeet animated:YES];
     }
 }
 //直播
@@ -74,8 +67,7 @@
 }
 - (void)meetViewActJoin{
     if (![MedLiveAppUtilies needLogin]) {
-        MedMultipleMeettingController *vc = [[MedMultipleMeettingController alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
+       
     }
 }
 

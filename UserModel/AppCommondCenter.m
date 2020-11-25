@@ -8,6 +8,10 @@
 
 #import "AppCommondCenter.h"
 
+NSString *const RTCEngineDidReceiveMessage = @"RTCEngineDidReceiveMessage";
+NSString *const MedLoginCall = @"MedAppShouldPresentLoginController";
+NSString *const MedRtmRejoinCall = @"MedRtmChannelRejoin";
+
 @implementation AppCommondCenter
 
 static AppCommondCenter *center = nil;

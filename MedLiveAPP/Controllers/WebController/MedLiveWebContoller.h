@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MedLiveWebContoller : MedLiveBaseViewController
 @property NSString *urlStr;
+@property NSString *roomType;
 @end
 
 NS_ASSUME_NONNULL_END

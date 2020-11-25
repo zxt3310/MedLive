@@ -9,6 +9,7 @@
 #import "MedLiveController.h"
 #import "MedBordcastView.h"
 #import "MedLiveViewModel.h"
+#import "MedLiveRoomBoardcast.h"
 
 @interface MedLiveController ()<BordcastViewDelegate>
 {
@@ -27,21 +28,27 @@
     self.view = bordView;
     
     [viewModel setupLocalView:bordView];
-
-    [viewModel createRoomWithTitle:self.title ChannelId:self.channelId Complate:^(NSString *chanlToken) {
-        int res = [viewModel joinChannel:self.channelId Token:chanlToken];
-        if (res == 0) {
-            //发送开播信号
-            [viewModel sendLiveState:MedLiveRoomStateStart
-                              RoomId:self.roomId
-                              UserId:[AppCommondCenter sharedCenter].currentUser.uid];
-        }
+    
+    [viewModel fetchRoomInfo:self.roomId Complete:^(MedLiveRoomBoardcast * res) {
+        self.channelId = res.channelId;
+        self.titleName = res.roomTitle;
+        
+        [viewModel createRoomWithTitle:self.title ChannelId:self.channelId Complate:^(NSString *chanlToken) {
+            int res = [viewModel joinChannel:self.channelId Token:chanlToken];
+            if (res == 0) {
+                //发送开播信号
+                [viewModel sendLiveState:MedLiveRoomStateStart
+                                  RoomId:self.roomId
+                                  UserId:[AppCommondCenter sharedCenter].currentUser.uid];
+            }
+        }];
     }];
 }
 
 
 - (void)bordcastViewDidEnd{
     [viewModel stopLive];
+    //发送下播信号
     [viewModel sendLiveState:MedLiveRoomStateEnd
                       RoomId:self.roomId
                       UserId:[AppCommondCenter sharedCenter].currentUser.uid];
@@ -49,7 +56,7 @@
 }
 
 - (void)dealloc{
-    
+    NSLog(@"直播窗体已释放");
 }
 
 @end

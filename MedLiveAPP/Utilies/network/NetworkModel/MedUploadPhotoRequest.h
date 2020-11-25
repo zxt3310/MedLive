@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MedUploadPhotoRequest : MedBaseRequest
 - (instancetype)initWithImage:(UIImage *)photo;
 - (void)uploadWithComplete:(void(^)(NSString *picUrl))success fail:(void(^)(void))fail;
+- (instancetype)initWithFileData:(NSData *)fileData FileName:(NSString *)fileName FileUrl:(NSURL *)url;
 @end
 
 NS_ASSUME_NONNULL_END

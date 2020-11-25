@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UIView layout="flex:1" attr="bgColor:white">
+    <UIView class="" layout="padding:20,height:50%,justifyContent:space-around" attr="">
+        <UIView class="" layout="flexDirection:row" attr="">
+            <UILabel name="" class="" layout="" attr="fontSize:16,color:#333333,text:会 议 号："/>
+            <UILabel name="roomIdLabel" class="" layout="" attr="fontSize:16,color:#333333,text:"/>
+            <FlexTouchView onPress="" layout="" attr="">
+                <UIImageView layout="width:20,height:20" attr="source:copy"/>
+            </FlexTouchView>
+        </UIView>
+        <UIView class="" layout="flexDirection:row" attr="">
+            <UILabel name="" class="" layout="" attr="fontSize:16,color:#333333,text:入会密码："/>
+            <UILabel name="pwdLabel" class="" layout="" attr="fontSize:16,color:#333333,text:"/>
+        </UIView>
+        <UIView class="" layout="flexDirection:row" attr="">
+            <UILabel name="" class="" layout="" attr="fontSize:16,color:#333333,text:开始时间："/>
+            <UILabel name="startTimeLabel" class="" layout="" attr="fontSize:16,color:#333333,text:"/>
+        </UIView>
+        <UIView class="" layout="flexDirection:row" attr="">
+            <UILabel name="" class="" layout="" attr="fontSize:16,color:#333333,text:会议主题："/>
+            <UILabel name="titleLabel" class="" layout="" attr="fontSize:16,color:#333333,text:"/>
+        </UIView>
+        <UIView class="" layout="" attr="">
+            <UIView class="" layout="flexDirection:row" attr="">
+                <UILabel name="" class="" layout="" attr="fontSize:16,color:#333333,text:参会链接："/>
+                <FlexTouchView onPress="" layout="" attr="">
+                    <UIImageView layout="width:20,height:20" attr="source:copy"/>
+                </FlexTouchView>
+            </UIView>
+            <UILabel name="linkLable" class="" layout="" attr="fontSize:16,color:#333333,linesNum:0,text:"/>
+        </UIView>
+    </UIView>
+    
+    <FlexTouchView onPress="joinMeet" layout="height:45,width:180,justifyContent:center,alignItems:center,alignSelf:center" attr="bgColor:blue">
+        <UILabel name="" class="" layout="" attr="fontSize:16,color:white,text:加入会议"/>
+    </FlexTouchView>
+</UIView>

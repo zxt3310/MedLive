@@ -43,4 +43,6 @@
     return AgoraVideoContentHintNone;
 }
 
+@synthesize consumer;
+
 @end

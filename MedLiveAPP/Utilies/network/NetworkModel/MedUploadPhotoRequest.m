@@ -11,6 +11,9 @@
 @implementation MedUploadPhotoRequest
 {
     UIImage *image;
+    NSData *fileData;
+    NSURL *urlLocalStr;
+    NSString *fileName;
 }
 - (instancetype)initWithImage:(UIImage *)photo
 {
@@ -21,17 +24,39 @@
     return self;
 }
 
+- (instancetype)initWithFileData:(NSData *)fileData FileName:(NSString *)fileName FileUrl:(NSURL *)url
+{
+    self = [super init];
+    if (self) {
+        self->fileData = fileData;
+        self->fileName = fileName;
+        urlLocalStr = url;
+    }
+    return self;
+}
+
 - (NSString *)requestUrl{
-    return @"/api/upload/img?type=img";
+    return @":8081/api/saikang/upload/img?type=img";
 }
 
 - (void)uploadWithComplete:(void(^)(NSString *picUrl))success fail:(void(^)(void))fail{
-    [self startUploadImage:image success:^(MedUploadPhotoRequest *request) {
-        NSDictionary *dic = request.responseObject;
-        NSString *urlStr = dic[@"data"][@"fileurl"];
-        success(urlStr);
-    } failure:^(MedUploadPhotoRequest *request) {
-        fail();
-    }];
+    if (image) {
+        [self startUploadImage:image success:^(MedUploadPhotoRequest *request) {
+            NSDictionary *dic = request.responseObject;
+            NSString *urlStr = dic[@"data"][@"fileurl"];
+            success(urlStr);
+        } failure:^(MedUploadPhotoRequest *request) {
+            fail();
+        }];
+    }else if(fileData && fileName && urlLocalStr){
+        [self startUploadFile:urlLocalStr Data:fileData FileName:fileName success:^(MedBaseRequest *request) {
+            NSDictionary *dic = request.responseObject;
+            NSString *urlStr = dic[@"data"][@"fileurl"];
+            success(urlStr);
+        } failure:^(MedBaseRequest *request) {
+            fail();
+        }];
+    }
+    
 }
 @end

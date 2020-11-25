@@ -9,6 +9,8 @@
 #import "MutipleMeettingViewModel.h"
 #import "LiveManager.h"
 #import "MedChannelTokenRequest.h"
+#import "MedLiveRoomInfoRequest.h"
+#import "MedLiveRoomMeetting.h"
 
 @interface MutipleMeettingViewModel()<LiveManagerRemoteCanvasProvideDelegate>
 @property LiveManager *manager;
@@ -26,6 +28,18 @@
         [_manager settingOpenVolumeIndication:YES];
     }
     return self;
+}
+
+- (void)fetchRoomInfoWithRoomId:(NSString *)roomId Complete:(void(^)(MedLiveRoomMeetting* ))res{
+    if (!roomId) {
+        NSLog(@"没有房间号");
+        return;
+    }
+    MedLiveRoomInfoRequest *request = [[MedLiveRoomInfoRequest alloc] initWithRoomId:roomId];
+    [request fetchWithComplete:^(__kindof MedLiveRoom *room) {
+        MedLiveRoomMeetting *meettingRoom = (MedLiveRoomMeetting *)room;
+        res(meettingRoom);
+    }];
 }
 
 - (void)joinMeetting:(NSString *)channelId{
@@ -80,6 +94,12 @@
         [speakers enumerateObjectsUsingBlock:^(AgoraRtcAudioVolumeInfo * info, NSUInteger idx, BOOL * stop) {
             [self.meettingDelegate meettingMemberSpeaking:info.uid];
         }];
+    }
+}
+
+- (void)remote:(NSInteger)uid DidDisabledCamera:(BOOL)disable{
+    if (self.meettingDelegate) {
+        [self.meettingDelegate meettingMember:uid DidCloseCamera:disable];
     }
 }
 

@@ -13,7 +13,7 @@
     id param;
 }
 
-- (instancetype)initWithTitle:(NSString *)title Desc:(NSString *)description Uid:(NSString *)uid Start:(NSString *)start picUrl:(NSString *)url
+- (instancetype)initWithTitle:(NSString *)title Desc:(NSString *)description Uid:(NSString *)uid Start:(NSString *)start picUrl:(NSString *)url Type:(NSString*) type Password:(NSString *)pwd AllowDoc:(BOOL)allow Docs:(NSString *)docs
 {
     self = [super init];
     if (self) {
@@ -22,7 +22,11 @@
             @"desc":description,
             @"user_id":uid,
             @"begin_time":start,
-            @"cover_pic":url
+            @"cover_pic":url,
+            @"type":type,
+            @"pwd":pwd,
+            @"is_upload_doc":allow?@"1":@"0",
+            @"resource":allow?docs:@""
         };
     }
     return self;

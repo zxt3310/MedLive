@@ -99,6 +99,11 @@ typedef enum : NSUInteger {
     UIButton *playBtn;
     UIButton *screenScaleBtn;
     
+    UILabel *titleLb;
+    
+    BOOL isShow;
+    int funcBarHide;
+    NSTimer *timer;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -161,7 +166,7 @@ typedef enum : NSUInteger {
     [backBtn setImageEdgeInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
     [titleBar addSubview:backBtn];
     
-    UILabel *titleLb = [[UILabel alloc] init];
+    titleLb = [[UILabel alloc] init];
     titleLb.text = @"直播间";
     titleLb.textColor = [UIColor whiteColor];
     [titleBar addSubview:titleLb];
@@ -187,7 +192,7 @@ typedef enum : NSUInteger {
     [titleBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
-        make.top.equalTo(self.mas_top).offset(20);
+        make.top.equalTo(self.mas_top).offset(kStatusBarHeight-5);
         make.height.mas_equalTo(@40);
     }];
     [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -218,8 +223,13 @@ typedef enum : NSUInteger {
         make.size.mas_equalTo(CGSizeMake(30, 30));
     }];
     
+    titleBar.alpha = 0;
+    bottomBar.alpha = 0;
 }
 
+- (void)fillTitle:(NSString *)title{
+    titleLb.text = title;
+}
 //触摸回调
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [super touchesBegan:touches withEvent:event];
@@ -330,25 +340,29 @@ typedef enum : NSUInteger {
 
 //处理功能条隐藏和显示
 - (void)showFunctionBar{
-    static BOOL isShow = YES;
     if(!isShow){
         titleBar.alpha = 1;
         bottomBar.alpha = 1;
         isShow = YES;
-//        [UIView animateWithDuration:0.2
-//                              delay:3.0
-//                            options:UIViewAnimationOptionCurveLinear
-//                         animations:^{
-//            self->titleBar.alpha = 0;
-//            self->bottomBar.alpha = 0;
-//        }
-//                         completion:^(BOOL isFinish){
-//            isShow = NO;
-//        }];
+        funcBarHide = 3;
+        if (!timer) {
+            timer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer *timer) {
+                funcBarHide--;
+                if (funcBarHide == 0) {
+                    [timer setFireDate:[NSDate distantFuture]];
+                    [UIView animateWithDuration:0.25 animations:^{
+                        bottomBar.alpha = 0;
+                        titleBar.alpha = 0;
+                        isShow = NO;
+                    }];
+                }
+            }];
+        }
+        [timer setFireDate:[NSDate date]];
     }else{
+        [timer setFireDate:[NSDate distantFuture]];
         titleBar.alpha = 0;
         bottomBar.alpha = 0;
-        [self layoutIfNeeded];
         isShow = NO;
         NSLog(@"隐藏");
     }
@@ -361,6 +375,10 @@ typedef enum : NSUInteger {
         [self.maskDelegate RenderMasekDidTapBack:^(MedLiveScreenState state) {
             if(state == MedLiveScreenStateNormal){
                 weakBtn.hidden = NO;
+            }else{
+                //释放计时器 否则内存泄漏
+                [timer invalidate];
+                timer = nil;
             }
         }];
     }

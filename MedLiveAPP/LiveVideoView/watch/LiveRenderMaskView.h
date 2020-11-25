@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LiveRenderMaskView : UIButton
 @property (weak) id<RenderMaseDelegate> maskDelegate;
+- (void)fillTitle:(NSString *)title;
 @end
 
 NS_ASSUME_NONNULL_END

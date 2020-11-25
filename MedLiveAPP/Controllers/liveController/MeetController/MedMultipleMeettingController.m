@@ -9,6 +9,7 @@
 #import "MedMultipleMeettingController.h"
 #import "MutipleMeettingViewModel.h"
 #import "MutipleView.h"
+#import "MedLiveRoomMeetting.h"
 
 #define HoritonSpace 5.0
 #define VerticalSpace 5.0
@@ -32,6 +33,8 @@
     UILabel *micLabel;
     UILabel *cameraLabel;
     UIView *toolsView;
+    
+    UILabel *memberCountLabel;//频道人员计数
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,12 +47,13 @@
 
     [self setupLocalVideo];
     
-    
+    //为了等待初始化结束  延迟两秒执行布局
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self layoutMemberWindow];
-        [viewModel joinMeetting:@"zxt"];
+        [viewModel fetchRoomInfoWithRoomId:self.roomId Complete:^(MedLiveRoomMeetting *room) {
+            [viewModel joinMeetting:room.channelId];
+        }];
     });
-    
 }
 
 - (void)setupLocalVideo{
@@ -151,6 +155,8 @@
 //进入
 - (void)meetingDidJoinMember:(NSInteger)uid{
     [self addView:uid];
+    
+    memberCountLabel.text = [NSString stringWithFormat:@"人数(%ld)",memberAry.count];
 }
 //离开
 - (void)meetingDidLeaveMember:(NSInteger)uid{
@@ -165,6 +171,8 @@
     [memberAry removeObject:targetView];
     [self layoutMemberWindow];
     targetView = nil;
+    
+    memberCountLabel.text = [NSString stringWithFormat:@"人数(%ld)",memberAry.count];
 }
 //音量
 - (void)meettingMemberSpeaking:(NSInteger)uid{
@@ -177,7 +185,15 @@
             } completion:nil];
             *stop = YES;
         }
-       
+    }];
+}
+
+- (void)meettingMember:(NSInteger)uid DidCloseCamera:(BOOL)closed{
+    [memberAry enumerateObjectsUsingBlock:^(MutipleView * remoteView, NSUInteger idx, BOOL *stop) {
+        if (remoteView.uid == uid) {
+            [remoteView layoutVideoOffMask:!closed];
+            *stop = YES;
+        }
     }];
 }
 

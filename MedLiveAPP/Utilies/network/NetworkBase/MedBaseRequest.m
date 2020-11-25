@@ -94,6 +94,33 @@
     }];
 }
 
+- (void)startUploadFile:(NSURL *)fileUrl Data:(NSData *)fileData FileName:(NSString *)fileName success:(MLRequestCompletionBlock) success failure:(MLRequestCompletionBlock) failure{
+    NSParameterAssert([self requestUrl]);
+    MedLiveNetManager *manager = [MedLiveNetManager defaultManager];
+    NSString *mimeType = [manager getMimeTypeFromUrl:fileUrl];
+    
+    [manager uploadFileWith:fileData
+                   FileName:fileName
+                   MimeType:mimeType
+                        Url:[self requestUrl]
+                     Header:[self requestHeader]
+                     Success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
+        [self loadTask:task res:responseObject error:nil];
+        if (responseObject && [[responseObject valueForKey:@"err"] integerValue] != 0) {
+            [MedBaseRequest commonFailure:self];
+            failure(self);
+            return;
+        }
+        success(self);
+    } Failure:^(NSURLSessionDataTask * _Nonnull task, NSError* _Nullable error) {
+        [self loadTask:task res:nil error:error];
+        
+        [MedBaseRequest commonFailure:self];
+        
+        failure(self);
+    }];
+}
+
 - (void)loadTask:(NSURLSessionDataTask *)task res:(id)responseObj error:(NSError *)error{
     _requestTask = task;
     _currentRequest = task.currentRequest;

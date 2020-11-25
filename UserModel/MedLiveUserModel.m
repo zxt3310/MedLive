@@ -9,5 +9,12 @@
 #import "MedLiveUserModel.h"
 
 @implementation MedLiveUserModel
-
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.uid = @"0";
+    }
+    return self;
+}
 @end

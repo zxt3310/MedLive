@@ -24,8 +24,8 @@
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
     WKUserContentController *uc = [[WKUserContentController alloc] init];
     config.userContentController = uc;
-    //[uc addScriptMessageHandler:self name:@"channelInfo"];
     _mainWebView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
+    _mainWebView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     [self.view addSubview:_mainWebView];
     [_mainWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://dev.saikang.ranknowcn.com/h5/expert_list"]]];
     
@@ -35,15 +35,16 @@
     }];
 }
 
-- (void)viewWillLayoutSubviews{
-    [_mainWebView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
-}
-
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message{
 
 }
 
-
+- (void)viewSafeAreaInsetsDidChange{
+    [super viewSafeAreaInsetsDidChange];
+    UIEdgeInsets insets = self.view.safeAreaInsets;
+    insets.top = kStatusBarHeight;
+    [_mainWebView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view).with.insets(insets);
+    }];
+}
 @end

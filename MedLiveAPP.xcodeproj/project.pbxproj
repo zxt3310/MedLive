@@ -51,11 +51,18 @@
 		5850A9F125590FD300FB7AD8 /* MedUploadPhotoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5850A9F025590FD300FB7AD8 /* MedUploadPhotoRequest.m */; };
 		585143B82547FF4C0080E65C /* UIControl+UniTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 585143B72547FF4C0080E65C /* UIControl+UniTag.m */; };
 		585143BF25480C710080E65C /* MedLiveNetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 585143BE25480C710080E65C /* MedLiveNetManager.m */; };
+		5853F22225690F2B0032F1FC /* MedLiveRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 5853F22125690F2B0032F1FC /* MedLiveRoom.m */; };
+		5853F22F25690F470032F1FC /* MedLiveRoomBoardcast.m in Sources */ = {isa = PBXBuildFile; fileRef = 5853F22E25690F470032F1FC /* MedLiveRoomBoardcast.m */; };
+		5853F23725690F540032F1FC /* MedLiveRoomMeetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 5853F23625690F540032F1FC /* MedLiveRoomMeetting.m */; };
+		5853F23F25690F6A0032F1FC /* MedLiveRoomConsultation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5853F23E25690F6A0032F1FC /* MedLiveRoomConsultation.m */; };
+		5853F24725692E8A0032F1FC /* MedLiveRoomInfoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5853F24625692E8A0032F1FC /* MedLiveRoomInfoRequest.m */; };
+		585A128B2567AF8400911311 /* MedLiveWatchViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 585A128A2567AF8400911311 /* MedLiveWatchViewModel.m */; };
+		585A12932567B89800911311 /* MedLiveChatTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 585A12922567B89800911311 /* MedLiveChatTableCell.m */; };
+		58605F0E256E2ECA004C8B3B /* SKLMeetJoinMeetController.xml in Resources */ = {isa = PBXBuildFile; fileRef = 58605F0C256E2ECA004C8B3B /* SKLMeetJoinMeetController.xml */; };
+		58605F0F256E2ECA004C8B3B /* SKLMeetJoinMeetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58605F0D256E2ECA004C8B3B /* SKLMeetJoinMeetController.m */; };
 		586935AC2564C173004B2379 /* MedRtmTokenRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 586935AB2564C173004B2379 /* MedRtmTokenRequest.m */; };
 		586935BE2564F064004B2379 /* IMChannelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 586935BD2564F064004B2379 /* IMChannelManager.m */; };
 		586935C7256500D5004B2379 /* MedChannelMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 586935C6256500D5004B2379 /* MedChannelMessage.m */; };
-		586935D62565087D004B2379 /* MedRTMTest.xml in Resources */ = {isa = PBXBuildFile; fileRef = 586935D42565087D004B2379 /* MedRTMTest.xml */; };
-		586935D72565087D004B2379 /* MedRTMTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 586935D52565087D004B2379 /* MedRTMTest.m */; };
 		586AF935254BB5D200B22AF3 /* MedChainRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 586AF934254BB5D200B22AF3 /* MedChainRequest.m */; };
 		586AF93C254BE7CE00B22AF3 /* MedLiveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586AF93B254BE7CE00B22AF3 /* MedLiveController.m */; };
 		586AF94B254BE88400B22AF3 /* MedBordcastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 586AF94A254BE88400B22AF3 /* MedBordcastView.m */; };
@@ -80,6 +87,7 @@
 		589604A424F780F50047B8C6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 589604A324F780F50047B8C6 /* main.m */; };
 		589604AE24F780F50047B8C6 /* MedLiveAPPTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 589604AD24F780F50047B8C6 /* MedLiveAPPTests.m */; };
 		589604B924F780F50047B8C6 /* MedLiveAPPUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 589604B824F780F50047B8C6 /* MedLiveAPPUITests.m */; };
+		589CCD32256B9E2C0027F812 /* SKLMeetCreateViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 589CCD31256B9E2C0027F812 /* SKLMeetCreateViewModel.m */; };
 		58DA334A2549432A00895AE5 /* MedBaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 58DA33492549432A00895AE5 /* MedBaseRequest.m */; };
 		58DA335125495D1300895AE5 /* MedLiveLoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 58DA335025495D1300895AE5 /* MedLiveLoginRequest.m */; };
 		A1CC1901C20453728BDAFA11 /* Pods_MedLiveAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960327736A3A0F2029AD688D /* Pods_MedLiveAPP.framework */; };
@@ -214,15 +222,29 @@
 		585143B72547FF4C0080E65C /* UIControl+UniTag.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIControl+UniTag.m"; sourceTree = "<group>"; };
 		585143BD25480C710080E65C /* MedLiveNetManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveNetManager.h; sourceTree = "<group>"; };
 		585143BE25480C710080E65C /* MedLiveNetManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedLiveNetManager.m; sourceTree = "<group>"; };
+		5853F22025690F2B0032F1FC /* MedLiveRoom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveRoom.h; sourceTree = "<group>"; };
+		5853F22125690F2B0032F1FC /* MedLiveRoom.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedLiveRoom.m; sourceTree = "<group>"; };
+		5853F22D25690F470032F1FC /* MedLiveRoomBoardcast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveRoomBoardcast.h; sourceTree = "<group>"; };
+		5853F22E25690F470032F1FC /* MedLiveRoomBoardcast.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedLiveRoomBoardcast.m; sourceTree = "<group>"; };
+		5853F23525690F540032F1FC /* MedLiveRoomMeetting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveRoomMeetting.h; sourceTree = "<group>"; };
+		5853F23625690F540032F1FC /* MedLiveRoomMeetting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedLiveRoomMeetting.m; sourceTree = "<group>"; };
+		5853F23D25690F6A0032F1FC /* MedLiveRoomConsultation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveRoomConsultation.h; sourceTree = "<group>"; };
+		5853F23E25690F6A0032F1FC /* MedLiveRoomConsultation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedLiveRoomConsultation.m; sourceTree = "<group>"; };
+		5853F24525692E8A0032F1FC /* MedLiveRoomInfoRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveRoomInfoRequest.h; sourceTree = "<group>"; };
+		5853F24625692E8A0032F1FC /* MedLiveRoomInfoRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedLiveRoomInfoRequest.m; sourceTree = "<group>"; };
+		585A12892567AF8400911311 /* MedLiveWatchViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveWatchViewModel.h; sourceTree = "<group>"; };
+		585A128A2567AF8400911311 /* MedLiveWatchViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedLiveWatchViewModel.m; sourceTree = "<group>"; };
+		585A12912567B89800911311 /* MedLiveChatTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveChatTableCell.h; sourceTree = "<group>"; };
+		585A12922567B89800911311 /* MedLiveChatTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedLiveChatTableCell.m; sourceTree = "<group>"; };
+		58605F0B256E2ECA004C8B3B /* SKLMeetJoinMeetController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKLMeetJoinMeetController.h; sourceTree = "<group>"; };
+		58605F0C256E2ECA004C8B3B /* SKLMeetJoinMeetController.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SKLMeetJoinMeetController.xml; sourceTree = "<group>"; };
+		58605F0D256E2ECA004C8B3B /* SKLMeetJoinMeetController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKLMeetJoinMeetController.m; sourceTree = "<group>"; };
 		586935AA2564C173004B2379 /* MedRtmTokenRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedRtmTokenRequest.h; sourceTree = "<group>"; };
 		586935AB2564C173004B2379 /* MedRtmTokenRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedRtmTokenRequest.m; sourceTree = "<group>"; };
 		586935BC2564F064004B2379 /* IMChannelManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMChannelManager.h; sourceTree = "<group>"; };
 		586935BD2564F064004B2379 /* IMChannelManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMChannelManager.m; sourceTree = "<group>"; };
 		586935C5256500D5004B2379 /* MedChannelMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedChannelMessage.h; sourceTree = "<group>"; };
 		586935C6256500D5004B2379 /* MedChannelMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedChannelMessage.m; sourceTree = "<group>"; };
-		586935D32565087D004B2379 /* MedRTMTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedRTMTest.h; sourceTree = "<group>"; };
-		586935D42565087D004B2379 /* MedRTMTest.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MedRTMTest.xml; sourceTree = "<group>"; };
-		586935D52565087D004B2379 /* MedRTMTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedRTMTest.m; sourceTree = "<group>"; };
 		586AF933254BB5D200B22AF3 /* MedChainRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedChainRequest.h; sourceTree = "<group>"; };
 		586AF934254BB5D200B22AF3 /* MedChainRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedChainRequest.m; sourceTree = "<group>"; };
 		586AF93A254BE7CE00B22AF3 /* MedLiveController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveController.h; sourceTree = "<group>"; };
@@ -270,6 +292,8 @@
 		589604B424F780F50047B8C6 /* MedLiveAPPUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MedLiveAPPUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		589604B824F780F50047B8C6 /* MedLiveAPPUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedLiveAPPUITests.m; sourceTree = "<group>"; };
 		589604BA24F780F50047B8C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		589CCD30256B9E2C0027F812 /* SKLMeetCreateViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKLMeetCreateViewModel.h; sourceTree = "<group>"; };
+		589CCD31256B9E2C0027F812 /* SKLMeetCreateViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKLMeetCreateViewModel.m; sourceTree = "<group>"; };
 		58DA33482549432A00895AE5 /* MedBaseRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedBaseRequest.h; sourceTree = "<group>"; };
 		58DA33492549432A00895AE5 /* MedBaseRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedBaseRequest.m; sourceTree = "<group>"; };
 		58DA334F25495D1300895AE5 /* MedLiveLoginRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveLoginRequest.h; sourceTree = "<group>"; };
@@ -383,6 +407,7 @@
 		5833D9D8253192CF0004B10D /* Utilies */ = {
 			isa = PBXGroup;
 			children = (
+				5853F21F25690EE90032F1FC /* RoomModel */,
 				58E950902542C29D007F15A0 /* MedLiveheader.h */,
 				585143BC25480C5B0080E65C /* network */,
 				5819CCAC2536EA2400E4DF0C /* UIColor+U32Int.h */,
@@ -436,6 +461,9 @@
 				58711DDC25527AB1007317B9 /* SKLMeetCreateController.h */,
 				58711DDD25527AB1007317B9 /* SKLMeetCreateController.xml */,
 				58711DDE25527AB1007317B9 /* SKLMeetCreateController.m */,
+				58605F0B256E2ECA004C8B3B /* SKLMeetJoinMeetController.h */,
+				58605F0C256E2ECA004C8B3B /* SKLMeetJoinMeetController.xml */,
+				58605F0D256E2ECA004C8B3B /* SKLMeetJoinMeetController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -473,10 +501,14 @@
 		5849A22125657AB8009124ED /* WatchLive */ = {
 			isa = PBXGroup;
 			children = (
+				585A12912567B89800911311 /* MedLiveChatTableCell.h */,
+				585A12922567B89800911311 /* MedLiveChatTableCell.m */,
 				5849A21925657A8B009124ED /* MedLiveInteractView.h */,
 				5849A21A25657A8B009124ED /* MedLiveInteractView.m */,
 				5896049724F780F40047B8C6 /* ViewController.h */,
 				5896049824F780F40047B8C6 /* ViewController.m */,
+				585A12892567AF8400911311 /* MedLiveWatchViewModel.h */,
+				585A128A2567AF8400911311 /* MedLiveWatchViewModel.m */,
 			);
 			path = WatchLive;
 			sourceTree = "<group>";
@@ -519,6 +551,8 @@
 				5871F6B42556FEAC00758AF6 /* MedChannelStateRequest.m */,
 				586AF97A254BFD9E00B22AF3 /* MedChannelTokenRequest.h */,
 				586AF97B254BFD9E00B22AF3 /* MedChannelTokenRequest.m */,
+				5853F24525692E8A0032F1FC /* MedLiveRoomInfoRequest.h */,
+				5853F24625692E8A0032F1FC /* MedLiveRoomInfoRequest.m */,
 			);
 			path = NetworkModel;
 			sourceTree = "<group>";
@@ -539,6 +573,8 @@
 			children = (
 				5842B8F0255532180049F2EC /* SKLLiveCreateViewModel.h */,
 				5842B8F1255532180049F2EC /* SKLLiveCreateViewModel.m */,
+				589CCD30256B9E2C0027F812 /* SKLMeetCreateViewModel.h */,
+				589CCD31256B9E2C0027F812 /* SKLMeetCreateViewModel.m */,
 			);
 			path = viewmodel;
 			sourceTree = "<group>";
@@ -591,6 +627,21 @@
 				5849A22325657B74009124ED /* NetworkBase */,
 			);
 			path = network;
+			sourceTree = "<group>";
+		};
+		5853F21F25690EE90032F1FC /* RoomModel */ = {
+			isa = PBXGroup;
+			children = (
+				5853F22025690F2B0032F1FC /* MedLiveRoom.h */,
+				5853F22125690F2B0032F1FC /* MedLiveRoom.m */,
+				5853F22D25690F470032F1FC /* MedLiveRoomBoardcast.h */,
+				5853F22E25690F470032F1FC /* MedLiveRoomBoardcast.m */,
+				5853F23525690F540032F1FC /* MedLiveRoomMeetting.h */,
+				5853F23625690F540032F1FC /* MedLiveRoomMeetting.m */,
+				5853F23D25690F6A0032F1FC /* MedLiveRoomConsultation.h */,
+				5853F23E25690F6A0032F1FC /* MedLiveRoomConsultation.m */,
+			);
+			path = RoomModel;
 			sourceTree = "<group>";
 		};
 		5857955E2536ABE1001A0CEF /* Controllers */ = {
@@ -649,16 +700,6 @@
 				586935C6256500D5004B2379 /* MedChannelMessage.m */,
 			);
 			path = messageModel;
-			sourceTree = "<group>";
-		};
-		586935D225650868004B2379 /* test */ = {
-			isa = PBXGroup;
-			children = (
-				586935D32565087D004B2379 /* MedRTMTest.h */,
-				586935D42565087D004B2379 /* MedRTMTest.xml */,
-				586935D52565087D004B2379 /* MedRTMTest.m */,
-			);
-			path = test;
 			sourceTree = "<group>";
 		};
 		586AF939254BE7A900B22AF3 /* liveController */ = {
@@ -752,7 +793,6 @@
 		5896049024F780F40047B8C6 /* MedLiveAPP */ = {
 			isa = PBXGroup;
 			children = (
-				586935D225650868004B2379 /* test */,
 				584301EA256414FA00B5A461 /* MedLiveAPP.entitlements */,
 				58410DF8254C500C00C0DF2D /* BaseController */,
 				584F1FFD253D3B08003CAFBF /* LiveVideoView */,
@@ -973,11 +1013,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5836C27D2557AE89003B281D /* SKLUserCenterController.xml in Resources */,
-				586935D62565087D004B2379 /* MedRTMTest.xml in Resources */,
 				58420ACF2563C61E0076F47D /* TYSPNaviBar.xml in Resources */,
 				58442648255E2CB2004C3845 /* MedMultipleMeettingController.xml in Resources */,
 				58711DDF25527AB1007317B9 /* SKLMeetCreateController.xml in Resources */,
 				58423A522550F9AE004466B9 /* SKLLiveCreateController.xml in Resources */,
+				58605F0E256E2ECA004C8B3B /* SKLMeetJoinMeetController.xml in Resources */,
 				589604A124F780F50047B8C6 /* LaunchScreen.storyboard in Resources */,
 				5896049E24F780F50047B8C6 /* Assets.xcassets in Resources */,
 				5896049C24F780F40047B8C6 /* Main.storyboard in Resources */,
@@ -1130,12 +1170,15 @@
 				5819CC912536C1A500E4DF0C /* SKLTeamController.m in Sources */,
 				586E06AC2546BF0A008504E9 /* MedLiveLoginController.m in Sources */,
 				586AF973254BF95000B22AF3 /* MedLiveViewModel.m in Sources */,
+				58605F0F256E2ECA004C8B3B /* SKLMeetJoinMeetController.m in Sources */,
 				5819CCA02536E7D400E4DF0C /* SKLRootNavigator.m in Sources */,
 				58449E432562C2DB00EB31DC /* MedLiveWebContoller.m in Sources */,
 				58711DF52552A468007317B9 /* MedLiveSendMsgRequest.m in Sources */,
+				5853F23725690F540032F1FC /* MedLiveRoomMeetting.m in Sources */,
 				58DA334A2549432A00895AE5 /* MedBaseRequest.m in Sources */,
 				5896049324F780F40047B8C6 /* AppDelegate.m in Sources */,
 				58410DFB254C504A00C0DF2D /* MedLiveBaseVideoController.m in Sources */,
+				585A12932567B89800911311 /* MedLiveChatTableCell.m in Sources */,
 				586AF94B254BE88400B22AF3 /* MedBordcastView.m in Sources */,
 				5819CC972536C1C500E4DF0C /* SKLUserCenterController.m in Sources */,
 				585143BF25480C710080E65C /* MedLiveNetManager.m in Sources */,
@@ -1148,11 +1191,11 @@
 				58711DE025527AB1007317B9 /* SKLMeetCreateController.m in Sources */,
 				586AF96C254BF57400B22AF3 /* MedCreateLiveRequest.m in Sources */,
 				58420A862563762D0076F47D /* MedLiveBaseFlexViewController.m in Sources */,
+				5853F22225690F2B0032F1FC /* MedLiveRoom.m in Sources */,
 				58412AB02562584B004020F8 /* AgoraVideoSourceCustomor.m in Sources */,
 				586AF93C254BE7CE00B22AF3 /* MedLiveController.m in Sources */,
 				58DA335125495D1300895AE5 /* MedLiveLoginRequest.m in Sources */,
 				586935BE2564F064004B2379 /* IMChannelManager.m in Sources */,
-				586935D72565087D004B2379 /* MedRTMTest.m in Sources */,
 				584F2000253D3B5E003CAFBF /* LiveRenderMaskView.m in Sources */,
 				586AF954254BE92F00B22AF3 /* LiveView.m in Sources */,
 				5844E32B25539860003D8540 /* AppCommondCenter.m in Sources */,
@@ -1160,11 +1203,14 @@
 				58711E022552AB90007317B9 /* MedLiveUserModel.m in Sources */,
 				5819CCAE2536EA2400E4DF0C /* UIColor+U32Int.m in Sources */,
 				58420A7E256376140076F47D /* MedLiveBaseViewController.m in Sources */,
+				585A128B2567AF8400911311 /* MedLiveWatchViewModel.m in Sources */,
 				584E6BEA254FE51E00315751 /* UIButton+ImageText.m in Sources */,
 				5871F6B52556FEAC00758AF6 /* MedChannelStateRequest.m in Sources */,
 				5842B8F2255532180049F2EC /* SKLLiveCreateViewModel.m in Sources */,
 				584E6BF9254FFF1200315751 /* SKLLiveCreateView.m in Sources */,
+				5853F24725692E8A0032F1FC /* MedLiveRoomInfoRequest.m in Sources */,
 				586AF97C254BFD9E00B22AF3 /* MedChannelTokenRequest.m in Sources */,
+				589CCD32256B9E2C0027F812 /* SKLMeetCreateViewModel.m in Sources */,
 				586935AC2564C173004B2379 /* MedRtmTokenRequest.m in Sources */,
 				586935C7256500D5004B2379 /* MedChannelMessage.m in Sources */,
 				586AF935254BB5D200B22AF3 /* MedChainRequest.m in Sources */,
@@ -1176,6 +1222,8 @@
 				584F57CE253401550013AF08 /* LiveVideoRenderView.m in Sources */,
 				585143B82547FF4C0080E65C /* UIControl+UniTag.m in Sources */,
 				584EE8FA255D2FF400563DBE /* MedMultipleMeettingController.m in Sources */,
+				5853F23F25690F6A0032F1FC /* MedLiveRoomConsultation.m in Sources */,
+				5853F22F25690F470032F1FC /* MedLiveRoomBoardcast.m in Sources */,
 				5850A9F125590FD300FB7AD8 /* MedUploadPhotoRequest.m in Sources */,
 				5833D9DB253193200004B10D /* AgoraCenter.m in Sources */,
 				5844E33A25540014003D8540 /* MedLiveAppUtilies.m in Sources */,

@@ -8,12 +8,13 @@
 
 #import "AppPreLaunch.h"
 #import "MedLiveNetManager.h"
+#import "IMManager.h"
 
 @implementation AppPreLaunch
 
 + (void)preparBeforUI{
     [MedLiveNetManager setBaseUrl:Domain];
-    
+    [[IMManager sharedManager] loginToAgoraServiceWithId:[AppCommondCenter sharedCenter].currentUser.uid];
 }
 
 @end

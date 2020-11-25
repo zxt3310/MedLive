@@ -12,6 +12,9 @@
 {
     //遮罩视图
     LiveRenderMaskView *maskView;
+    //占位视图
+    UIView *placeView;
+    UILabel *tipLabel;
 }
 @synthesize videoCanvas = _videoCanvas;
 @synthesize videoView = _videoView;
@@ -30,9 +33,18 @@
     if (self) {
         //初始化video视图
         _videoView = [[UIView alloc] initWithFrame:CGRectZero];
+        //占位视图  初始化隐藏
+        placeView = [[UIView alloc] init];
+        placeView.backgroundColor = [UIColor lightGrayColor];
+        //占位文字
+        tipLabel = [[UILabel alloc] init];
+        [placeView addSubview:tipLabel];
         maskView = [[LiveRenderMaskView alloc] initWithFrame:CGRectZero];
+        
         [self addSubview:_videoView];
+        [self addSubview:placeView];
         [self addSubview:maskView];
+        
         maskView.maskDelegate = delegate;
         _videoView.backgroundColor = [UIColor ColorWithRGB:44 Green:123 Blue:246 Alpha:1];
     }
@@ -56,9 +68,26 @@
     [self.videoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
+    [placeView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
+    }];
+    [tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self);
+    }];
     [maskView mas_makeConstraints:^(MASConstraintMaker *make){
         make.edges.equalTo(self);
     }];
+}
+
+- (void)fillTitle:(NSString *)title{
+    [maskView fillTitle:title];
+}
+
+- (void)showPlaceView:(BOOL)show CenterTip:(NSString *)tip{
+    placeView.hidden = !show;
+    if (show) {
+        tipLabel.text = tip;
+    }
 }
 
 @end
