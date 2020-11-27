@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SKLMeetCreateViewModel : NSObject
-- (void)createLivePlanWithTitle:(NSString *)title Uid:(NSString *)uid Start:(NSString *)start Password:(NSString *)pwd allowDocs:(BOOL)allow Docs:(NSString*)docs Complete:(void(^)(NSString *channelId,NSString *title,NSString *roomId))success;
+- (void)createLivePlanWithTitle:(NSString *)title Uid:(NSString *)uid Start:(NSString *)start Password:(NSString *)pwd allowDocs:(BOOL)allow Docs:(NSArray*)docs Complete:(void(^)(NSString *channelId,NSString *title,NSString *roomId))success;
 
 - (void)uploadPicture:(UIImage *)image CompleteBlock:(void(^)(NSString *picUrl)) success fail:(void(^)(void))fail;
 - (void)uploadFile:(NSData *)fileData Name:(NSString *)fileName FileUrl:(NSURL *)url success:(void(^)(NSString *picUrl)) success;

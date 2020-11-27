@@ -24,7 +24,6 @@
     UIView *coverPicView;
     NSString *coverPicUrl;
     NSMutableArray <UIView*> *introPicsMutable;
-    NSMutableArray <NSString*> *introPicsUrlMutable;
 }
 @end
 
@@ -68,6 +67,13 @@
 - (void)createPlanWithComplate:(void(^)(NSString *channelId, NSString *title, NSString *roomId)) completeBlock{
     NSArray *formAry = [NSArray arrayWithObjects:titleField.text,dateStr,coverPicUrl, nil];
     NSArray *alertAry = [NSArray arrayWithObjects:@"直播主题未填写",@"开播时间未选择",@"封面未设置", nil];
+    NSMutableArray <NSString*>* picAry = [NSMutableArray array];
+    for (UIView *view in introPicsMutable) {
+        if (view.uniTag) {
+            [picAry addObject:view.uniTag];
+        }
+    }
+    
     [MedLiveAppUtilies checkForm:formAry Aleart:alertAry Complate:^(BOOL res, NSString * alertStr) {
         if (res) {
             [self->viewModel createLivePlanWithTitle:self->titleField.text
@@ -75,15 +81,18 @@
                                                  Uid:[AppCommondCenter sharedCenter].currentUser.uid
                                                Start:self->dateStr
                                               picUrl:coverPicUrl
+                                           introPics:[picAry copy]
                                             Complete:^(NSString *channelId, NSString *title, NSString *roomId) {
                 if(completeBlock){
                     completeBlock(channelId,title,roomId);
                 }else{
                     NSLog(@"创建成功,频道号：%@， 标题：%@， 房间号%@",channelId,title,roomId);
+                    [MedLiveAppUtilies showErrorTip:@"创建成功"];
                 }
             }];
         }else{
             NSLog(@"%@",alertStr);
+            [MedLiveAppUtilies showErrorTip:alertStr];
         }
     }];
 }
@@ -105,6 +114,7 @@
 - (void)selectIntoPics{
     if(introPicsMutable.count == 5){
         NSLog(@"图片数量达上限");
+        [MedLiveAppUtilies showErrorTip:@"最多5张图片"];
         return;
     }
     TZImagePickerController *pickControl = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:self];
@@ -147,6 +157,7 @@
         [coverPicView markDirty];
     } fail:^{
         NSLog(@"封面图上传失败");
+        [MedLiveAppUtilies showErrorTip:@"上传失败"];
     }];
 }
 
@@ -186,6 +197,7 @@
         
     } finaly:^(int suc, int failure) {
         NSLog(@"成功上传 %d张, 失败 %d张",suc,failure);
+        [MedLiveAppUtilies showErrorTip:[NSString stringWithFormat:@"成功上传 %d张, 失败 %d张",suc,failure]];
     }];
 }
 

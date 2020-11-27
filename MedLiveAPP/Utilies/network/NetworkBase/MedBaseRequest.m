@@ -140,5 +140,6 @@
         errStr = request.error.description;
     }
     NSLog(@"%@",errStr);
+    [MedLiveAppUtilies showErrorTip:errStr];
 }
 @end

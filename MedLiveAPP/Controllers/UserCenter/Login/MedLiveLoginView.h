@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)loginView:(MedLiveLoginView *)view SendMobileMsg:(NSString *)mobile Complete:(void (^)(NSString *,BOOL))completeBlock;
 
 - (void)loginView:(MedLiveLoginView *)view StartLoginWithMobile:(NSString *)mobile Code:(NSString *)code;
+
+- (void)loginViewShouldPop;
 @end
 
 @interface MedLiveLoginView : UIView

@@ -9,10 +9,24 @@
 #import "SKLMeetCreateViewModel.h"
 #import "MedCreateLiveRequest.h"
 #import "MedUploadPhotoRequest.h"
+#import <YYModel.h>
 
 @implementation SKLMeetCreateViewModel
-- (void)createLivePlanWithTitle:(NSString *)title Uid:(NSString *)uid Start:(NSString *)start Password:(NSString *)pwd allowDocs:(BOOL)allow Docs:(NSString*)docs Complete:(void(^)(NSString *channelId,NSString *title,NSString *roomId))success{
-   MedCreateLiveRequest *request = [[MedCreateLiveRequest alloc] initWithTitle:title Desc:@"" Uid:uid Start:start picUrl:@"" Type:@"meeting" Password:pwd AllowDoc:allow Docs:docs];
+- (void)createLivePlanWithTitle:(NSString *)title Uid:(NSString *)uid Start:(NSString *)start Password:(NSString *)pwd allowDocs:(BOOL)allow Docs:(NSArray*)docs Complete:(void(^)(NSString *channelId,NSString *title,NSString *roomId))success{
+    NSString *docJson = @"";
+    if (docs && docs.count>0) {
+        docJson = [docs yy_modelToJSONString];
+    }
+   MedCreateLiveRequest *request = [[MedCreateLiveRequest alloc] initWithTitle:title
+                                                                          Desc:@""
+                                                                           Uid:uid
+                                                                         Start:start
+                                                                        picUrl:@""
+                                                                          Type:@"meeting"
+                                                                      Password:pwd
+                                                                      AllowDoc:allow
+                                                                          Docs:docJson
+                                                                      intrPics:@""];
    [request startWithSucBlock:^(NSString * channelId, NSString * title, NSString * roomId) {
        success(channelId,title,roomId);
    }];

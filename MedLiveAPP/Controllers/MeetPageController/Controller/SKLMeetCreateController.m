@@ -188,6 +188,7 @@
                 
                 if (error) {
                     NSLog(@"文件读取出错: %@",error);
+                    [MedLiveAppUtilies showErrorTip:@"文件读取失败"];
                 }else{
                     [viewModel uploadFile:fileData Name:fileName FileUrl:newURL success:^(NSString * _Nonnull picUrl) {
                         NSLog(@"上传: %@",fileName);
@@ -199,9 +200,9 @@
         }];
     }else{
         NSLog(@"无权访问");
+        [MedLiveAppUtilies showErrorTip:@"无权访问"];
     }
     [urls.firstObject stopAccessingSecurityScopedResource];
-
 }
 
 #pragma 创建业务
@@ -226,18 +227,19 @@
            }];
         }else{
             NSLog(@"%@",alert);
+            [MedLiveAppUtilies showErrorTip:alert];
         }
     }];
 }
 
-- (NSString *)getDocsPathArrayJson{
+- (NSArray <NSString*>*)getDocsPathArrayJson{
     NSMutableArray <NSString *>*ary = [NSMutableArray array];
     [fileViewAry enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
         if (view.uniTag) {
             [ary addObject:view.uniTag];
         }
     }];
-    return [ary yy_modelToJSONString];
+    return [ary copy];
 }
 
 - (void)popViewController{

@@ -12,7 +12,6 @@
 #import "SKLMeetController.h"
 #import "SKLTeamController.h"
 #import "SKLUserCenterController.h"
-//#import "ViewController.h"
 
 @interface MainTabController ()<AxcAE_TabBarDelegate>
 
@@ -29,7 +28,7 @@
     SKLMeetController *meetting = [[SKLMeetController alloc] init];
     SKLTeamController *proTeam = [[SKLTeamController alloc] init];
     SKLUserCenterController *userCenter = [[SKLUserCenterController alloc] init];
-    //ViewController *test = [[ViewController alloc] init];
+
     self.viewControllers = @[mainPage,meetting,proTeam,userCenter];
     
     AxcAE_TabBarConfigModel *Main = [self ConfigWithDictionary:@{@"title":@"主页",@"icon":@"main"}];

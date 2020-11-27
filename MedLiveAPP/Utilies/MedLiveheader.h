@@ -57,10 +57,15 @@ typedef enum : NSUInteger {
 } MedLiveType;
 
 typedef enum : NSUInteger {
+    MedLiveRoomStateCreated,
     MedLiveRoomStateStart,
     MedLiveRoomStateEnd
 } MedLiveRoomState;
 
+typedef enum : NSUInteger {
+    MedLiveRoleStateJoin,
+    MedliveRoleStateLeave
+} MedLiveRoleState;
 #endif /* MedLiveheader_h */
 
 

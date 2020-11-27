@@ -32,7 +32,7 @@
 - (void)sendMessageSuccess:(void(^)(NSString * code)) complateBlock fail:(void(^)(NSString *)) errorBlock{
     [self startRequestCompletionWithSuccess:^(MedLiveSendMsgRequest * request) {
         id obj = [request.responseObject valueForKey:@"data"];
-        NSString *code = [obj valueForKey:@"code"];
+        NSString *code = [[obj valueForKey:@"code"] stringValue];
         complateBlock(code);
     } failure:^(MedLiveSendMsgRequest* request) {
         errorBlock(@"短信发送失败");

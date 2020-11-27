@@ -34,9 +34,9 @@
     [pannel addSubview:containor_join];
     
     //UIImageView *consultation_image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"meetting_p"]];
-    UIImageView *meet_image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"meetting_p"]];
-    UIImageView *live_image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"meetting_p"]];
-    UIImageView *join_image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"meetting_p"]];
+    UIImageView *meet_image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"meet_cre"]];
+    UIImageView *live_image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"boardcast_cre"]];
+    UIImageView *join_image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"meet_join"]];
    // [containor_consultation addSubview:consultation_image];
     [containor_meet addSubview:meet_image];
     [containor_live addSubview:live_image];
@@ -59,13 +59,22 @@
     [containor_live addSubview:live_title];
     [containor_join addSubview:join_title];
     
+    UILabel *introTitle = [[UILabel alloc] init];
+    introTitle.text = @"功能介绍";
+    [self addSubview:introTitle];
+    
+    [introTitle mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(pannel).with.offset(20);
+        make.top.equalTo(pannel.mas_bottom);
+    }];
+    
     //布局
-    CGSize imageSize = CGSizeMake(25, 25);
+    CGSize imageSize = CGSizeMake(32, 38);
     CGSize titleSize = CGSizeMake(60, 20);
     NSArray<UIView *> *containorAry = @[containor_meet,containor_live,containor_join];
     [pannel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.and.top.equalTo(self);
-        make.height.mas_equalTo(150);
+        make.height.mas_equalTo(200);
     }];
     
     [containorAry mas_distributeViewsAlongAxis:MASAxisTypeHorizontal

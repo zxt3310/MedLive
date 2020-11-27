@@ -10,6 +10,7 @@
 #import "MutipleMeettingViewModel.h"
 #import "MutipleView.h"
 #import "MedLiveRoomMeetting.h"
+#import <LGAlertView.h>
 
 #define HoritonSpace 5.0
 #define VerticalSpace 5.0
@@ -48,7 +49,7 @@
     [self setupLocalVideo];
     
     //为了等待初始化结束  延迟两秒执行布局
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self layoutMemberWindow];
         [viewModel fetchRoomInfoWithRoomId:self.roomId Complete:^(MedLiveRoomMeetting *room) {
             [viewModel joinMeetting:room.channelId];
@@ -131,7 +132,7 @@
             CGFloat lineWidth = widthWithoutSpacing/3;
             [view setLayoutAttrStrings:@[
                 @"width",[NSString stringWithFormat:@"%f",lineWidth],
-                @"height",[NSString stringWithFormat:@"%f",lineWidth*1.3],
+                @"aspectRatio",[NSString stringWithFormat:@"0.8"],
                 @"margin",[NSString stringWithFormat:@"%f",HoritonSpace],
                 @"position",@"ralative"
             ]];
@@ -197,6 +198,12 @@
     }];
 }
 
+- (void)meetMemberBecomeActive:(NSInteger)uid{
+    [memberAry enumerateObjectsUsingBlock:^(MutipleView *remoteView, NSUInteger idx, BOOL *stop) {
+        
+    }];
+}
+
 #pragma 功能条
 //静音
 - (void)mute{
@@ -237,8 +244,22 @@
 }
 //挂断
 - (void)getEnd{
-    [viewModel stopLive];
-    [self.navigationController popViewControllerAnimated:YES];
+    LGAlertView *alert = [LGAlertView alertViewWithTitle:@"退出会议"
+                                                  message:@"创建者退出,会议即结束"
+                                                   style:LGAlertViewStyleAlert
+                                            buttonTitles:@[@"确定"]
+                                       cancelButtonTitle:@"取消"
+                                  destructiveButtonTitle:nil];
+    alert.messageTextColor = [UIColor redColor];
+    
+    __weak MutipleMeettingViewModel *weakModel = viewModel;
+    WeakSelf
+    alert.actionHandler= ^(LGAlertView *alertView, NSUInteger index, NSString *title){
+        [weakModel stopLive];
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+    };
+    
+    [alert showAnimated];
 }
 
 - (void)switchCamera{

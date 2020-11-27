@@ -7,6 +7,7 @@
 //
 
 #import "MedLiveInteractView.h"
+#import <YYWebImage.h>
 
 @interface MedLiveInteractView() <UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (weak) id<interactViewDelegate> viewDelegate;
@@ -22,6 +23,7 @@
     //文本输入区域
     UIView *chatTextView;
     UIView *chatScroll;
+    UIScrollView *infoScroll;
     
     UITextField *chatField;
     UIButton *sendBtn;
@@ -117,7 +119,7 @@
     [self addSubview:horizonScroll];
 
     //详情
-    UIScrollView *infoScroll = [[UIScrollView alloc] init];
+    infoScroll = [[UIScrollView alloc] init];
     [horizonScroll addSubview:infoScroll];
     //互动
     chatScroll = [[UIView alloc] init];
@@ -197,6 +199,87 @@
     }];
 }
 
+- (void)setupIntorduceScroll{
+    if (self.viewDelegate) {
+        [self.viewDelegate interactViewNeedSetupIntroduce:^(NSString *title,NSString* startTime, NSString * introStr, NSArray<NSString *> *pics) {
+            [self setupIntroduce:title Start:startTime Intro:introStr Pics:pics];
+        }];
+    }
+}
+
+- (void)setupIntroduce:(NSString*)title Start:(NSString *)startTime Intro:(NSString *)introStr Pics:(NSArray <NSString*>*) pics{
+    //主题
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.text = title;
+    titleLabel.font = [UIFont systemFontOfSize:15];
+    titleLabel.numberOfLines = 0;
+    [infoScroll addSubview:titleLabel];
+    //时间
+    UILabel *timeLabel = [[UILabel alloc] init];
+    timeLabel.font = [UIFont systemFontOfSize:12];
+    timeLabel.textColor = [UIColor ColorWithRGB:180 Green:180 Blue:180 Alpha:1];
+    timeLabel.text = startTime;
+    [infoScroll addSubview:timeLabel];
+    //介绍
+    UILabel *introLabel = [[UILabel alloc] init];
+    introLabel.font = [UIFont systemFontOfSize:12];
+    introLabel.numberOfLines = 0;
+    introLabel.text = introStr;
+    [infoScroll addSubview:introLabel];
+    
+    UIView *picsView = [[UIView alloc] init];
+    [infoScroll addSubview:picsView];
+    
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.equalTo(infoScroll).offset(20);
+        make.width.lessThanOrEqualTo(@(infoScroll.frame.size.width - 40));
+    }];
+    [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(titleLabel.mas_bottom).offset(5);
+        make.left.equalTo(titleLabel);
+    }];
+    [introLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(timeLabel.mas_bottom).offset(20);
+        make.left.equalTo(timeLabel);
+        make.width.lessThanOrEqualTo(@(infoScroll.frame.size.width - 40));
+    }];
+    [picsView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@(infoScroll.frame.size.width - 40));
+        make.top.equalTo(introLabel.mas_bottom).offset(5);
+        make.left.equalTo(introLabel);
+        make.height.mas_lessThanOrEqualTo(250*pics.count);
+    }];
+    //图片
+    if (pics) {
+        NSMutableArray <UIImageView *>* picsViewAry = [NSMutableArray array];
+        [pics enumerateObjectsUsingBlock:^(NSString * path, NSUInteger idx, BOOL *stop) {
+            UIImageView *imageView = [[UIImageView alloc] init];
+            imageView.yy_imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@:8081%@",Domain,path]];
+            imageView.contentMode = UIViewContentModeScaleAspectFill;
+            imageView.clipsToBounds = YES;
+            [picsViewAry addObject:imageView];
+            [picsView addSubview:imageView];
+        }];
+        //多个图片等间距排版
+        if (pics.count > 1) {
+            [picsViewAry mas_distributeViewsAlongAxis:MASAxisTypeVertical withFixedSpacing:10 leadSpacing:20 tailSpacing:20];
+            [picsViewAry mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(picsView);
+                make.height.mas_lessThanOrEqualTo(250);
+            }];
+            
+        }else if(pics.count == 1){
+            UIImageView *imgView = [picsViewAry firstObject];
+            [imgView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.left.right.equalTo(picsView);
+                make.height.mas_lessThanOrEqualTo(250);;
+            }];
+        }
+    }
+    [infoScroll layoutIfNeeded];
+    [self reloadScrollContentSize:infoScroll];
+}
+
 - (void)resetScroll{
     [self infoBtnAction:infoBtn];
 }
@@ -242,6 +325,7 @@
     if (self.viewDelegate) {
         [self.viewDelegate interactViewDidShareWithUrl:^{
             NSLog(@"已复制到剪切板");
+            [MedLiveAppUtilies showErrorTip:@"已复制"];
         }];
     }
 }
@@ -275,6 +359,11 @@
 - (void)layoutSubviews{
     NSLog(@"调用布局");
     [self reloadScrollContentSize:horizonScroll];
+}
+
+- (void)updateConstraints{
+    [super updateConstraints];
+    
 }
 
 - (void)keyboardTrack:(NSNotification *)notify{
@@ -326,6 +415,7 @@
     NSString *msg = chatField.text;
     if (KIsBlankString(msg)) {
         NSLog(@"不要发送空信息");
+        [MedLiveAppUtilies showErrorTip:@"输入消息内容"];
         return;
     }
     if (self.viewDelegate && [self.viewDelegate respondsToSelector:@selector(interactViewDidSendmessage:Complete:)]) {

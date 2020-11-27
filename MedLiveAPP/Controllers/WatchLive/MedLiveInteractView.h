@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MedLiveChatTableCell.h"
+#import "MedLiveRoomBoardcast.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,10 +17,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)interactViewDidSendmessage:(NSString *)text Complete:(void(^)(MedChannelMessage* msg))result;
 - (void)interactViewDidShareWithUrl:(void(^)(void))result;
+- (void)interactViewNeedSetupIntroduce:(void(^)(NSString *title,NSString* startTime, NSString * introStr, NSArray<NSString *> *pics))callBack;
 @end
 
 @interface MedLiveInteractView : UIView
+
 - (instancetype)initWithViewDelegate:(id<interactViewDelegate>)delegate;
+- (void)setupIntorduceScroll;//加载介绍
 - (void)resetScroll;
 @end
 

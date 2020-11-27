@@ -17,6 +17,7 @@ typedef void(^conctollerPresentCall)(NSString* callIndentifer);
 @property conctollerPresentCall pushCall;
 - (void)fetchRoomInfo:(NSString *)roomId Complete:(void(^)(MedLiveRoomBoardcast* ))res;
 - (void)leaveRtmChannel;
+- (void)changeRoleState:(MedLiveRoleState)state;
 @end
 
 NS_ASSUME_NONNULL_END

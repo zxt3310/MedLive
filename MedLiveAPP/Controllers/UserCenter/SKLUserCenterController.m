@@ -67,18 +67,24 @@
 }
 
 - (void)myLive{
-    NSString *url = [NSString stringWithFormat:@"%@/h5/boardcast_list?user_id=%@",Domain,[AppCommondCenter sharedCenter].currentUser.uid];
-    [self pushWebVC:url Type:@"boardcast" Title:@"我的直播"];
+    if (![MedLiveAppUtilies needLogin]) {
+        NSString *url = [NSString stringWithFormat:@"%@/h5/boardcast_list?user_id=%@",Domain,[AppCommondCenter sharedCenter].currentUser.uid];
+        [self pushWebVC:url Type:@"boardcast" Title:@"我的直播"];
+    }
 }
 
 - (void)myMeetting{
-    NSString *url = [NSString stringWithFormat:@"%@/h5/meeting_list?user_id=%@",Domain,[AppCommondCenter sharedCenter].currentUser.uid];
-    [self pushWebVC:url Type:@"meeting" Title:@"我的会议"];
+    if (![MedLiveAppUtilies needLogin]) {
+        NSString *url = [NSString stringWithFormat:@"%@/h5/meeting_list?user_id=%@",Domain,[AppCommondCenter sharedCenter].currentUser.uid];
+        [self pushWebVC:url Type:@"meeting" Title:@"我的会议"];
+    }
 }
 
 - (void)myConsultation{
-    NSString *url = [NSString stringWithFormat:@"%@/h5/consultation_list?user_id=%@",Domain,[AppCommondCenter sharedCenter].currentUser.uid];
-    [self pushWebVC:url Type:@"consultation" Title:@"我的会诊"];
+    if (![MedLiveAppUtilies needLogin]) {
+        NSString *url = [NSString stringWithFormat:@"%@/h5/consultation_list?user_id=%@",Domain,[AppCommondCenter sharedCenter].currentUser.uid];
+        [self pushWebVC:url Type:@"consultation" Title:@"我的会诊"];
+    }
 }
 
 - (void)pushWebVC:(NSString *)url Type:(NSString *)type Title:(NSString *)title{

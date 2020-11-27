@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)didRemoteLeave:(NSInteger) uid;
 - (void)didReceiveRemoteAudio:(NSArray <AgoraRtcAudioVolumeInfo*>*) speakers;
 - (void)remote:(NSInteger)uid DidDisabledCamera:(BOOL)disable;
+- (void)remoteBecomeActiveSpeaker:(NSInteger)uid;
 @end
 
 @interface LiveManager : NSObject
@@ -30,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 //加载本地流视图
 - (void)setupVideoLocalView:(__kindof LiveView *) view;
 //加入频道
-- (int)joinRoomByToken:(NSString *)token Room:(NSString *)roomId Uid:(NSString *)uid;
+- (int)joinRoomByToken:(NSString *)token Room:(NSString *)roomId Uid:(NSString *)uid success:(void(^)(void))success;
 //加载远端流视图
 - (void)setupVideoRemoteView:(UIView *)view;
 //暂停、继续

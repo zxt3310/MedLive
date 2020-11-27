@@ -4,7 +4,7 @@
         <UIView class="" layout="flexDirection:row" attr="">
             <UILabel name="" class="" layout="" attr="fontSize:16,color:#333333,text:会 议 号："/>
             <UILabel name="roomIdLabel" class="" layout="" attr="fontSize:16,color:#333333,text:"/>
-            <FlexTouchView onPress="" layout="" attr="">
+            <FlexTouchView onPress="pasteRoomid" layout="" attr="">
                 <UIImageView layout="width:20,height:20" attr="source:copy"/>
             </FlexTouchView>
         </UIView>
@@ -23,7 +23,7 @@
         <UIView class="" layout="" attr="">
             <UIView class="" layout="flexDirection:row" attr="">
                 <UILabel name="" class="" layout="" attr="fontSize:16,color:#333333,text:参会链接："/>
-                <FlexTouchView onPress="" layout="" attr="">
+                <FlexTouchView onPress="pasteLink" layout="" attr="">
                     <UIImageView layout="width:20,height:20" attr="source:copy"/>
                 </FlexTouchView>
             </UIView>
@@ -31,7 +31,7 @@
         </UIView>
     </UIView>
     
-    <FlexTouchView onPress="joinMeet" layout="height:45,width:180,justifyContent:center,alignItems:center,alignSelf:center" attr="bgColor:blue">
+    <FlexTouchView name="joinBtn" onPress="joinMeet" layout="height:45,width:180,justifyContent:center,alignItems:center,alignSelf:center" attr="bgColor:blue">
         <UILabel name="" class="" layout="" attr="fontSize:16,color:white,text:加入会议"/>
     </FlexTouchView>
 </UIView>

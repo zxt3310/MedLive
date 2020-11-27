@@ -113,11 +113,13 @@
 
 - (void)channel:(AgoraRtmChannel *)channel memberJoined:(AgoraRtmMember *)member{
     NSLog(@"有成员加入频道");
+    [MedLiveAppUtilies showErrorTip:@"有成员加入频道"];
     [memberDic setObject:member forKey:member.userId];
 }
 
 - (void)channel:(AgoraRtmChannel *)channel memberLeft:(AgoraRtmMember *)member{
     NSLog(@"有成员离开频道");
+    [MedLiveAppUtilies showErrorTip:@"有成员离开频道"];
     [memberDic removeObjectForKey:member.userId];
 }
 

@@ -22,12 +22,19 @@
     
     MedLiveRoomMeetting *room;
     NSString *pwdText;
+    FlexTouchView *joinBtn;
 }
 - (void)viewDidLoad{
     [super viewDidLoad];
     
     MedLiveRoomInfoRequest *request = [[MedLiveRoomInfoRequest alloc] initWithRoomId:self.roomId];
     [request fetchWithComplete:^(__kindof MedLiveRoom *room) {
+        if (![room isMemberOfClass:[MedLiveRoomMeetting class]]) {
+            joinBtn.userInteractionEnabled = NO;
+            
+            [MedLiveAppUtilies showErrorTip:@"无效的房间号"];
+            return;
+        }
         MedLiveRoomMeetting *meetRoom = (MedLiveRoomMeetting *)room;
         self->room = meetRoom;
         roomIdLabel.text = meetRoom.roomId;
@@ -66,6 +73,18 @@
 
 - (void)pwdDidChange:(UITextField *)textField{
     pwdText = textField.text;
+}
+//复制会议号
+- (void)pasteRoomid{
+    UIPasteboard *pd = [UIPasteboard generalPasteboard];
+    pd.string = [NSString stringWithFormat:@"会议号：%@",room.roomId];
+    [MedLiveAppUtilies showErrorTip:@"已复制到剪切板"];
+}
+//复制链接
+- (void)pasteLink{
+    UIPasteboard *pd = [UIPasteboard generalPasteboard];
+    pd.string = [NSString stringWithFormat:@"参会链接：%@",linkLable.text];
+    [MedLiveAppUtilies showErrorTip:@"已复制到剪切板"];
 }
 
 - (void)pushVC{

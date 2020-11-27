@@ -19,7 +19,7 @@ UIKIT_EXTERN NSString *const MedRtmRejoinCall;
 //- (void)appDidEvocatedToBoardcastWithRoom:(NSString *)roomId;
 //- (void)appDidEvocatedToMeettingWithRoom:(NSString *)roomId;
 //- (void)appDidEvocatedToConsultationWithRoom:(NSString *)roomId;
-- (void)appDidEvocatedToLiveWithUrl:(NSString *)url;
+- (void)appDidEvocatedToLiveWithUrl:(NSURL *)url;
 @end
 
 @interface AppCommondCenter : NSObject

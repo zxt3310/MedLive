@@ -17,6 +17,8 @@
     NSString *mobile;
     NSString *code;
     UIButton *sendCodeBtn;
+    UITextField *codeFiled;
+    UIButton *popBtn;
 }
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -41,8 +43,15 @@
     [titleView addSubview:title2];
     [self addSubview:titleView];
     
+    UIView *phoneLeft = [[UIView alloc] init];
+    UIView *codeLeft = [[UIView alloc] init];
+    UIImageView *phoneImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"phone"]];
+    [phoneLeft addSubview:phoneImg];
+    UIImageView *codeImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"code"]];
+    [codeLeft addSubview:codeImg];
+    
     UITextField *phoneField = [[UITextField alloc] init];
-    phoneField.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"phone"]];
+    phoneField.leftView = phoneLeft;
     phoneField.leftViewMode = UITextFieldViewModeAlways;
     phoneField.layer.cornerRadius = 5;
     phoneField.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.3];
@@ -55,8 +64,8 @@
     [phoneField setAttributedPlaceholder:attrString];
     [self addSubview:phoneField];
     
-    UITextField *codeFiled = [[UITextField alloc] init];
-    codeFiled.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"code"]];
+    codeFiled = [[UITextField alloc] init];
+    codeFiled.leftView = codeLeft;
     codeFiled.leftViewMode = UITextFieldViewModeAlways;
     codeFiled.layer.cornerRadius = 10;
     codeFiled.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.3];
@@ -68,6 +77,11 @@
     [codeFiled addTarget:self action:@selector(textFieldDidEditingChange:) forControlEvents:UIControlEventEditingChanged];
     [codeFiled setAttributedPlaceholder:attrString];
     [self addSubview:codeFiled];
+    
+    popBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [popBtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [popBtn addTarget:self action:@selector(popBack) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:popBtn];
     
     sendCodeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     sendCodeBtn.layer.cornerRadius = 10;
@@ -87,7 +101,7 @@
     
     [titleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).with.offset(30);
-        make.top.equalTo(self.mas_top).with.offset(180);
+        make.top.equalTo(self.mas_top).with.offset(150);
         make.right.equalTo(self.mas_right).with.offset(-20);
         make.height.mas_equalTo(60);
     }];
@@ -114,6 +128,20 @@
         make.height.mas_equalTo(50);
     }];
     
+    UIEdgeInsets imgInset = UIEdgeInsetsMake(0, 8, 0, 8);
+    [phoneLeft mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(36, 20));
+    }];
+    [phoneImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(phoneLeft).insets(imgInset);
+    }];
+    [codeLeft mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(36, 20));
+    }];
+    [codeImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(codeLeft).insets(imgInset);
+    }];
+    
     [sendCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(phoneField.mas_right);
         make.top.equalTo(phoneField.mas_top);
@@ -127,6 +155,7 @@
         make.right.mas_equalTo(codeFiled.mas_right);
         make.height.equalTo(codeFiled.mas_height);
     }];
+    
 }
 
 - (void)textFieldDidEditingChange:(UITextField *)textField{
@@ -141,6 +170,7 @@
 - (void)startLogin{
     if (KIsBlankString(mobile) && KIsBlankString(code)) {
         NSLog(@"手机号 验证码没填");
+        [MedLiveAppUtilies showErrorTip:@"请输入验证码"];
         return;
     }
     if(self.loginDelegate){
@@ -150,7 +180,8 @@
 
 - (void)messageSend:(UIButton *)sender{
     if (![MedLiveAppUtilies checkTelNumber:mobile]) {
-        return;;
+        [MedLiveAppUtilies showErrorTip:@"请输入正确的手机号"];
+        return;
     }
     sender.enabled = NO;
     
@@ -172,9 +203,26 @@
                 }];
 //#ifdef DEBUG
                 self->code = messageCode;
+                codeFiled.text = messageCode;
 //#endif
             }
         }];
+    }
+}
+
+- (void)safeAreaInsetsDidChange{
+    [super safeAreaInsetsDidChange];
+    UIEdgeInsets insets = self.safeAreaInsets;
+    
+    [popBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).offset(insets.top + 10);
+        make.left.equalTo(self).offset(20);
+    }];
+}
+
+- (void)popBack{
+    if (self.loginDelegate) {
+        [self.loginDelegate loginViewShouldPop];
     }
 }
 

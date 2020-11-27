@@ -16,6 +16,7 @@
 @implementation MedLiveViewModel
 {
     LiveManager *liveManager;
+    NSString *roomId;
 }
 - (instancetype)init
 {
@@ -32,16 +33,23 @@
     [liveManager enableVideo];
 }
 
-- (int)joinChannel:(NSString *)channelName Token:(NSString *)token{
-    return [liveManager joinRoomByToken:token
-                                   Room:channelName
-                                    Uid:[AppCommondCenter sharedCenter].currentUser.uid];
+- (void)joinChannel:(NSString *)channelName Token:(NSString *)token{
+    WeakSelf
+    [liveManager joinRoomByToken:token
+                            Room:channelName
+                            Uid:[AppCommondCenter sharedCenter].currentUser.uid
+                        success:^{
+        //发送开播信号
+        [weakSelf sendLiveState:MedLiveRoomStateStart
+                        UserId:[AppCommondCenter sharedCenter].currentUser.uid];
+    }];
 }
 
 - (void)fetchRoomInfo:(NSString *)roomId Complete:(void(^)(MedLiveRoomBoardcast* ))res{
     MedLiveRoomInfoRequest *request = [[MedLiveRoomInfoRequest alloc] initWithRoomId:roomId];
     [request fetchWithComplete:^(__kindof MedLiveRoom *room) {
         MedLiveRoomBoardcast *bordcastRoom = (MedLiveRoomBoardcast *)room;
+        self->roomId = room.roomId;
         res(bordcastRoom);
     }];
    
@@ -56,13 +64,13 @@
     }];
 }
 
-- (void)sendLiveState:(MedLiveRoomState)state RoomId:(NSString *)roomId UserId:(NSString *)uid{
-    MedChannelStateRequest *request= [[MedChannelStateRequest alloc] initWithState:state RoomId:roomId Uid:uid];
+- (void)sendLiveState:(MedLiveRoomState)state UserId:(NSString *)uid{
+    MedChannelStateRequest *request= [[MedChannelStateRequest alloc] initWithState:state RoomId:self->roomId Uid:uid];
     [request requestRoomState:^{
         if (state == MedLiveRoomStateStart) {
-            NSLog(@"开播");
+            [MedLiveAppUtilies showErrorTip:@"已开播"];
         }else{
-            NSLog(@"下播");
+            [MedLiveAppUtilies showErrorTip:@"已下播"];
         }
     }];
 }

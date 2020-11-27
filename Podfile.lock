@@ -32,18 +32,17 @@ PODS:
   - CocoaLumberjack (3.7.0):
     - CocoaLumberjack/Core (= 3.7.0)
   - CocoaLumberjack/Core (3.7.0)
-  - FlexLib (2.7.0):
-    - FlexLib/standard (= 2.7.0)
-  - FlexLib/preview (2.7.0):
-    - FlexLib/standard
-  - FlexLib/standard (2.7.0):
-    - FlexLib/standard/no-arc (= 2.7.0)
+  - FlexLib (2.8.0):
+    - FlexLib/standard (= 2.8.0)
+  - FlexLib/standard (2.8.0):
+    - FlexLib/standard/no-arc (= 2.8.0)
     - Yoga (= 1.14.0)
-  - FlexLib/standard/no-arc (2.7.0):
+  - FlexLib/standard/no-arc (2.8.0):
     - Yoga (= 1.14.0)
   - LGAlertView (2.4.0)
   - Masonry (1.1.0)
   - MJRefresh (3.5.0)
+  - SVProgressHUD (2.2.5)
   - TZImagePickerController (3.4.4)
   - Yoga (1.14.0)
   - YYCache (1.0.4)
@@ -63,10 +62,10 @@ DEPENDENCIES:
   - BRPickerView (= 2.7.3)
   - CocoaLumberjack
   - FlexLib
-  - FlexLib/preview
   - LGAlertView
   - Masonry
   - MJRefresh
+  - SVProgressHUD
   - TZImagePickerController
   - YYModel (= 1.0.4)
   - YYWebImage
@@ -83,6 +82,7 @@ SPEC REPOS:
     - LGAlertView
     - Masonry
     - MJRefresh
+    - SVProgressHUD
     - TZImagePickerController
     - Yoga
     - YYCache
@@ -97,10 +97,11 @@ SPEC CHECKSUMS:
   AxcAE_TabBar: 1d5bcf6c4921889dc38839b6ba2c584a9b55251a
   BRPickerView: 9cc11880ac79c4872d081ccb88f306224c1501d7
   CocoaLumberjack: e8955b9d337ac307103b0a34fd141c32f27e53c5
-  FlexLib: db9979dfaf1ff89b7934d694bf4c1235592ac12d
+  FlexLib: 97472f9f6e6f140c88bb101654e0c698b4ae0139
   LGAlertView: 2f5e83dd5cc2537de57d98727650609e86197d1a
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   TZImagePickerController: 45a4082c62bf2b3ac63148d7d3b7afc3f4ee1fa0
   Yoga: cff67a400f6b74dc38eb0bad4f156673d9aa980c
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
@@ -108,6 +109,6 @@ SPEC CHECKSUMS:
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 833acd6e98f3d2c0ed90468749865c77f98ff843
+PODFILE CHECKSUM: d095d80ae130f6646d721cee4360a7d32c0bd3d7
 
 COCOAPODS: 1.9.3

@@ -11,6 +11,30 @@
 #import <CommonCrypto/CommonDigest.h>
 
 @implementation MedLiveAppUtilies
+//提示器
+
++ (void)load{
+    [SVProgressHUD setInfoImage:nil];
+    [SVProgressHUD setBackgroundColor:[UIColor ColorWithRGB:0 Green:0 Blue:0 Alpha:0.4]];
+    [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
+    [SVProgressHUD setOffsetFromCenter:UIOffsetMake(0, kScreenHeight/2-100)];
+    [SVProgressHUD setMaximumDismissTimeInterval:2];
+}
+
++ (void)showErrorTip:(NSString *) tip{
+    [SVProgressHUD showInfoWithStatus:tip];
+}
+
++ (id)stringToJsonDic:(NSString *)jsonString{
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error;
+    id obj = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+    if (error) {
+      //解析出错
+        NSLog(@"图片解析出错");
+    }
+    return obj;
+}
 
 + (void)checkForm:(NSArray <NSString *> *)formAry Aleart:(NSArray <NSString *>*)alearAry Complate:(void(^)(BOOL, NSString * _Nullable))result{
     if (formAry.count != alearAry.count) {

@@ -10,6 +10,5 @@
 
 @interface SKLMeetJoinMeetController : MedLiveBaseFlexViewController
 @property NSString *roomId;
+
 @end
-
-

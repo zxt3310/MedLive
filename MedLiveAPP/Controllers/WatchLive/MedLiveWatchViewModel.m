@@ -11,20 +11,25 @@
 #import "MedChannelMessage.h"
 #import "MedLiveRoomInfoRequest.h"
 #import "MedLiveRoomBoardcast.h"
+#import "MedLiveRoleStateRequest.h"
+#import <YYModel.h>
 @interface MedLiveWatchViewModel()<IMChannelDelegate>
 @end
 
 @implementation MedLiveWatchViewModel
 {
     IMChannelManager *manager;
-    NSString *roomId;
+    MedLiveRoomBoardcast *boardRoom;
 }
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rejoinRtmJoinChannel) name:MedRtmRejoinCall object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(rejoinRtmJoinChannel)
+                                                     name:MedRtmRejoinCall
+                                                   object:nil];
         manager = [[IMChannelManager alloc] initWithId:@"zxt"];
         manager.channelDelegate = self;
         [manager rtmJoinChannel];
@@ -35,7 +40,7 @@
 - (void)fetchRoomInfo:(NSString *)roomId Complete:(void(^)(MedLiveRoomBoardcast* ))res{
     MedLiveRoomInfoRequest *request = [[MedLiveRoomInfoRequest alloc] initWithRoomId:roomId];
     [request fetchWithComplete:^(MedLiveRoomBoardcast *room) {
-        self->roomId = room.roomId;
+        self->boardRoom = room;
         res(room);
     }];
 }
@@ -48,7 +53,7 @@
     AppCommondCenter *center = [AppCommondCenter sharedCenter];
     if (!center.hasLogin && self.pushCall) {
         self.pushCall(MedLoginCall);
-        return;;
+        return;
     }
     MedLiveUserModel *user = center.currentUser;
     NSString *name = user.userName?:user.uid;
@@ -65,14 +70,33 @@
     [manager leaveChannel];
 }
 
+- (void)changeRoleState:(MedLiveRoleState)state{
+    MedLiveRoleStateRequest *request = [[MedLiveRoleStateRequest alloc] initWithState:state
+                                                                               RoomId:boardRoom.roomId
+                                                                                  Uid:[AppCommondCenter sharedCenter].currentUser.uid];
+    [request requestRoleState:^{
+        if (state == MedLiveRoleStateJoin) {
+            [MedLiveAppUtilies showErrorTip:@"加入直播"];
+        }else if(state == MedliveRoleStateLeave){
+            [MedLiveAppUtilies showErrorTip:@"离开直播"];
+        }
+    }];
+}
+
 #pragma interactViewDelegate IMP
 - (void)interactViewDidSendmessage:(NSString *)text Complete:(void (^)(MedChannelMessage* msg))result{
     [self sendMsg:text result:result];
 }
 
 - (void)interactViewDidShareWithUrl:(void(^)(void))result{
-    [UIPasteboard generalPasteboard].string = [NSString stringWithFormat:@"%@/join/room/boardcast/%@",Domain,roomId];
+    [UIPasteboard generalPasteboard].string = [NSString stringWithFormat:@"%@/join/room/boardcast/%@",Domain,boardRoom.roomId];
     result();
+}
+
+- (void)interactViewNeedSetupIntroduce:(void(^)(NSString *title,NSString* startTime, NSString * introStr, NSArray<NSString *> *pics))callBack{
+    NSString *json = boardRoom.introPicsJosn;
+    NSArray *jsonObj = (NSArray *)[MedLiveAppUtilies stringToJsonDic:json];
+    callBack(boardRoom.roomTitle,boardRoom.startTime,boardRoom.desc,jsonObj);
 }
 
 #pragma IMChannelDelegate IMP

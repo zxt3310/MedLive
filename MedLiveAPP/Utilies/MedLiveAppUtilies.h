@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)checkForm:(NSArray <NSString *> *)formAry Aleart:(NSArray <NSString *>*)alearAry Complate:(void(^)(bool, NSString * _Nullable))result;
 + (BOOL)checkTelNumber:(NSString *)telNumber;
 + (BOOL)needLogin;
++ (void)showErrorTip:(NSString *) tip;
++ (NSDictionary *)stringToJsonDic:(NSString *)jsonString;
 @end
 
 @interface NSString(ex)

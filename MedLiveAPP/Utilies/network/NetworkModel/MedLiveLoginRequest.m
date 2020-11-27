@@ -17,10 +17,8 @@
 {
     self = [super init];
     if (self) {
-        param = @{
-            @"mobile":mobile,
-            @"code":code
-        };
+        param = [NSDictionary dictionaryWithObjectsAndKeys:mobile,@"mobile",
+                                                          code,@"code",nil];
     }
     return self;
 }

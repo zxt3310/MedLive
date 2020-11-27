@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UIView layout="flex:1,padding:40" attr="bgColor:white">
+    <UIView class="" layout="flexDirection:row,paddingVertical:10" attr="">
+        <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:会议号"/>
+        <UITextField name="roomIdField" class="" layout="flex:1,marginLeft:20" attr="fontSize:14,color:black,textAlign:left,placeholder:请输入,text:"/>
+    </UIView>
+
+    <UIView class="" layout="height:1" attr="bgColor:#d0d0d0"/>
+
+    <UIView class="" layout="height:30%,justifyContent:center,alignItems:center" attr="">
+        <FlexTouchView onPress="joinMeetJoin" layout="height:45,width:120,justifyContent:center,alignItems:center" attr="bgColor:blue">
+            <UILabel name="" class="" layout="" attr="fontSize:14,color:white,text:加入会议"/>
+        </FlexTouchView>
+    </UIView>
+</UIView>

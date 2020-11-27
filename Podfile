@@ -19,10 +19,10 @@ target 'MedLiveAPP' do
   pod 'CocoaLumberjack'
   pod 'MJRefresh'
   pod 'FlexLib'
-  pod 'FlexLib/preview'
   pod 'BRPickerView', '2.7.3'
   pod 'LGAlertView'
   pod 'TZImagePickerController'
+  pod 'SVProgressHUD'
 #  pod 'AliyunOSSiOS'
 
   # Pods for MedLiveAPP

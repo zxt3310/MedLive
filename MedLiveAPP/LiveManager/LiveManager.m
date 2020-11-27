@@ -90,12 +90,13 @@
     [self.agorEngine switchCamera];
 }
 
-- (int)joinRoomByToken:(NSString *)token Room:(NSString *)roomId Uid:(NSString *)uid{
+- (int)joinRoomByToken:(NSString *)token Room:(NSString *)roomId Uid:(NSString *)uid success:(void(^)(void))success{
     return [self.agorEngine joinChannelByToken:token
                                      channelId:roomId
                                           info:nil
                                            uid:uid.integerValue
                                    joinSuccess:^(NSString * channel, NSUInteger uid, NSInteger elapsed){
+        success();
         NSLog(@"进入频道%@   用户:%ld",channel,uid);
     }];
 }
@@ -144,6 +145,12 @@
     //远端网络恢复
     if (self.provideDelegate && (state == AgoraVideoRemoteStateReasonNetworkRecovery)) {
         
+    }
+}
+
+- (void)rtcEngine:(AgoraRtcEngineKit *)engine activeSpeaker:(NSUInteger)speakerUid{
+    if (self.provideDelegate && [self.provideDelegate respondsToSelector:@selector(remoteBecomeActiveSpeaker:)]) {
+        [self.provideDelegate remoteBecomeActiveSpeaker:speakerUid];
     }
 }
 //远端用户发言音量回调

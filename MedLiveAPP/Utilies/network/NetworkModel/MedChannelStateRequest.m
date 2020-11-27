@@ -19,10 +19,8 @@
     self = [super init];
     if (self) {
         roomState = state;
-        param = @{
-            @"room_id":roomId,
-            @"user_id":uid
-        };
+        param = [NSDictionary dictionaryWithObjectsAndKeys:roomId,@"room_id",
+                                                           uid,@"user_id",nil];
     }
     return self;
 }
@@ -38,9 +36,9 @@
 - (NSString *)requestUrl{
     NSString *url;
     if (roomState == MedLiveRoomStateStart) {
-        url = @"/api/join_room";
+        url = @"/api/start_room";
     }else{
-        url = @"/api/leave_room";
+        url = @"/api/close_room";
     }
     return url;
 }

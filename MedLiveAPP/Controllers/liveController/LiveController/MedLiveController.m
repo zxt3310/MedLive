@@ -10,6 +10,7 @@
 #import "MedBordcastView.h"
 #import "MedLiveViewModel.h"
 #import "MedLiveRoomBoardcast.h"
+#import <LGAlertView.h>
 
 @interface MedLiveController ()<BordcastViewDelegate>
 {
@@ -34,25 +35,32 @@
         self.titleName = res.roomTitle;
         
         [viewModel createRoomWithTitle:self.title ChannelId:self.channelId Complate:^(NSString *chanlToken) {
-            int res = [viewModel joinChannel:self.channelId Token:chanlToken];
-            if (res == 0) {
-                //发送开播信号
-                [viewModel sendLiveState:MedLiveRoomStateStart
-                                  RoomId:self.roomId
-                                  UserId:[AppCommondCenter sharedCenter].currentUser.uid];
-            }
+            [viewModel joinChannel:self.channelId Token:chanlToken];
         }];
     }];
 }
 
 
 - (void)bordcastViewDidEnd{
-    [viewModel stopLive];
-    //发送下播信号
-    [viewModel sendLiveState:MedLiveRoomStateEnd
-                      RoomId:self.roomId
-                      UserId:[AppCommondCenter sharedCenter].currentUser.uid];
-    [self.navigationController popViewControllerAnimated:YES];
+    LGAlertView *alert = [LGAlertView alertViewWithTitle:@"退出直播"
+                                                  message:@"主播退出,直播即结束"
+                                                   style:LGAlertViewStyleAlert
+                                            buttonTitles:@[@"确定"]
+                                       cancelButtonTitle:@"取消"
+                                  destructiveButtonTitle:nil];
+    alert.messageTextColor = [UIColor redColor];
+    
+    __weak MedLiveViewModel *weakModel = viewModel;
+    WeakSelf
+    alert.actionHandler= ^(LGAlertView *alertView, NSUInteger index, NSString *title){
+        [weakModel stopLive];
+        //发送下播信号
+        [weakModel sendLiveState:MedLiveRoomStateEnd
+                          UserId:[AppCommondCenter sharedCenter].currentUser.uid];
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+    };
+    
+    [alert showAnimated];
 }
 
 - (void)dealloc{

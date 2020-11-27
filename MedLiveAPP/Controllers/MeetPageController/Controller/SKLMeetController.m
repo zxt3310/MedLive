@@ -13,6 +13,7 @@
 #import "SKLLiveCreateController.h"
 #import "SKLMeetCreateController.h"
 #import "MedMultipleMeettingController.h"
+#import "SKLJoinMeetController.h"
 
 @interface SKLMeetController ()<SKLMeetViewDelegate>
 
@@ -32,8 +33,6 @@
     [view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    
-    
 }
 
 - (void)titleChanged:(UITextField *)field{
@@ -49,7 +48,6 @@
 //会诊
 - (void)meetViewActCreateConsultation{
     
-    [FlexSetPreviewVC presentInVC:self];
 }
 //会议
 - (void)meetViewActCreateMeet{
@@ -67,7 +65,8 @@
 }
 - (void)meetViewActJoin{
     if (![MedLiveAppUtilies needLogin]) {
-       
+        SKLJoinMeetController *joinMeet = [[SKLJoinMeetController alloc] init];
+        [self.navigationController pushViewController:joinMeet animated:YES];
     }
 }
 

@@ -95,7 +95,7 @@ static NSString *BaseUrl = nil;
 - (void)uploadFileWith:(NSData *)fileData FileName:(NSString*)fileName MimeType:(NSString *)mimeType Url:(NSString *)url Header:(NSDictionary *)header Success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success Failure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError* _Nullable))failure{
     NSString* finalUrl = url;
     if (BaseUrl && BaseUrl.length>0) {
-        finalUrl = [BaseUrl stringByAppendingPathComponent:url];
+        finalUrl = [BaseUrl stringByAppendingString:url];
     }
     
     if(header){

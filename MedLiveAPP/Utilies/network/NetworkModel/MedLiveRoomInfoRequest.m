@@ -26,7 +26,7 @@
 }
 
 - (id)requestArgument{
-    return @{@"room_id":roomId};
+    return [NSDictionary dictionaryWithObject:roomId forKey:@"room_id"];
 }
 - (RequestMethodType)requestMethod{
     return RequestMethodTypePOST;

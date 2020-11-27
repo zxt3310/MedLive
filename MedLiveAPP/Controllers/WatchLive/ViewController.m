@@ -41,10 +41,18 @@
     [self setupLocalVideo];
     
     [viewModel fetchRoomInfo:self.roomId Complete:^(MedLiveRoomBoardcast * room) {
+        if (![room isMemberOfClass:[MedLiveRoomBoardcast class]]) {
+            NSLog(@"无效的直播房间");
+            [MedLiveAppUtilies showErrorTip:@"无效的房间号"];
+            return;
+        }
+        [interactView setupIntorduceScroll];
         self.channelId = room.channelId;
         [pushView fillTitle:room.roomTitle];
         if (room.status == 1) {
             [pushView showPlaceView:YES CenterTip:@"直播未开始"];
+        }else if (room.status == 3){
+            [pushView showPlaceView:YES CenterTip:@"直播已结束"];
         }
         [self getStart];
     }];
@@ -89,10 +97,14 @@
     [liveManager enableVideo];
     MedChannelTokenRequest *req = [[MedChannelTokenRequest alloc] initWithRoomId:self.channelId Uid:[AppCommondCenter sharedCenter].currentUser.uid];
     __weak typeof(self) weakSelf = self;
+    __weak MedLiveWatchViewModel *weakModel = viewModel;
     [req startWithSucBlock:^(NSString * _Nonnull token) {
         [self->liveManager joinRoomByToken:token
                                       Room:weakSelf.channelId
-                                       Uid:[AppCommondCenter sharedCenter].currentUser.uid];
+                                       Uid:[AppCommondCenter sharedCenter].currentUser.uid success:^{
+            //改变状态
+            [weakModel changeRoleState:MedLiveRoleStateJoin];
+        }];
     }];
     
 }
@@ -115,7 +127,6 @@
     liveManager = [[LiveManager alloc] init];
     liveManager.provideDelegate = self;
     liveManager.role = AgoraClientRoleAudience;
-     
 }
 
 - (void)didAddRemoteMember:(NSUInteger) uid{
@@ -127,6 +138,7 @@
 - (void)didRemoteLeave:(NSInteger)uid{
     if (uid == pushView.uid) {
         NSLog(@"主播下播了");
+        [MedLiveAppUtilies showErrorTip:@"主播已下播"];
         [pushView showPlaceView:YES CenterTip:@"主播已下播"];
     }
 }
@@ -171,6 +183,12 @@
 - (void)RenderMasekDidTapBack:(void (^)(MedLiveScreenState))block{
     if(![self isFullScreen]){
         block(999);
+        //离开视频流频道
+        [liveManager leaveRoom];
+        //状态
+        [viewModel changeRoleState:MedliveRoleStateLeave];
+        //离开聊天
+        [viewModel leaveRtmChannel];
         [self.navigationController popViewControllerAnimated:YES];
     }else{
         [self switchScreenRotation];
@@ -186,8 +204,6 @@
 }
     
 - (void)dealloc{
-    [liveManager leaveRoom];
-    [viewModel leaveRtmChannel];
     NSLog(@"controller dealloc ok!");
 }
 @end
