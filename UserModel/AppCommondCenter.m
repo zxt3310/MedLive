@@ -28,8 +28,8 @@ static AppCommondCenter *center = nil;
 {
     self = [super init];
     if (self) {
-        self.hasLogin = NO;
-        self.currentUser = [[MedLiveUserModel alloc] init];
+        self.currentUser = [MedLiveUserModel loadFromUserDefaults];
+        self.hasLogin = ![self.currentUser.uid isEqualToString:@"0"];
     }
     return self;
 }
@@ -39,6 +39,8 @@ static AppCommondCenter *center = nil;
     self.currentUser.uid = uid;
     self.currentUser.userName = username;
     self.hasLogin = YES;
+    
+    [self.currentUser save];
     
     NSLog(@"登录成功 mobile:%@ uid:%@",mobile, uid);
 }

@@ -9,10 +9,14 @@
 #import <Foundation/Foundation.h>
 NS_ASSUME_NONNULL_BEGIN
 
+UIKIT_EXTERN NSString *const LOCALUSERINFO_STORAGE_KEY;
+
 @interface MedLiveUserModel : NSObject
 @property NSString *uid;
 @property NSString *userName;
 @property NSString *mobile;
++ (instancetype)loadFromUserDefaults;
+- (void)save;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -23,9 +23,9 @@
 }
 
 - (void)createLivePlanWithTitle:(NSString *)title Desc:(NSString *)description Uid:(NSString *)uid Start:(NSString *)start picUrl:(NSString *)url introPics:(NSArray *)pics Complete:(void(^)(NSString *channelId,NSString *title,NSString *roomId))success{
-    NSString *picsJson = @"";
+    NSString *picJson  = @"";
     if (pics) {
-        picsJson = [pics yy_modelToJSONString];
+        picJson = [pics yy_modelToJSONString];
     }
     MedCreateLiveRequest *request = [[MedCreateLiveRequest alloc] initWithTitle:title
                                                                            Desc:description
@@ -35,7 +35,7 @@
                                                                        Password:@""
                                                                        AllowDoc:NO
                                                                            Docs:@""
-                                                                       intrPics:picsJson];
+                                                                       intrPics:picJson];
     [request startWithSucBlock:^(NSString * channelId, NSString * title, NSString * roomId) {
         success(channelId,title,roomId);
     }];

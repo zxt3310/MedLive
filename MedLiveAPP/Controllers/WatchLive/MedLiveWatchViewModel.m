@@ -95,8 +95,12 @@
 
 - (void)interactViewNeedSetupIntroduce:(void(^)(NSString *title,NSString* startTime, NSString * introStr, NSArray<NSString *> *pics))callBack{
     NSString *json = boardRoom.introPicsJosn;
-    NSArray *jsonObj = (NSArray *)[MedLiveAppUtilies stringToJsonDic:json];
-    callBack(boardRoom.roomTitle,boardRoom.startTime,boardRoom.desc,jsonObj);
+    if (json) {
+        NSArray *jsonObj = (NSArray *)[MedLiveAppUtilies stringToJsonDic:json];
+        if (jsonObj) {
+            callBack(boardRoom.roomTitle,boardRoom.startTime,boardRoom.desc,jsonObj);
+        }
+    }
 }
 
 #pragma IMChannelDelegate IMP

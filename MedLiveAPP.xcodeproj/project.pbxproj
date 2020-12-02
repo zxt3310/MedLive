@@ -764,8 +764,8 @@
 			children = (
 				58711E002552AB90007317B9 /* MedLiveUserModel.h */,
 				58711E012552AB90007317B9 /* MedLiveUserModel.m */,
-				5844E32A25539860003D8540 /* AppCommondCenter.m */,
 				5844E32925539860003D8540 /* AppCommondCenter.h */,
+				5844E32A25539860003D8540 /* AppCommondCenter.m */,
 			);
 			path = UserModel;
 			sourceTree = "<group>";

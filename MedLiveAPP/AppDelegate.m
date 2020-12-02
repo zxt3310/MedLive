@@ -27,7 +27,7 @@
     SKLRootNavigator *root = [[SKLRootNavigator alloc] initWithRootViewController:mainTab];
     [[self window] setRootViewController:root];
     [[self window] makeKeyAndVisible];
-    [AppCommondCenter sharedCenter].currentUser.uid = @"0";
+    [AppCommondCenter sharedCenter].currentUser;
     return YES;
 }
 

@@ -247,7 +247,7 @@
         make.width.equalTo(@(infoScroll.frame.size.width - 40));
         make.top.equalTo(introLabel.mas_bottom).offset(5);
         make.left.equalTo(introLabel);
-        make.height.mas_lessThanOrEqualTo(250*pics.count);
+        make.height.mas_equalTo(250*pics.count);
     }];
     //图片
     if (pics) {
@@ -276,7 +276,7 @@
             }];
         }
     }
-    [infoScroll layoutIfNeeded];
+    [self layoutIfNeeded];
     [self reloadScrollContentSize:infoScroll];
 }
 

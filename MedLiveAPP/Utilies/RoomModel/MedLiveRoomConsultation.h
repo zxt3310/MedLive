@@ -6,11 +6,11 @@
 //  Copyright © 2020 Zxt. All rights reserved.
 //
 
-#import "MedLiveRoom.h"
+#import "MedLiveRoomMeetting.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MedLiveRoomConsultation : MedLiveRoom
+@interface MedLiveRoomConsultation : MedLiveRoomMeetting
 
 @end
 

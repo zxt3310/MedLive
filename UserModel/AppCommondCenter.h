@@ -16,9 +16,7 @@ UIKIT_EXTERN NSString *const MedRtmRejoinCall;
 
 @protocol ThirdPlatDelegate <NSObject>
 @optional
-//- (void)appDidEvocatedToBoardcastWithRoom:(NSString *)roomId;
-//- (void)appDidEvocatedToMeettingWithRoom:(NSString *)roomId;
-//- (void)appDidEvocatedToConsultationWithRoom:(NSString *)roomId;
+
 - (void)appDidEvocatedToLiveWithUrl:(NSURL *)url;
 @end
 

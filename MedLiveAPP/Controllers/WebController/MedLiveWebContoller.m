@@ -94,7 +94,7 @@
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler{
     NSString *urlStr = navigationAction.request.URL.absoluteString;
-    if ([urlStr isEqualToString:self.urlStr] || [urlStr containsString:@"isjump"]) {
+    if ([urlStr isEqualToString:self.urlStr] || [urlStr containsString:@"jump_new_page=no"]) {
         decisionHandler(WKNavigationActionPolicyAllow);
     }else{
         MedLiveWebContoller *webVC = [[MedLiveWebContoller alloc] init];

@@ -7,6 +7,13 @@
 //
 
 #import "MedLiveUserModel.h"
+#import <YYModel.h>
+
+NSString *const LOCALUSERINFO_STORAGE_KEY = @"LoginUserInfo_LocalStorage";
+
+@interface MedLiveUserModel()<YYModel,NSSecureCoding>
+
+@end
 
 @implementation MedLiveUserModel
 - (instancetype)init
@@ -17,4 +24,41 @@
     }
     return self;
 }
+
++ (BOOL)supportsSecureCoding{
+    return YES;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    return [self yy_modelInitWithCoder:coder];
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [self yy_modelEncodeWithCoder:coder];
+}
+
+- (void)save{
+    NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:NO error:nil];
+    if (userData) {
+        [[NSUserDefaults standardUserDefaults] setObject:userData forKey:LOCALUSERINFO_STORAGE_KEY];
+    }
+}
+
++ (instancetype)loadFromUserDefaults{
+    NSData *userData = [[NSUserDefaults standardUserDefaults] objectForKey:LOCALUSERINFO_STORAGE_KEY];
+    if (userData) {
+        MedLiveUserModel *user = [NSKeyedUnarchiver unarchivedObjectOfClass:[self class] fromData:userData error:nil];
+        if (user) {
+            return user;
+        }
+    }
+    return [[[self class] alloc] init];
+}
+
++ (void)clear{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:LOCALUSERINFO_STORAGE_KEY];
+}
+
 @end

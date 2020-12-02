@@ -9,6 +9,7 @@
 #import "SKLMeetJoinMeetController.h"
 #import "MedLiveRoomInfoRequest.h"
 #import "MedLiveRoomMeetting.h"
+#import "MedLiveRoomConsultation.h"
 #import "MedMultipleMeettingController.h"
 #import <LGAlertView.h>
 
@@ -29,7 +30,7 @@
     
     MedLiveRoomInfoRequest *request = [[MedLiveRoomInfoRequest alloc] initWithRoomId:self.roomId];
     [request fetchWithComplete:^(__kindof MedLiveRoom *room) {
-        if (![room isMemberOfClass:[MedLiveRoomMeetting class]]) {
+        if (![room isMemberOfClass:[MedLiveRoomMeetting class]] && ![room isMemberOfClass:[MedLiveRoomConsultation class]]) {
             joinBtn.userInteractionEnabled = NO;
             
             [MedLiveAppUtilies showErrorTip:@"无效的房间号"];

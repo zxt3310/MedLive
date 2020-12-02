@@ -45,6 +45,15 @@
     [self deleteWebCache];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [_mainWebView reload];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+}
+
 - (void)deleteWebCache {
 //allWebsiteDataTypes清除所有缓存
  NSSet *websiteDataTypes = [WKWebsiteDataStore allWebsiteDataTypes];

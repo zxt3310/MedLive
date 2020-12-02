@@ -34,6 +34,7 @@ static NSString *BaseUrl = nil;
         afManager = [AFHTTPSessionManager manager];
         afManager.requestSerializer = [AFJSONRequestSerializer serializer];
         afManager.responseSerializer = [AFJSONResponseSerializer serializer];
+        afManager.responseSerializer.acceptableContentTypes =[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",nil];
     }
     return self;
 }
