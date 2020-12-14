@@ -9,16 +9,6 @@
 #import "MedChannelMessage.h"
 
 @implementation MedChannelMessage
-- (instancetype)initWith:(NSString *)name Pic:(NSString *)url Context:(NSString *)text
-{
-    self = [super init];
-    if (self) {
-        self.nickName = name;
-        self.headPic = url;
-        self.context = text;
-    }
-    return self;
-}
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
@@ -29,4 +19,35 @@
 {
     return [self yy_modelInitWithCoder:coder];
 }
+@end
+
+
+@implementation MedChannelChatMessage
+
+- (instancetype)initWithUid:(NSString *)uid Name:(NSString *)name Pic:(NSString *)url Context:(NSString *)text
+{
+    self = [super init];
+    if (self) {
+        self.peerId = uid;
+        self.nickName = name;
+        self.headPic = url;
+        self.context = text;
+    }
+    return self;
+}
+
+@end
+
+@implementation MedChannelSignalMessage
+
+- (instancetype)initWithMessageSignal:(MedMessageSignalType) signal Target:(NSString *)uid
+{
+    self = [super init];
+    if (self) {
+        self.signalType = signal;
+        self.targetId = uid;
+    }
+    return self;
+}
+
 @end

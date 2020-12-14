@@ -30,17 +30,23 @@
                                                  selector:@selector(rejoinRtmJoinChannel)
                                                      name:MedRtmRejoinCall
                                                    object:nil];
-        manager = [[IMChannelManager alloc] initWithId:@"zxt"];
+    }
+    return self;
+}
+
+- (void)joinRtmChannelWithId:(NSString *)channelId{
+    if (!manager) {
+        manager = [[IMChannelManager alloc] initWithId:channelId];
         manager.channelDelegate = self;
         [manager rtmJoinChannel];
     }
-    return self;
 }
 
 - (void)fetchRoomInfo:(NSString *)roomId Complete:(void(^)(MedLiveRoomBoardcast* ))res{
     MedLiveRoomInfoRequest *request = [[MedLiveRoomInfoRequest alloc] initWithRoomId:roomId];
     [request fetchWithComplete:^(MedLiveRoomBoardcast *room) {
         self->boardRoom = room;
+        [self joinRtmChannelWithId:room.channelId];
         res(room);
     }];
 }
@@ -49,7 +55,7 @@
     [manager rejoinChannel];
 }
 
-- (void)sendMsg:(NSString *)text result:(void(^)(MedChannelMessage * msg)) result{
+- (void)sendMsg:(NSString *)text result:(void(^)(MedChannelChatMessage * msg)) result{
     AppCommondCenter *center = [AppCommondCenter sharedCenter];
     if (!center.hasLogin && self.pushCall) {
         self.pushCall(MedLoginCall);
@@ -58,7 +64,10 @@
     MedLiveUserModel *user = center.currentUser;
     NSString *name = user.userName?:user.uid;
     NSString *headerUrl = @"";
-    MedChannelMessage *msg = [[MedChannelMessage alloc] initWith:name Pic:headerUrl Context:text];
+    MedChannelChatMessage *msg = [[MedChannelChatMessage alloc] initWithUid:center.currentUser.uid
+                                                                   Name:name
+                                                                    Pic:headerUrl
+                                                                Context:text];
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:msg];
     [manager sendRawMessage:data Completion:^{
         NSLog(@"消息发送成功");
@@ -84,7 +93,7 @@
 }
 
 #pragma interactViewDelegate IMP
-- (void)interactViewDidSendmessage:(NSString *)text Complete:(void (^)(MedChannelMessage* msg))result{
+- (void)interactViewDidSendmessage:(NSString *)text Complete:(void (^)(MedChannelChatMessage* msg))result{
     [self sendMsg:text result:result];
 }
 
@@ -103,10 +112,22 @@
     }
 }
 
+- (void)interactViewDidStoreLove:(BOOL)cancel{
+    if (!cancel) {
+        MedChannelSignalMessage *signal = [[MedChannelSignalMessage alloc] initWithMessageSignal:MedMessageSignalTypeStreamAllow
+                                                                                    Target:[AppCommondCenter sharedCenter].currentUser.uid];
+        [[NSNotificationCenter defaultCenter] postNotificationName:RTMEngineDidReceiveSignal object:signal];
+    }
+}
+
 #pragma IMChannelDelegate IMP
 
-- (void)channelDidReceiveMessage:(MedChannelMessage *)message{
+- (void)channelDidReceiveMessage:(MedChannelChatMessage *)message{
     [[NSNotificationCenter defaultCenter] postNotificationName:RTCEngineDidReceiveMessage object:message];
+}
+
+- (void)channelDidReceiveSignal:(MedChannelSignalMessage *)signal{
+    [[NSNotificationCenter defaultCenter] postNotificationName:RTMEngineDidReceiveSignal object:signal];
 }
 
 - (void)dealloc

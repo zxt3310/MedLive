@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MedLiveChatTableCell : UITableViewCell
-@property (nonatomic) MedChannelMessage *message;
+@property (nonatomic) MedChannelChatMessage *message;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -34,6 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RTMDidReceiveSignal:) name:RTMEngineDidReceiveSignal object:nil];
     viewModel = [[MedLiveWatchViewModel alloc] init];
     videoCollection = [NSMutableArray array];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -56,7 +57,6 @@
         }
         [self getStart];
     }];
-    
     
     WeakSelf
     viewModel.pushCall = ^(NSString * _Nonnull callIndentifer) {
@@ -130,9 +130,23 @@
 }
 
 - (void)didAddRemoteMember:(NSUInteger) uid{
-    pushView.uid = uid;
-    [liveManager setupVideoRemoteView:pushView];
-    [pushView showPlaceView:NO CenterTip:nil];
+    if (pushView.uid == uid) {
+        return;
+    }
+    //首次加载
+    if (pushView.uid == 0) {
+        pushView.uid = uid;
+        [liveManager setupVideoRemoteView:pushView];
+        [pushView showPlaceView:NO CenterTip:nil];
+    }else{
+        __weak LiveManager *weakManager = liveManager;
+        [pushView addRemoteStream:uid result:^(__kindof LiveView *remoteView) {
+            if(remoteView){
+                [weakManager setupVideoRemoteView:remoteView];
+            }
+        }];
+    }
+    
 }
 
 - (void)didRemoteLeave:(NSInteger)uid{
@@ -140,6 +154,8 @@
         NSLog(@"主播下播了");
         [MedLiveAppUtilies showErrorTip:@"主播已下播"];
         [pushView showPlaceView:YES CenterTip:@"主播已下播"];
+    }else{
+        [pushView removeRemoteStream:uid];
     }
 }
 
@@ -202,8 +218,27 @@
         [interactView resetScroll];
     }
 }
+
+#pragma Signal Notification
+- (void)RTMDidReceiveSignal:(NSNotification *)notify{
+    MedChannelSignalMessage *signal = (MedChannelSignalMessage *)notify.object;
+    if ([signal.targetId isEqualToString:[AppCommondCenter sharedCenter].currentUser.uid]) {
+        if (signal.signalType == MedMessageSignalTypeStreamAllow) {
+            __weak LiveManager *weakManager = liveManager;
+            [pushView addRemoteStream:signal.targetId.integerValue result:^(LiveView * view) {
+                [weakManager setRole:AgoraClientRoleBroadcaster];
+                [weakManager setupVideoLocalView:view];
+                [weakManager enableVideo];
+            }];
+            [pushView showPlaceView:NO CenterTip:nil];
+        }else if(signal.signalType == MedMessageSignalTypeStreamDenied){
+            
+        }
+    }
+}
     
 - (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     NSLog(@"controller dealloc ok!");
 }
 @end

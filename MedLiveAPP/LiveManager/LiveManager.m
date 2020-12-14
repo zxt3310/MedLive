@@ -121,18 +121,18 @@
 //远端视频状态改变 （失败 结束 延迟）
 - (void)rtcEngine:(AgoraRtcEngineKit *)engine remoteVideoStateChangedOfUid:(NSUInteger)uid state:(AgoraVideoRemoteState)state reason:(AgoraVideoRemoteStateReason)reason elapsed:(NSInteger)elapsed{
     //远端离线
-    if(self.provideDelegate && (state == AgoraVideoRemoteStateStopped && reason == AgoraVideoRemoteStateReasonRemoteOffline)){
+    if(self.provideDelegate && (state == AgoraVideoRemoteStateStopped && reason == AgoraVideoRemoteStateReasonRemoteOffline) && [self.provideDelegate respondsToSelector:@selector(didRemoteLeave:)]){
         [self.provideDelegate didRemoteLeave:uid];
     }
     
     //远端关闭摄像头
-    if (self.provideDelegate && (state == AgoraVideoRemoteStateStopped && reason == AgoraVideoRemoteStateReasonRemoteMuted)) {
+    if (self.provideDelegate && (state == AgoraVideoRemoteStateStopped && reason == AgoraVideoRemoteStateReasonRemoteMuted) && [self.provideDelegate respondsToSelector:@selector(remote:DidDisabledCamera:)]) {
         NSLog(@"远端关闭摄像头");
         [self.provideDelegate remote:uid DidDisabledCamera:YES];
     }
     
     //远端恢复摄像头
-    if (self.provideDelegate && (state == AgoraVideoRemoteStateDecoding && reason == AgoraVideoRemoteStateReasonRemoteUnmuted)) {
+    if (self.provideDelegate && (state == AgoraVideoRemoteStateDecoding && reason == AgoraVideoRemoteStateReasonRemoteUnmuted) && [self.provideDelegate respondsToSelector:@selector(remote:DidDisabledCamera:)]) {
         NSLog(@"远端恢复摄像头");
         [self.provideDelegate remote:uid DidDisabledCamera:NO];
     }

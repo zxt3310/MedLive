@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 UIKIT_EXTERN NSString *const RTCEngineDidReceiveMessage;
+UIKIT_EXTERN NSString *const RTMEngineDidReceiveSignal;
 UIKIT_EXTERN NSString *const MedLoginCall;
 UIKIT_EXTERN NSString *const MedRtmRejoinCall;
 

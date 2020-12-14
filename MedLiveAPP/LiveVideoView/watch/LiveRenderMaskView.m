@@ -222,7 +222,6 @@ typedef enum : NSUInteger {
         make.right.equalTo(bottomBar.mas_right).offset(-15);
         make.size.mas_equalTo(CGSizeMake(30, 30));
     }];
-    
     titleBar.alpha = 0;
     bottomBar.alpha = 0;
 }

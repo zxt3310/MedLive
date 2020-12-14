@@ -29,7 +29,7 @@
     UIButton *sendBtn;
     UITableView *chatTable;
     
-    NSMutableArray <MedChannelMessage *> *dataAry;
+    NSMutableArray <MedChannelChatMessage *> *dataAry;
 }
 
 - (instancetype)initWithViewDelegate:(id<interactViewDelegate>)delegate
@@ -67,6 +67,7 @@
     //收藏button
     UIButton *loveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [loveBtn setImage:[UIImage imageNamed:@"love_n"] forState:UIControlStateNormal];
+    [loveBtn addTarget:self action:@selector(loveTap) forControlEvents:UIControlEventTouchUpInside];
     [infoBarView addSubview:loveBtn];
     //分享button
     UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -329,6 +330,12 @@
         }];
     }
 }
+//收藏
+- (void)loveTap{
+    if (self.viewDelegate) {
+        [self.viewDelegate interactViewDidStoreLove:NO];
+    }
+}
 
 - (void)followInfoBtn{
     [line mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -419,7 +426,7 @@
         return;
     }
     if (self.viewDelegate && [self.viewDelegate respondsToSelector:@selector(interactViewDidSendmessage:Complete:)]) {
-        [self.viewDelegate interactViewDidSendmessage:msg Complete:^(MedChannelMessage* msg){
+        [self.viewDelegate interactViewDidSendmessage:msg Complete:^(MedChannelChatMessage* msg){
             chatField.text = @"";
             [self freshChatTableWithMessage:msg];
             [self endEditing:YES];
@@ -427,7 +434,7 @@
     }
 }
 
-- (void)freshChatTableWithMessage:(MedChannelMessage *)msg{
+- (void)freshChatTableWithMessage:(MedChannelChatMessage *)msg{
     [dataAry addObject:msg];
     [chatTable reloadData];
     
@@ -438,7 +445,7 @@
 }
 
 - (void)receiveChatMesaage:(NSNotification *)notify{
-    MedChannelMessage *msg = (MedChannelMessage *)notify.object;
+    MedChannelChatMessage *msg = (MedChannelChatMessage *)notify.object;
     if (msg) {
         [self freshChatTableWithMessage:msg];
     }

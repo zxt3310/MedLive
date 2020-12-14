@@ -88,11 +88,11 @@
     [super setSelected:selected animated:animated];
 }
 
-- (MedChannelMessage *)message{
+- (MedChannelChatMessage *)message{
     return _message;
 }
 
-- (void)setMessage:(MedChannelMessage *)message{
+- (void)setMessage:(MedChannelChatMessage *)message{
     _message = message;
     nameLabel.text = message.nickName;
     contentLabel.text = message.context;

@@ -9,10 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "IMManager.h"
 NS_ASSUME_NONNULL_BEGIN
-@class MedChannelMessage;
+@class MedChannelChatMessage;
+@class MedChannelSignalMessage;
 @protocol IMChannelDelegate <NSObject>
 @required
-- (void)channelDidReceiveMessage:(MedChannelMessage *)message;
+- (void)channelDidReceiveMessage:(MedChannelChatMessage *)message;
+- (void)channelDidReceiveSignal:(MedChannelSignalMessage *)signal;
 @optional
 @end
 

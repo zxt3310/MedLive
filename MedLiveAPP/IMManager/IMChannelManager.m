@@ -78,9 +78,9 @@
     }];
 }
 
-//发送图片消息
+//发送图片消息  预留
 - (void)sendImageMessage:(UIImage *)img text:(NSString*) info{
-    AgoraRtmImageMessage *msg = [[AgoraRtmImageMessage alloc] initWithText:info];
+    
     
 }
 //销毁频道
@@ -96,11 +96,21 @@
     AgoraRtmRawMessage *rawMsg = (AgoraRtmRawMessage *)message;
     NSData *rawData = rawMsg.rawData;
     MedChannelMessage *msg = [NSKeyedUnarchiver unarchiveObjectWithData:rawData];
-    if (self.channelDelegate) {
-        [self.channelDelegate channelDidReceiveMessage:msg];
-    }
+    //以防bug 修正远端uid
+    msg.peerId = member.userId;
     
-    NSLog(@"频道%@ 收到来自%@ 的消息:%@",member.channelId,member.userId,msg.context);
+    if (msg.messageType == MedChannelMessageTypeChat) {
+        MedChannelChatMessage *chat = (MedChannelChatMessage *)msg;
+        if (self.channelDelegate && [self.channelDelegate respondsToSelector:@selector(channelDidReceiveMessage:)]) {
+            [self.channelDelegate channelDidReceiveMessage:chat];
+            NSLog(@"频道%@ 收到来自%@ 的消息:%@",member.channelId,member.userId,chat.context);
+        }
+    }else if(msg.messageType == MedChannelMessageTypeSignal){
+        MedChannelSignalMessage *signal = (MedChannelSignalMessage *)msg;
+        if (self.channelDelegate && [self.channelDelegate respondsToSelector:@selector(channelDidReceiveSignal:)]) {
+            [self.channelDelegate channelDidReceiveSignal:signal];
+        }
+    }
 }
 
 - (void)channel:(AgoraRtmChannel *)channel imageMessageReceived:(AgoraRtmImageMessage *)message fromMember:(AgoraRtmMember *)member{

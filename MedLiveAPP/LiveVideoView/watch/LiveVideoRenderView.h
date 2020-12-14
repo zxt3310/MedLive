@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(id)initWithMaskDelegate:(id <RenderMaseDelegate>)delegate;
 - (void)fillTitle:(NSString *)title;
 - (void)showPlaceView:(BOOL)show CenterTip:(nullable NSString *)tip;
+- (void)addRemoteStream:(NSInteger)uid result:(void(^)(__kindof LiveView*))res;
+- (void)removeRemoteStream:(NSInteger)uid;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -16,7 +16,7 @@
                 </FlexTouchView>
             </UIView>
 
-            <FlexTouchView onPress="" layout="marginTop:10" attr="">
+            <FlexTouchView onPress="goToSetting" layout="marginTop:10" attr="">
                 <UIImageView layout="width:20,aspectRatio:1" attr="source:usersetting"/>
             </FlexTouchView>
         </UIView>

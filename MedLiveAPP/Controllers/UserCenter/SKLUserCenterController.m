@@ -9,6 +9,7 @@
 #import "SKLUserCenterController.h"
 #import "MedLiveLoginController.h"
 #import "MedLiveWebContoller.h"
+#import "SKLUserSettingController.h"
 
 @interface SKLUserCenterController ()
 {
@@ -26,9 +27,18 @@
 {
     self = [super init];
     if (self) {
-        [[AppCommondCenter sharedCenter] addObserver:self forKeyPath:@"hasLogin" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+        [[AppCommondCenter sharedCenter] addObserver:self
+                                          forKeyPath:@"hasLogin"
+                                             options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                                             context:nil];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[AppCommondCenter sharedCenter] removeObserver:self
+                                       forKeyPath:@"hasLogin"];
 }
 
 - (void)viewDidLoad {
@@ -85,6 +95,11 @@
         NSString *url = [NSString stringWithFormat:@"%@/h5/consultation_list?user_id=%@",Domain,[AppCommondCenter sharedCenter].currentUser.uid];
         [self pushWebVC:url Type:@"consultation" Title:@"我的会诊"];
     }
+}
+
+- (void)goToSetting{
+    SKLUserSettingController *settingVC = [[SKLUserSettingController alloc] init];
+    [self.navigationController pushViewController:settingVC animated:YES];
 }
 
 - (void)pushWebVC:(NSString *)url Type:(NSString *)type Title:(NSString *)title{
