@@ -36,6 +36,11 @@ static AppCommondCenter *center = nil;
     return self;
 }
 
+- (void)updateUserInfo:(MedLiveUserModel *)newUser{
+    self.currentUser = newUser;
+    [newUser save];
+}
+
 - (void)loginWithMobile:(NSString *)mobile Uid:(NSString *)uid Name:(NSString *)username{
     self.currentUser.mobile = mobile;
     self.currentUser.uid = uid;
@@ -47,4 +52,9 @@ static AppCommondCenter *center = nil;
     NSLog(@"登录成功 mobile:%@ uid:%@",mobile, uid);
 }
 
+- (void)logout{
+    self.currentUser = [[MedLiveUserModel alloc] init];
+    self.hasLogin = NO;
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:LOCALUSERINFO_STORAGE_KEY];
+}
 @end

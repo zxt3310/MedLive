@@ -10,6 +10,8 @@
 #import <YYModel.h>
 
 NSString *const LOCALUSERINFO_STORAGE_KEY = @"LoginUserInfo_LocalStorage";
+NSString *const MED_USER_NORMAL = @"user_normal";
+NSString *const MED_USER_DOCTOR = @"user_doctor";
 
 @interface MedLiveUserModel()<YYModel,NSSecureCoding>
 
@@ -21,6 +23,7 @@ NSString *const LOCALUSERINFO_STORAGE_KEY = @"LoginUserInfo_LocalStorage";
     self = [super init];
     if (self) {
         self.uid = @"0";
+        self.userType = MED_USER_NORMAL;
     }
     return self;
 }
@@ -37,6 +40,16 @@ NSString *const LOCALUSERINFO_STORAGE_KEY = @"LoginUserInfo_LocalStorage";
 - (void)encodeWithCoder:(NSCoder *)coder
 {
     [self yy_modelEncodeWithCoder:coder];
+}
+
+- (void)setWithDictionary:(NSDictionary *)dic{
+    self.uid = [[dic objectForKey:@"id"] stringValue];
+    self.mobile = Kstr((NSString *)[dic objectForKey:@"mobile"]);
+    self.userName = Kstr((NSString *)[dic objectForKey:@"true_name"]);
+    self.userType = Kstr((NSString *)[dic objectForKey:@"user_type"]);
+    self.headerImgUrl = Kstr((NSString *)[dic objectForKey:@"cover_pic"]);
+    
+    [self save];
 }
 
 - (void)save{
@@ -57,8 +70,10 @@ NSString *const LOCALUSERINFO_STORAGE_KEY = @"LoginUserInfo_LocalStorage";
     return [[[self class] alloc] init];
 }
 
-+ (void)clear{
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:LOCALUSERINFO_STORAGE_KEY];
+
+- (void)dealloc
+{
+    NSLog(@"旧用户已注销");
 }
 
 @end

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UIView layout="flex:1,padding:20" attr="bgColor:white">
+    <UIView class="" layout="paddingHorizontal:20" attr="bgColor:white,shadowRadius:4,shadowColor:black,shadowOpacity:0.2,borderRadius:10">
+        <UIView onPress="changeHeader" class="" layout="flexDirection:row,paddingVertical:10,justifyContent:space-between" attr="">
+            <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:头像"/>
+            <UIView class="" layout="flexDirection:row" attr="">
+                <UIImageView name="headerView" layout="width:40,height:40" attr="source:header,borderRadius:20"/>
+                <UIImageView layout="alignSelf:center" attr="source:right"/>
+            </UIView>
+        </UIView>
+
+        <UIView class="" layout="height:1" attr="bgColor:#dddddd"/>
+
+        <UIView onPress="changeName" class="" layout="flexDirection:row,paddingVertical:20,justifyContent:space-between" attr="">
+            <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:姓名"/>
+            <UIView class="" layout="flexDirection:row" attr="">
+                <UILabel name="nameLb" class="" layout="" attr="fontSize:14,color:#333333,text:姓名"/>
+                <UIImageView attr="source:right"/>
+            </UIView>
+        </UIView>
+
+        <UIView class="" layout="height:1" attr="bgColor:#dddddd"/>
+
+        <UIView class="" layout="flexDirection:row,paddingVertical:20,justifyContent:space-between" attr="">
+            <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:手机号"/>
+            <UIView class="" layout="flexDirection:row" attr="">
+                <UILabel name="mobileLb" class="" layout="" attr="fontSize:14,color:#333333,text:手机号"/>
+                <UIImageView attr="source:right,alpha:0"/>
+            </UIView>
+        </UIView>
+    </UIView>
+
+    <UIView class="" layout="paddingHorizontal:20,marginTop:30" attr="bgColor:white,shadowRadius:4,shadowColor:black,shadowOpacity:0.2,borderRadius:10">
+        <UIView class="" layout="flexDirection:row,paddingVertical:20,justifyContent:space-between" attr="">
+            <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:身份证"/>
+            <UIView class="" layout="flexDirection:row" attr="">
+                <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:身份证"/>
+                <UIImageView attr="source:right,alpha:0"/>
+            </UIView>
+        </UIView>
+
+         <UIView class="" layout="height:1" attr="bgColor:#dddddd"/>
+
+         <UIView class="" layout="flexDirection:row,paddingVertical:20,justifyContent:space-between" attr="">
+            <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:所在医院"/>
+            <UIView class="" layout="flexDirection:row" attr="">
+                <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:所在医院"/>
+                <UIImageView attr="source:right,alpha:0"/>
+            </UIView>
+        </UIView>
+
+        <UIView class="" layout="height:1" attr="bgColor:#dddddd"/>
+
+         <UIView class="" layout="flexDirection:row,paddingVertical:20,justifyContent:space-between" attr="">
+            <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:职称"/>
+            <UIView class="" layout="flexDirection:row" attr="">
+                <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:职称"/>
+                <UIImageView attr="source:right,alpha:0"/>
+            </UIView>
+        </UIView>
+
+    </UIView>
+
+</UIView>

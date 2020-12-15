@@ -25,12 +25,16 @@ UIKIT_EXTERN NSString *const MedRtmRejoinCall;
 
 @property BOOL hasLogin;
 
-@property MedLiveUserModel *currentUser;
+@property (nonatomic,strong)MedLiveUserModel *currentUser;
 
 @property (weak) id<ThirdPlatDelegate> evocateDelegate;
 + (instancetype)sharedCenter;
 
+- (void)updateUserInfo:(MedLiveUserModel *)newUser;
+
 - (void)loginWithMobile:(NSString *)mobile Uid:(NSString *)uid Name:(NSString * _Nullable)username;
+
+- (void)logout;
 @end
 
 NS_ASSUME_NONNULL_END

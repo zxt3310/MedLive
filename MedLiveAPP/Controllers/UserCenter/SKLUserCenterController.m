@@ -10,6 +10,10 @@
 #import "MedLiveLoginController.h"
 #import "MedLiveWebContoller.h"
 #import "SKLUserSettingController.h"
+#import <YYWebImage.h>
+
+char *const LOGSTATE_OBSERVER = "login_state_has_changed";
+char *const USERINFO_OBSERVER = "user_info_has_changed";
 
 @interface SKLUserCenterController ()
 {
@@ -18,6 +22,7 @@
     UIView *loginEntry;
     UIView *infoView;
     UIView *vipView;
+    UIImageView *headImgView;
 }
 @end
 
@@ -30,7 +35,12 @@
         [[AppCommondCenter sharedCenter] addObserver:self
                                           forKeyPath:@"hasLogin"
                                              options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
-                                             context:nil];
+                                             context:LOGSTATE_OBSERVER];
+        
+        [[AppCommondCenter sharedCenter] addObserver:self
+                                          forKeyPath:@"currentUser"
+                                             options:NSKeyValueObservingOptionNew
+                                             context:USERINFO_OBSERVER];
     }
     return self;
 }
@@ -98,8 +108,10 @@
 }
 
 - (void)goToSetting{
-    SKLUserSettingController *settingVC = [[SKLUserSettingController alloc] init];
-    [self.navigationController pushViewController:settingVC animated:YES];
+    if (![MedLiveAppUtilies needLogin]) {
+        SKLUserSettingController *settingVC = [[SKLUserSettingController alloc] init];
+        [self.navigationController pushViewController:settingVC animated:YES];
+    }
 }
 
 - (void)pushWebVC:(NSString *)url Type:(NSString *)type Title:(NSString *)title{
@@ -113,7 +125,7 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     //登录状态样式切换
-    if (!context) {
+    if (context == LOGSTATE_OBSERVER) {
         if ([[change valueForKey:@"new"] boolValue] == true) {
             loginEntry.hidden = YES;
             infoView.hidden = NO;
@@ -122,7 +134,14 @@
             loginEntry.hidden = NO;
             infoView.hidden = YES;
         }
-    } else {
+    }else if(context == USERINFO_OBSERVER){
+        MedLiveUserModel *newUser = (MedLiveUserModel *)[change valueForKey:@"new"];
+        mobileLabel.text = KIsBlankString(newUser.userName)?newUser.mobile:newUser.userName;
+        if (!KIsBlankString(newUser.headerImgUrl)) {
+            headImgView.yy_imageURL = [NSURL URLWithString:newUser.headerImgUrl];
+        }
+    }
+    else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }

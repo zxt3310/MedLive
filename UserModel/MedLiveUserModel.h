@@ -10,12 +10,20 @@
 NS_ASSUME_NONNULL_BEGIN
 
 UIKIT_EXTERN NSString *const LOCALUSERINFO_STORAGE_KEY;
+UIKIT_EXTERN NSString *const MED_USER_NORMAL;
+UIKIT_EXTERN NSString *const MED_USER_DOCTOR;
 
 @interface MedLiveUserModel : NSObject
-@property NSString *uid;
-@property NSString *userName;
-@property NSString *mobile;
+@property (nonatomic,strong) NSString *uid;
+@property (nonatomic,strong) NSString *userName;
+@property (nonatomic,strong) NSString *mobile;
+@property (nonatomic,strong) NSString *userType;
+@property (nonatomic,strong) NSString *headerImgUrl;
+
 + (instancetype)loadFromUserDefaults;
+
+- (void)setWithDictionary:(NSDictionary *)dic;
+
 - (void)save;
 @end
 

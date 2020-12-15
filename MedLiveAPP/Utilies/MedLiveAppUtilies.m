@@ -18,7 +18,7 @@
     [SVProgressHUD setBackgroundColor:[UIColor ColorWithRGB:0 Green:0 Blue:0 Alpha:0.4]];
     [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
     [SVProgressHUD setOffsetFromCenter:UIOffsetMake(0, kScreenHeight/2-100)];
-    [SVProgressHUD setMaximumDismissTimeInterval:2];
+    [SVProgressHUD setMaximumDismissTimeInterval:2.5];
 }
 
 + (void)showErrorTip:(NSString *) tip{
