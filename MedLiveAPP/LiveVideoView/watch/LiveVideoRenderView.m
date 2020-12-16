@@ -116,7 +116,7 @@
         LiveVideoRemoteWidget *remote = [[LiveVideoRemoteWidget alloc] init];
         remote.uid = uid;
         [remoteArray addObject:remote];
-        [_videoView addSubview:remote];
+        [_videoView.superview addSubview:remote];
         
         [self layoutRemotes:remoteArray];
         res(remote);

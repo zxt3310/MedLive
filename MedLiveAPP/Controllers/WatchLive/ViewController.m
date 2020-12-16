@@ -236,6 +236,11 @@
         }
     }
 }
+
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    NSLog(@"叼叼叼叼叼");
+}
     
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];

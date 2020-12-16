@@ -4,7 +4,7 @@
         <UIView onPress="changeHeader" class="" layout="flexDirection:row,paddingVertical:10,justifyContent:space-between" attr="">
             <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:头像"/>
             <UIView class="" layout="flexDirection:row" attr="">
-                <UIImageView name="headerView" layout="width:40,height:40" attr="source:header,borderRadius:20"/>
+                <UIImageView name="headerView" layout="width:40,height:40" attr="source:header,borderRadius:20,clipsToBounds:true"/>
                 <UIImageView layout="alignSelf:center" attr="source:right"/>
             </UIView>
         </UIView>

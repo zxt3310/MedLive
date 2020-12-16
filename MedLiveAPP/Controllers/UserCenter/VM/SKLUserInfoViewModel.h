@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetchInfoWithComplete:(void(^)(MedLiveUserModel *user))res;
 - (void)updateInfoWithName:(NSString *)name complete:(void(^)(void))res;
 - (void)updateInfoWithHeadUrl:(NSString *)url complete:(void(^)(void))res;
-- (void)uploadHeaderImg:(UIImage *)img complete:(void(^)(NSString *))res;
+- (void)uploadHeaderImg:(UIImage *)img complete:(void(^)(void))res;
 @end
 
 NS_ASSUME_NONNULL_END

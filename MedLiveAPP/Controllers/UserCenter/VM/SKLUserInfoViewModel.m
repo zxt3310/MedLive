@@ -44,10 +44,12 @@
     }];
 }
 
-- (void)uploadHeaderImg:(UIImage *)img complete:(void(^)(NSString *))res{
+- (void)uploadHeaderImg:(UIImage *)img complete:(void (^)(void))res{
     MedUploadPhotoRequest *req = [[MedUploadPhotoRequest alloc] initWithImage:img];
     [req uploadWithComplete:^(NSString *picUrl) {
-        res(picUrl);
+        [self updateInfoWithHeadUrl:picUrl complete:^{
+            res();
+        }];
     } fail:^{
         
     }];

@@ -73,7 +73,7 @@ NSString *const MED_USER_DOCTOR = @"user_doctor";
 
 - (void)dealloc
 {
-    NSLog(@"旧用户已注销");
+    NSLog(@"用户资料已更新");
 }
 
 @end

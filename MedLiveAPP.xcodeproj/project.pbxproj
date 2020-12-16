@@ -603,6 +603,8 @@
 				58671BCA25876221000E1B42 /* MedLiveUpdateUserInfoRequest.m */,
 				58724FFE258866DA00F82284 /* MedLiveFetchUserInfoRequest.h */,
 				58724FFF258866DA00F82284 /* MedLiveFetchUserInfoRequest.m */,
+				586935AA2564C173004B2379 /* MedRtmTokenRequest.h */,
+				586935AB2564C173004B2379 /* MedRtmTokenRequest.m */,
 			);
 			path = NetworkModel;
 			sourceTree = "<group>";
@@ -731,8 +733,6 @@
 			isa = PBXGroup;
 			children = (
 				586935C425650098004B2379 /* messageModel */,
-				586935AA2564C173004B2379 /* MedRtmTokenRequest.h */,
-				586935AB2564C173004B2379 /* MedRtmTokenRequest.m */,
 				58711DEA25529A65007317B9 /* IMManager.h */,
 				58711DEB25529A65007317B9 /* IMManager.m */,
 				586935BC2564F064004B2379 /* IMChannelManager.h */,

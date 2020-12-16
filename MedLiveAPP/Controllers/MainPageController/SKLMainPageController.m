@@ -55,8 +55,8 @@
 }
 
 - (void)deleteWebCache {
-//allWebsiteDataTypes清除所有缓存
- NSSet *websiteDataTypes = [WKWebsiteDataStore allWebsiteDataTypes];
+    //allWebsiteDataTypes清除所有缓存
+    NSSet *websiteDataTypes = [WKWebsiteDataStore allWebsiteDataTypes];
 
     NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
 

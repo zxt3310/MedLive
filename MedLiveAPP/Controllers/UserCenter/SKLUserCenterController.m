@@ -57,7 +57,8 @@ char *const USERINFO_OBSERVER = "user_info_has_changed";
     if([AppCommondCenter sharedCenter].hasLogin){
         loginEntry.hidden = YES;
         infoView.hidden = NO;
-        mobileLabel.text = [AppCommondCenter sharedCenter].currentUser.mobile;
+        MedLiveUserModel *user = [AppCommondCenter sharedCenter].currentUser;
+        [AppCommondCenter sharedCenter].currentUser = user;
     }
     
 }
@@ -138,7 +139,7 @@ char *const USERINFO_OBSERVER = "user_info_has_changed";
         MedLiveUserModel *newUser = (MedLiveUserModel *)[change valueForKey:@"new"];
         mobileLabel.text = KIsBlankString(newUser.userName)?newUser.mobile:newUser.userName;
         if (!KIsBlankString(newUser.headerImgUrl)) {
-            headImgView.yy_imageURL = [NSURL URLWithString:newUser.headerImgUrl];
+            headImgView.yy_imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Cdn_domain,newUser.headerImgUrl]];
         }
     }
     else {

@@ -11,8 +11,9 @@
 #import <LGAlertView.h>
 #import "SKLUserInfoViewModel.h"
 #import <TZImagePickerController.h>
+#import "CropImageController.h"
 
-@interface SKLUserInfoController()<TZImagePickerControllerDelegate>
+@interface SKLUserInfoController()<TZImagePickerControllerDelegate,CropImageDelegate>
 
 @end
 
@@ -42,7 +43,7 @@
 - (void)initUserInfo{
     [viewModel fetchInfoWithComplete:^(MedLiveUserModel *user) {
         if (!KIsBlankString(user.headerImgUrl)) {
-            headerView.yy_imageURL = [NSURL URLWithString:user.headerImgUrl];
+            headerView.yy_imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Cdn_domain,user.headerImgUrl]];
         }
         nameLb.text = Kstr(user.userName);
         mobileLb.text = Kstr(user.mobile);
@@ -80,7 +81,18 @@
 }
 
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto infos:(NSArray<NSDictionary *> *)infos{
-    
+    if (photos.count > 0) {
+        UIImage *image = [photos firstObject];
+        CropImageController *crop = [[CropImageController alloc] initWithImage:image delegate:self];
+        [self.navigationController pushViewController:crop animated:YES];
+    }
+}
+
+- (void)cropImageDidFinishedWithImage:(UIImage *)image{
+    headerView.image = image;
+    [viewModel uploadHeaderImg:image complete:^{
+        NSLog(@"头像修改完成");
+    }];
 }
 
 - (void)dealloc

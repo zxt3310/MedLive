@@ -5,7 +5,7 @@
         <!-- 状态条站位 -->
         </UIView>
         <UIView class="" layout="flexDirection:row" attr="">
-            <UIImageView name="headImgView" layout="width:75,aspectRatio:1" attr="source:header"/>
+            <UIImageView name="headImgView" layout="width:70,aspectRatio:1" attr="source:header,borderRadius:35,clipsToBounds:true"/>
             
             <UIView name="infoView" layout="flex:1,padding:10" attr="hidden:true">
                 <UILabel name="mobileLabel" class="" layout="" attr="fontSize:14,color:white,text:"/>

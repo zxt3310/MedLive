@@ -248,37 +248,55 @@
         make.width.equalTo(@(infoScroll.frame.size.width - 40));
         make.top.equalTo(introLabel.mas_bottom).offset(5);
         make.left.equalTo(introLabel);
-        make.height.mas_equalTo(250*pics.count);
+        //make.height.mas_equalTo(250*pics.count);
     }];
     //图片
     if (pics) {
         NSMutableArray <UIImageView *>* picsViewAry = [NSMutableArray array];
+        WeakSelf
+        __weak UIScrollView *weakScroll = infoScroll;
         [pics enumerateObjectsUsingBlock:^(NSString * path, NSUInteger idx, BOOL *stop) {
             UIImageView *imageView = [[UIImageView alloc] init];
-            imageView.yy_imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@:8081%@",Domain,path]];
-            imageView.contentMode = UIViewContentModeScaleAspectFill;
-            imageView.clipsToBounds = YES;
+            NSURL *imgUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@:8081%@",Domain,path]];
+            [imageView yy_setImageWithURL:imgUrl
+                              placeholder:nil
+                                  options:kNilOptions
+                               completion:^(UIImage *image, NSURL *url, YYWebImageFromType from, YYWebImageStage stage, NSError *error) {
+                if (!image) {
+                    return;
+                }
+                [imageView mas_updateConstraints:^(MASConstraintMaker *make) {
+                    CGFloat oriWidth = image.size.width;
+                    CGFloat oriHei = image.size.height;
+                    make.height.mas_equalTo(oriHei/oriWidth*(kScreenWidth - 40));
+                }];
+//                [imageView.superview layoutIfNeeded];
+                [imageView.superview setNeedsLayout];
+                [imageView.superview layoutIfNeeded];
+                [weakSelf reloadScrollContentSize:weakScroll];
+            }];
+            //imageView.clipsToBounds = YES;
             [picsViewAry addObject:imageView];
             [picsView addSubview:imageView];
         }];
         //多个图片等间距排版
         if (pics.count > 1) {
             [picsViewAry mas_distributeViewsAlongAxis:MASAxisTypeVertical withFixedSpacing:10 leadSpacing:20 tailSpacing:20];
-            [picsViewAry mas_makeConstraints:^(MASConstraintMaker *make) {
+            [picsViewAry mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.left.right.equalTo(picsView);
-                make.height.mas_lessThanOrEqualTo(250);
             }];
             
         }else if(pics.count == 1){
             UIImageView *imgView = [picsViewAry firstObject];
-            [imgView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.left.right.equalTo(picsView);
-                make.height.mas_lessThanOrEqualTo(250);;
+            [imgView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(picsView);
             }];
         }
     }
-    [self layoutIfNeeded];
-    [self reloadScrollContentSize:infoScroll];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(NSEC_PER_SEC*1.5)), dispatch_get_main_queue(), ^{
+        [self reloadScrollContentSize:infoScroll];
+    });
 }
 
 - (void)resetScroll{
@@ -364,8 +382,8 @@
 }
 
 - (void)layoutSubviews{
-    NSLog(@"调用布局");
-    [self reloadScrollContentSize:horizonScroll];
+    NSLog(@"调用了一次");
+    //[self reloadScrollContentSize:horizonScroll];
 }
 
 - (void)updateConstraints{

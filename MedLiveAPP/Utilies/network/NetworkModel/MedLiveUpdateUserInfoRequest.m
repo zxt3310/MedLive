@@ -36,7 +36,11 @@
 }
 
 - (id)requestArgument{
-    return [NSDictionary dictionaryWithObjectsAndKeys:uid,@"user_id",name,@"true_name",url,@"cover_pic", nil];
+    NSMutableDictionary *argu = [NSMutableDictionary dictionary];
+    [argu setValue:uid forKey:@"user_id"];
+    [argu setValue:name forKey:@"true_name"];
+    [argu setValue:url forKey:@"cover_pic"];
+    return [argu copy];
 }
 
 - (NSString *)requestUrl{

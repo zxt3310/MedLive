@@ -7,6 +7,7 @@
 //
 
 #import "AppCommondCenter.h"
+#import "MedLiveFetchUserInfoRequest.h"
 
 NSString *const RTCEngineDidReceiveMessage = @"RTCEngineDidReceiveMessage";
 NSString *const RTMEngineDidReceiveSignal = @"RTMEngineDidReceiveSignal";
@@ -32,6 +33,9 @@ static AppCommondCenter *center = nil;
     if (self) {
         self.currentUser = [MedLiveUserModel loadFromUserDefaults];
         self.hasLogin = ![self.currentUser.uid isEqualToString:@"0"];
+        if (self.hasLogin) {
+            [self fetchUserInfo:self.currentUser.uid];
+        }
     }
     return self;
 }
@@ -41,15 +45,21 @@ static AppCommondCenter *center = nil;
     [newUser save];
 }
 
-- (void)loginWithMobile:(NSString *)mobile Uid:(NSString *)uid Name:(NSString *)username{
-    self.currentUser.mobile = mobile;
-    self.currentUser.uid = uid;
-    self.currentUser.userName = username;
+- (void)loginWithMobile:(NSString *)mobile Uid:(NSString *)uid{
+    [self fetchUserInfo:uid];
     self.hasLogin = YES;
     
-    [self.currentUser save];
-    
     NSLog(@"登录成功 mobile:%@ uid:%@",mobile, uid);
+}
+
+- (void)fetchUserInfo:(NSString *)uid{
+    MedLiveFetchUserInfoRequest *req = [[MedLiveFetchUserInfoRequest alloc] initWithUid:uid];
+    [req fetchInfo:^(NSDictionary * infoDic) {
+        MedLiveUserModel *user = [[MedLiveUserModel alloc] init];
+        [user setWithDictionary:infoDic];
+        self.currentUser = user;
+        [self.currentUser save];
+    }];
 }
 
 - (void)logout{
