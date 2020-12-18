@@ -15,6 +15,12 @@
 + (void)preparBeforUI{
     [MedLiveNetManager setBaseUrl:Domain];
     [[IMManager sharedManager] loginToAgoraServiceWithId:[AppCommondCenter sharedCenter].currentUser.uid];
+    
+    //每次启动时如果已登录，刷新 user info
+    MedLiveUserModel *user = [AppCommondCenter sharedCenter].currentUser;
+    if ([AppCommondCenter sharedCenter].hasLogin) {
+        [[AppCommondCenter sharedCenter] updateUserInfo:user];
+    }
 }
 
 @end

@@ -11,7 +11,6 @@
 #import "MedLiveNetManager.h"
 #import "MedLiveSendMsgRequest.h"
 #import "MedLiveLoginRequest.h"
-#import "IMManager.h"
 
 @interface MedLiveLoginController ()<LoginViewDelegate>
 
@@ -55,9 +54,7 @@
     [request requestLogin:^(id userInfo) {
         NSString *uid = [[userInfo valueForKey:@"user_id"] stringValue];
         AppCommondCenter *center = [AppCommondCenter sharedCenter];
-        [center loginWithMobile:mobile Uid:uid];
-        //登录聊天系统
-        [[IMManager sharedManager] loginToAgoraServiceWithId:uid];
+        [center loginWithUid:uid];
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }

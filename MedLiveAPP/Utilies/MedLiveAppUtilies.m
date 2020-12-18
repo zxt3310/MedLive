@@ -31,6 +31,7 @@
     id obj = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
     if (error) {
       //解析出错
+        obj = nil;
         NSLog(@"图片解析出错");
     }
     return obj;

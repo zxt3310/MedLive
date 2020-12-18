@@ -24,14 +24,11 @@
 
 @implementation MedChannelChatMessage
 
-- (instancetype)initWithUid:(NSString *)uid Name:(NSString *)name Pic:(NSString *)url Context:(NSString *)text
-{
+- (instancetype)initWithText:(NSString *)text{
     self = [super init];
     if (self) {
-        self.peerId = uid;
-        self.nickName = name;
-        self.headPic = url;
-        self.context = text;
+        self.type = MedChannelMessageTypeChat;
+        self.text = text;
     }
     return self;
 }
@@ -40,12 +37,13 @@
 
 @implementation MedChannelSignalMessage
 
-- (instancetype)initWithMessageSignal:(MedMessageSignalType) signal Target:(NSString *)uid
+- (instancetype)initWithMessageSignal:(NSString *)signal Target:(NSString *)uid
 {
     self = [super init];
     if (self) {
-        self.signalType = signal;
-        self.targetId = uid;
+        self.type = MedChannelMessageTypeSignal;
+        self.signal = signal;
+        self.targetid = uid;
     }
     return self;
 }

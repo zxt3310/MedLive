@@ -32,7 +32,7 @@ UIKIT_EXTERN NSString *const MedRtmRejoinCall;
 
 - (void)updateUserInfo:(MedLiveUserModel *)newUser;
 
-- (void)loginWithMobile:(NSString *)mobile Uid:(NSString *)uid;
+- (void)loginWithUid:(NSString *)uid;
 
 - (void)logout;
 @end

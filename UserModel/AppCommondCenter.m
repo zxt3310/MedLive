@@ -8,6 +8,7 @@
 
 #import "AppCommondCenter.h"
 #import "MedLiveFetchUserInfoRequest.h"
+#import "IMManager.h"
 
 NSString *const RTCEngineDidReceiveMessage = @"RTCEngineDidReceiveMessage";
 NSString *const RTMEngineDidReceiveSignal = @"RTMEngineDidReceiveSignal";
@@ -43,13 +44,22 @@ static AppCommondCenter *center = nil;
 - (void)updateUserInfo:(MedLiveUserModel *)newUser{
     self.currentUser = newUser;
     [newUser save];
+    
+    //更新RTM 属性
+    NSString *userName = KIsBlankString(newUser.userName)?newUser.uid:newUser.userName;
+    NSString *headerUrl = Kstr(newUser.headerImgUrl);
+    [[IMManager sharedManager] setLocalUserAttrbuteWithName:userName Headerpic:headerUrl];
 }
 
-- (void)loginWithMobile:(NSString *)mobile Uid:(NSString *)uid{
+- (void)loginWithUid:(NSString *)uid{
+    //拉取用户信息
     [self fetchUserInfo:uid];
     self.hasLogin = YES;
     
-    NSLog(@"登录成功 mobile:%@ uid:%@",mobile, uid);
+    //登录聊天系统
+    [[IMManager sharedManager] loginToAgoraServiceWithId:uid];
+    
+    NSLog(@"登录成功 uid:%@", uid);
 }
 
 - (void)fetchUserInfo:(NSString *)uid{
@@ -67,4 +77,5 @@ static AppCommondCenter *center = nil;
     self.hasLogin = NO;
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:LOCALUSERINFO_STORAGE_KEY];
 }
+
 @end

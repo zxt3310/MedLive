@@ -16,29 +16,24 @@ typedef enum : NSUInteger {
     MedChannelMessageTypeSignal = 1
 } MedChannelMessageType;
 
-typedef enum : NSUInteger {
-    MedMessageSignalTypeStreamDenied = 0,
-    MedMessageSignalTypeStreamAllow  = 1
-} MedMessageSignalType;
+UIKIT_EXTERN NSString *const SKLMessageSignal_VideoGrant;
+UIKIT_EXTERN NSString *const SKLMessageSignal_VideoDenied;
+UIKIT_EXTERN NSString *const SKLMessageSignal_Pointmain;
 
 @interface MedChannelMessage : NSObject <YYModel>
-@property (nonatomic) MedChannelMessageType messageType;
-@property (nonatomic,strong) NSString *peerId;
+@property (nonatomic) MedChannelMessageType type;
 @end
 
 
 @interface MedChannelChatMessage : MedChannelMessage
-@property (nonatomic,strong) NSString *nickName;
-@property (nonatomic,strong) NSString *headPic;
-@property (nonatomic,strong) NSString *context;
-
-- (instancetype)initWithUid:(NSString *)uid Name:(NSString *)name Pic:(NSString *)url Context:(NSString *)text;
+@property (nonatomic,strong) NSString *text;
+- (instancetype)initWithText:(NSString *)text;
 @end
 
 @interface MedChannelSignalMessage : MedChannelMessage
-@property MedMessageSignalType signalType;
-@property NSString *targetId;
-- (instancetype)initWithMessageSignal:(MedMessageSignalType) signal Target:(NSString *)uid;
+@property (nonatomic,strong) NSString *signal;
+@property (nonatomic,strong) NSString *targetid;
+- (instancetype)initWithMessageSignal:(NSString *)signal Target:(NSString *)uid;
 @end
 
 NS_ASSUME_NONNULL_END

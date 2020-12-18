@@ -93,24 +93,39 @@
 #pragma AgoraRtmChannelDelegate Imp
 
 - (void)channel:(AgoraRtmChannel *)channel messageReceived:(AgoraRtmMessage *)message fromMember:(AgoraRtmMember *)member{
-    AgoraRtmRawMessage *rawMsg = (AgoraRtmRawMessage *)message;
-    NSData *rawData = rawMsg.rawData;
-    MedChannelMessage *msg = [NSKeyedUnarchiver unarchiveObjectWithData:rawData];
-    //以防bug 修正远端uid
-    msg.peerId = member.userId;
-    
-    if (msg.messageType == MedChannelMessageTypeChat) {
-        MedChannelChatMessage *chat = (MedChannelChatMessage *)msg;
-        if (self.channelDelegate && [self.channelDelegate respondsToSelector:@selector(channelDidReceiveMessage:)]) {
-            [self.channelDelegate channelDidReceiveMessage:chat];
-            NSLog(@"频道%@ 收到来自%@ 的消息:%@",member.channelId,member.userId,chat.context);
+    if (message.type == AgoraRtmMessageTypeText) {
+        NSString *context = message.text;
+        id jsonDic = [MedLiveAppUtilies stringToJsonDic:context];
+        if (!jsonDic) {
+            NSLog(@"收到id为%@ 的消息，解析失败",member.userId);
+            return;
         }
-    }else if(msg.messageType == MedChannelMessageTypeSignal){
-        MedChannelSignalMessage *signal = (MedChannelSignalMessage *)msg;
-        if (self.channelDelegate && [self.channelDelegate respondsToSelector:@selector(channelDidReceiveSignal:)]) {
-            [self.channelDelegate channelDidReceiveSignal:signal];
+        MedChannelMessage *msg = [MedChannelMessage yy_modelWithJSON:jsonDic];
+        if (!msg) {
+            NSLog(@"收到id为%@ 的消息，解析失败",member.userId);
+            return;
+        }
+        if (msg.type == MedChannelMessageTypeChat) {
+            MedChannelChatMessage *chat = [MedChannelChatMessage yy_modelWithJSON:jsonDic];
+            
+        }
+        else if(msg.type == MedChannelMessageTypeSignal){
+            
         }
     }
+
+//    if (msg.messageType == MedChannelMessageTypeChat) {
+//        MedChannelChatMessage *chat = (MedChannelChatMessage *)msg;
+//        if (self.channelDelegate && [self.channelDelegate respondsToSelector:@selector(channelDidReceiveMessage:)]) {
+//            [self.channelDelegate channelDidReceiveMessage:chat];
+//            NSLog(@"频道%@ 收到来自%@ 的消息:%@",member.channelId,member.userId,chat.context);
+//        }
+//    }else if(msg.messageType == MedChannelMessageTypeSignal){
+//        MedChannelSignalMessage *signal = (MedChannelSignalMessage *)msg;
+//        if (self.channelDelegate && [self.channelDelegate respondsToSelector:@selector(channelDidReceiveSignal:)]) {
+//            [self.channelDelegate channelDidReceiveSignal:signal];
+//        }
+//    }
 }
 
 - (void)channel:(AgoraRtmChannel *)channel imageMessageReceived:(AgoraRtmImageMessage *)message fromMember:(AgoraRtmMember *)member{
@@ -119,6 +134,10 @@
 
 - (void)channel:(AgoraRtmChannel *)channel fileMessageReceived:(AgoraRtmFileMessage *)message fromMember:(AgoraRtmMember *)member{
     NSLog(@"频道收到了文件消息");
+}
+//频道属性变更回调
+- (void)channel:(AgoraRtmChannel *)channel attributeUpdate:(NSArray<AgoraRtmChannelAttribute *> *)attributes{
+    
 }
 
 - (void)channel:(AgoraRtmChannel *)channel memberJoined:(AgoraRtmMember *)member{

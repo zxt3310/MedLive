@@ -44,12 +44,37 @@ static IMManager *manager = nil;
             if (errorCode == 0) {
                 NSLog(@"成功登录聊天系统");
                 [[NSNotificationCenter defaultCenter] postNotificationName:MedRtmRejoinCall object:nil];
+                
+                //设置RTM 自定义属性
+                MedLiveUserModel *curUser = [AppCommondCenter sharedCenter].currentUser;
+                NSString *userName = KIsBlankString(curUser.userName)?curUser.uid:curUser.userName;
+                NSString *headerUrl = Kstr(curUser.headerImgUrl);
+                [[IMManager sharedManager] setLocalUserAttrbuteWithName:userName Headerpic:headerUrl];
+                
             }else if (errorCode == AgoraRtmLoginErrorAlreadyLogin){
                 [self.rtmEngine logoutWithCompletion:^(AgoraRtmLogoutErrorCode errorCode) {
                     [self loginToAgoraServiceWithId:userId];
                 }];
             }
         }];
+    }];
+}
+
+- (void)setLocalUserAttrbuteWithName:(NSString *)name Headerpic:(NSString *)url{
+    AgoraRtmAttribute *arttributeName = [[AgoraRtmAttribute alloc] init];
+    arttributeName.key = @"username";
+    arttributeName.value = name;
+    
+    AgoraRtmAttribute *attributeHeader = [[AgoraRtmAttribute alloc] init];
+    attributeHeader.key = @"headerpic";
+    attributeHeader.value = url;
+    
+    [self.rtmEngine setLocalUserAttributes:@[arttributeName,attributeHeader] completion:^(AgoraRtmProcessAttributeErrorCode errorCode) {
+        if (!errorCode) {
+            NSLog(@"全量用户attribute 提交成功");
+        }else{
+            NSLog(@"全量用户attribute 提交失败");
+        }
     }];
 }
 
