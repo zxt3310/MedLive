@@ -86,6 +86,26 @@ static IMManager *manager = nil;
     return [self.rtmEngine destroyChannelWithId:channelId];
 }
 
+- (void)getUserAttributeWithId:(NSString *)uid Suc:(void(^)(NSString *name,NSString *picUrl)) result{
+    [self.rtmEngine getUserAllAttributes:uid completion:^(NSArray<AgoraRtmAttribute *> *attributes, NSString *userId, AgoraRtmProcessAttributeErrorCode errorCode) {
+        if (errorCode == AgoraRtmAttributeOperationErrorOk) {
+            NSString *userName;
+            NSString *headerPic;
+            for (AgoraRtmAttribute* atr in attributes) {
+                if ([atr.key isEqualToString:@"username"]) {
+                    userName = atr.value;
+                }
+                if ([atr.key isEqualToString:@"headerpic"]) {
+                    headerPic = atr.value;
+                }
+            }
+            result(userName,headerPic);
+        }
+    }];
+}
+
+#pragma AgoraRtmDelegate Imp
+
 - (void)rtmKit:(AgoraRtmKit *)kit connectionStateChanged:(AgoraRtmConnectionState)state reason:(AgoraRtmConnectionChangeReason)reason{
     NSLog(@"RTM连接状态发生改变");
 }
@@ -107,7 +127,8 @@ static IMManager *manager = nil;
 }
 
 
-#pragma AgoraRtmDelegate Imp
+
+
 
 
 #pragma AgoraRtmChannelDelegate Imp

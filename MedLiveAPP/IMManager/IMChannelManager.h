@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)rtmJoinChannel;
 - (void)rejoinChannel;
 - (void)leaveChannel;
+- (void)sendTextMessage:(NSString *)text Success:(void(^)(void))result;
 - (void)sendRawMessage:(NSData *)msgData Completion:(void(^)(void)) success;
 @end
 

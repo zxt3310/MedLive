@@ -7,6 +7,7 @@
 //
 
 #import "MedLiveChatTableCell.h"
+#import <YYWebImage.h>
 
 
 @implementation MedLiveChatTableCell
@@ -94,8 +95,11 @@
 
 - (void)setMessage:(MedChannelChatMessage *)message{
     _message = message;
-    nameLabel.text = message.nickName;
-    contentLabel.text = message.context;
+    nameLabel.text = KIsBlankString(message.peerName)?message.peerId:message.peerName;
+    contentLabel.text = message.text;
+    if (!KIsBlankString(message.peerHeadPic)) {
+        headerView.yy_imageURL = [NSURL URLWithString:message.peerHeadPic];
+    }
     
     [containorView layoutIfNeeded];
     

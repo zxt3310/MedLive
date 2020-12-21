@@ -21,6 +21,9 @@ UIKIT_EXTERN NSString *const SKLMessageSignal_VideoDenied;
 UIKIT_EXTERN NSString *const SKLMessageSignal_Pointmain;
 
 @interface MedChannelMessage : NSObject <YYModel>
+@property (nonatomic,strong) NSString *peerId;
+@property (nonatomic,strong) NSString *peerName;
+@property (nonatomic,strong) NSString *peerHeadPic;
 @property (nonatomic) MedChannelMessageType type;
 @end
 

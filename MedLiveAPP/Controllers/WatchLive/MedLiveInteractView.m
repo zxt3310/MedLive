@@ -40,7 +40,7 @@
         [self setupInfoBar];
         [self setupContext];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardTrack:) name:UIKeyboardWillChangeFrameNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveChatMesaage:) name:RTCEngineDidReceiveMessage object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveChatMesaage:) name:RTMEngineDidReceiveMessage object:nil];
         self.clipsToBounds = YES;
         
         dataAry = [NSMutableArray array];

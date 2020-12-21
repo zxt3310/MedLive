@@ -15,6 +15,10 @@
 #import "MedLiveLoginController.h"
 #import "MedLiveRoomBoardcast.h"
 
+NSString *const SKLMessageSignal_VideoGrant = @"";
+NSString *const SKLMessageSignal_VideoDenied = @"";
+NSString *const SKLMessageSignal_Pointmain = @"";
+
 @interface ViewController ()<LiveManagerRemoteCanvasProvideDelegate,RenderMaseDelegate>
 @end
 
@@ -151,7 +155,6 @@
 
 - (void)didRemoteLeave:(NSInteger)uid{
     if (uid == pushView.uid) {
-        NSLog(@"主播下播了");
         [MedLiveAppUtilies showErrorTip:@"主播已下播"];
         [pushView showPlaceView:YES CenterTip:@"主播已下播"];
     }else{
@@ -222,17 +225,19 @@
 #pragma Signal Notification
 - (void)RTMDidReceiveSignal:(NSNotification *)notify{
     MedChannelSignalMessage *signal = (MedChannelSignalMessage *)notify.object;
-    if ([signal.targetId isEqualToString:[AppCommondCenter sharedCenter].currentUser.uid]) {
-        if (signal.signalType == MedMessageSignalTypeStreamAllow) {
+    if ([signal.targetid isEqualToString:[AppCommondCenter sharedCenter].currentUser.uid]) {
+        if ([signal.signal isEqualToString:SKLMessageSignal_VideoGrant]) {
             __weak LiveManager *weakManager = liveManager;
-            [pushView addRemoteStream:signal.targetId.integerValue result:^(LiveView * view) {
+            [pushView addRemoteStream:signal.targetid.integerValue result:^(LiveView * view) {
                 [weakManager setRole:AgoraClientRoleBroadcaster];
                 [weakManager setupVideoLocalView:view];
                 [weakManager enableVideo];
             }];
             [pushView showPlaceView:NO CenterTip:nil];
-        }else if(signal.signalType == MedMessageSignalTypeStreamDenied){
-            
+        }
+        
+        if ([signal.signal isEqualToString:SKLMessageSignal_VideoDenied]) {
+            [pushView removeRemoteStream:signal.targetid.integerValue];
         }
     }
 }

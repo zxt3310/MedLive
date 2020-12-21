@@ -10,7 +10,7 @@
 #import "MedLiveFetchUserInfoRequest.h"
 #import "IMManager.h"
 
-NSString *const RTCEngineDidReceiveMessage = @"RTCEngineDidReceiveMessage";
+NSString *const RTMEngineDidReceiveMessage = @"RTMEngineDidReceiveMessage";
 NSString *const RTMEngineDidReceiveSignal = @"RTMEngineDidReceiveSignal";
 NSString *const MedLoginCall = @"MedAppShouldPresentLoginController";
 NSString *const MedRtmRejoinCall = @"MedRtmChannelRejoin";

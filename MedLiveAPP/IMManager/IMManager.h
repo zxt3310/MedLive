@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (AgoraRtmChannel*)createChannelWithId:(NSString *)channelId ChannelDelegate:(id<AgoraRtmChannelDelegate>)delegate;
 - (BOOL)destroyChannel:(NSString *)channelId;
 - (void)setLocalUserAttrbuteWithName:(NSString *)name Headerpic:(NSString *)url;
+- (void)getUserAttributeWithId:(NSString *)uid Suc:(void(^)(NSString *name,NSString *picUrl)) result;
 @end
 
 NS_ASSUME_NONNULL_END

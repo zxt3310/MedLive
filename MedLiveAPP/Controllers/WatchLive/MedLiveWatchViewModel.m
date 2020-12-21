@@ -61,16 +61,14 @@
         self.pushCall(MedLoginCall);
         return;
     }
-    MedLiveUserModel *user = center.currentUser;
-    NSString *name = user.userName?:user.uid;
-    NSString *headerUrl = @"";
-    MedChannelChatMessage *msg = [[MedChannelChatMessage alloc] initWithUid:center.currentUser.uid
-                                                                   Name:name
-                                                                    Pic:headerUrl
-                                                                Context:text];
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:msg];
-    [manager sendRawMessage:data Completion:^{
-        NSLog(@"消息发送成功");
+    
+    MedLiveUserModel *me = center.currentUser;
+    MedChannelChatMessage *msg = [[MedChannelChatMessage alloc] initWithText:text];
+    msg.peerId = me.uid;
+    msg.peerHeadPic = me.headerImgUrl;
+    msg.peerName = me.userName;
+    NSString *msgJson = [msg yy_modelToJSONString];
+    [manager sendTextMessage:msgJson Success:^{
         result(msg);
     }];
 }
@@ -113,17 +111,17 @@
 }
 
 - (void)interactViewDidStoreLove:(BOOL)cancel{
-    if (!cancel) {
-        MedChannelSignalMessage *signal = [[MedChannelSignalMessage alloc] initWithMessageSignal:MedMessageSignalTypeStreamAllow
-                                                                                    Target:[AppCommondCenter sharedCenter].currentUser.uid];
-        [[NSNotificationCenter defaultCenter] postNotificationName:RTMEngineDidReceiveSignal object:signal];
-    }
+//    if (!cancel) {
+//        MedChannelSignalMessage *signal = [[MedChannelSignalMessage alloc] initWithMessageSignal:MedMessageSignalTypeStreamAllow
+//                                                                                    Target:[AppCommondCenter sharedCenter].currentUser.uid];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:RTMEngineDidReceiveSignal object:signal];
+//    }
 }
 
 #pragma IMChannelDelegate IMP
 
 - (void)channelDidReceiveMessage:(MedChannelChatMessage *)message{
-    [[NSNotificationCenter defaultCenter] postNotificationName:RTCEngineDidReceiveMessage object:message];
+    [[NSNotificationCenter defaultCenter] postNotificationName:RTMEngineDidReceiveMessage object:message];
 }
 
 - (void)channelDidReceiveSignal:(MedChannelSignalMessage *)signal{
