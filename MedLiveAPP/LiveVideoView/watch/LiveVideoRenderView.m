@@ -150,9 +150,9 @@
         LiveVideoRemoteWidget *widget = [remoteArray objectAtIndex:i];
         [widget mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(with, height));
-            make.bottom.equalTo(_videoView).offset(-space);
+            make.bottom.equalTo(self).offset(-space);
             if (i==0) {
-                make.right.equalTo(_videoView).offset(-space);
+                make.right.equalTo(self).offset(-space);
             }else{
                 LiveVideoRemoteWidget *last = [remoteArray objectAtIndex:i-1];
                 make.right.equalTo(last.mas_left).offset(-space);

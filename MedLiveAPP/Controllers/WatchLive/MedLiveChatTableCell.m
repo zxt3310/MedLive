@@ -41,6 +41,8 @@
     
     headerView = [[UIImageView alloc] init];
     headerView.image = [UIImage imageNamed:@"header"];
+    headerView.layer.cornerRadius = 15;
+    headerView.clipsToBounds = YES;
     [containorView addSubview:headerView];
     
     nameLabel = [[UILabel alloc] init];

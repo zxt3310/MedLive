@@ -13,6 +13,8 @@
 #import "MedLiveRoomBoardcast.h"
 #import "MedLiveRoleStateRequest.h"
 #import <YYModel.h>
+#import <LGAlertView.h>
+
 @interface MedLiveWatchViewModel()<IMChannelDelegate>
 @end
 
@@ -65,7 +67,7 @@
     MedLiveUserModel *me = center.currentUser;
     MedChannelChatMessage *msg = [[MedChannelChatMessage alloc] initWithText:text];
     msg.peerId = me.uid;
-    msg.peerHeadPic = me.headerImgUrl;
+    msg.peerHeadPic = [NSString stringWithFormat:@"%@%@",Cdn_domain,me.headerImgUrl];
     msg.peerName = me.userName;
     NSString *msgJson = [msg yy_modelToJSONString];
     [manager sendTextMessage:msgJson Success:^{
@@ -112,10 +114,37 @@
 
 - (void)interactViewDidStoreLove:(BOOL)cancel{
 //    if (!cancel) {
-//        MedChannelSignalMessage *signal = [[MedChannelSignalMessage alloc] initWithMessageSignal:MedMessageSignalTypeStreamAllow
-//                                                                                    Target:[AppCommondCenter sharedCenter].currentUser.uid];
+//        MedChannelSignalMessage *signal = [[MedChannelSignalMessage alloc] initWithMessageSignal:SKLMessageSignal_Pointmain Target:@"14"];
 //        [[NSNotificationCenter defaultCenter] postNotificationName:RTMEngineDidReceiveSignal object:signal];
 //    }
+//
+    __weak IMChannelManager *weakManager = manager;
+    [manager TotalMembersOfChannel:^(NSArray<NSString *> *members) {
+        __block MedChannelSignalMessage *msg;
+        __block NSInteger commond = 0;
+        
+        LGAlertView *alertOut = [LGAlertView alertViewWithTitle:@"选择" message:nil style:LGAlertViewStyleActionSheet buttonTitles:@[@"上麦",@"下麦",@"指定主讲人"] cancelButtonTitle:nil destructiveButtonTitle:nil];
+        LGAlertView *alertIn = [LGAlertView alertViewWithTitle:@"参会人员" message:nil style:LGAlertViewStyleActionSheet buttonTitles:members cancelButtonTitle:nil destructiveButtonTitle:nil];
+        alertOut.actionHandler = ^(LGAlertView * alertView, NSUInteger index, NSString *title) {
+            commond = index;
+            [alertIn showAnimated];
+        };
+        alertIn.actionHandler = ^(LGAlertView * _Nonnull alertView, NSUInteger index, NSString * _Nullable title) {
+            if (commond == 0) {
+                msg = [[MedChannelSignalMessage alloc] initWithMessageSignal:SKLMessageSignal_VideoGrant Target:[members objectAtIndex:index]];
+            }else if(commond == 1){
+                msg = [[MedChannelSignalMessage alloc] initWithMessageSignal:SKLMessageSignal_VideoDenied Target:[members objectAtIndex:index]];
+            }else{
+                msg = [[MedChannelSignalMessage alloc] initWithMessageSignal:SKLMessageSignal_Pointmain Target:[members objectAtIndex:index]];
+            }
+            
+            [weakManager sendTextMessage:[msg yy_modelToJSONString] Success:^{
+                NSLog(@"命令发送成功");
+            }];
+        };
+        [alertOut showAnimated];
+    }];
+    
 }
 
 #pragma IMChannelDelegate IMP

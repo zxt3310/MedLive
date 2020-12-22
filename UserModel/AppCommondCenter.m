@@ -48,7 +48,7 @@ static AppCommondCenter *center = nil;
     //更新RTM 属性
     NSString *userName = KIsBlankString(newUser.userName)?newUser.uid:newUser.userName;
     NSString *headerUrl = Kstr(newUser.headerImgUrl);
-    [[IMManager sharedManager] setLocalUserAttrbuteWithName:userName Headerpic:headerUrl];
+    [[IMManager sharedManager] setLocalUserAttrbuteWithName:userName Headerpic:[NSString stringWithFormat:@"%@%@",Cdn_domain,headerUrl]];
 }
 
 - (void)loginWithUid:(NSString *)uid{

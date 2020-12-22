@@ -10,5 +10,15 @@
 
 @implementation LiveView
 
-
+- (void)renewVideoView{
+    UIView *newView = [[UIView alloc] init];
+    newView.backgroundColor = self.videoView.backgroundColor;
+    NSInteger cur = [self.subviews indexOfObject:self.videoView];
+    [self insertSubview:newView atIndex:cur];
+    [self.videoView removeFromSuperview];
+    self.videoView = newView;
+    [newView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
+    }];
+}
 @end

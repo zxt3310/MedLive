@@ -15,9 +15,9 @@
 #import "MedLiveLoginController.h"
 #import "MedLiveRoomBoardcast.h"
 
-NSString *const SKLMessageSignal_VideoGrant = @"";
-NSString *const SKLMessageSignal_VideoDenied = @"";
-NSString *const SKLMessageSignal_Pointmain = @"";
+NSString *const SKLMessageSignal_VideoGrant = @"video_grant";
+NSString *const SKLMessageSignal_VideoDenied = @"video_denied";
+NSString *const SKLMessageSignal_Pointmain = @"point_main";
 
 @interface ViewController ()<LiveManagerRemoteCanvasProvideDelegate,RenderMaseDelegate>
 @end
@@ -237,7 +237,30 @@ NSString *const SKLMessageSignal_Pointmain = @"";
         }
         
         if ([signal.signal isEqualToString:SKLMessageSignal_VideoDenied]) {
+            [liveManager disableVideo];
             [pushView removeRemoteStream:signal.targetid.integerValue];
+        }
+    }else{
+        if ([signal.signal isEqualToString:SKLMessageSignal_Pointmain]) {
+            //如果目标是自己，说明
+            if ([signal.targetid isEqualToString:[AppCommondCenter sharedCenter].currentUser.uid]) {
+                
+            }
+            //纯拉流
+            else{
+                pushView.uid = signal.targetid.integerValue;
+                //移除小窗口
+                [pushView removeRemoteStream:signal.targetid.integerValue];
+                //加载大窗口
+                [pushView renewVideoView];
+                [liveManager setupVideoRemoteView:pushView];
+                
+                //重新放置小窗口
+                __weak LiveManager *weakManager = liveManager;
+                [pushView addRemoteStream:signal.targetid.integerValue result:^(__kindof LiveView * view) {
+                    [weakManager setupVideoRemoteView:view];
+                }];
+            }
         }
     }
 }

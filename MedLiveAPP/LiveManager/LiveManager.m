@@ -73,6 +73,10 @@
 - (void)enableVideo{
     [self.agorEngine enableVideo];
 }
+//停用本地视频采集
+- (void)disableVideo{
+    [self.agorEngine disableVideo];
+}
 //本地静音
 - (void)muteLocalMic:(BOOL)mute{
     [self.agorEngine muteLocalAudioStream:mute];

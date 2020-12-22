@@ -80,6 +80,18 @@
     }];
 }
 
+- (void)TotalMembersOfChannel:(void(^)(NSArray <NSString*>* members))result{
+    [self.imChannel getMembersWithCompletion:^(NSArray<AgoraRtmMember *> * _Nullable members, AgoraRtmGetMembersErrorCode errorCode) {
+        if (errorCode == AgoraRtmGetMembersErrorOk) {
+            NSMutableArray <NSString *> *memberAry = [NSMutableArray array];
+            for (AgoraRtmMember *member in members) {
+                [memberAry addObject:member.userId];
+            }
+            result([memberAry copy]);
+        }
+    }];
+}
+
 //发送图片消息  预留
 - (void)sendImageMessage:(UIImage *)img text:(NSString*) info{
     
@@ -93,7 +105,7 @@
 }
 
 #pragma AgoraRtmChannelDelegate Imp
-
+//张梨琼 14
 - (void)channel:(AgoraRtmChannel *)channel messageReceived:(AgoraRtmMessage *)message fromMember:(AgoraRtmMember *)member{
     if (message.type == AgoraRtmMessageTypeText) {
         NSString *context = message.text;

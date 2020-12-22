@@ -49,7 +49,7 @@ static IMManager *manager = nil;
                 MedLiveUserModel *curUser = [AppCommondCenter sharedCenter].currentUser;
                 NSString *userName = KIsBlankString(curUser.userName)?curUser.uid:curUser.userName;
                 NSString *headerUrl = Kstr(curUser.headerImgUrl);
-                [[IMManager sharedManager] setLocalUserAttrbuteWithName:userName Headerpic:headerUrl];
+                [[IMManager sharedManager] setLocalUserAttrbuteWithName:userName Headerpic:[NSString stringWithFormat:@"%@%@",Cdn_domain,headerUrl]];
                 
             }else if (errorCode == AgoraRtmLoginErrorAlreadyLogin){
                 [self.rtmEngine logoutWithCompletion:^(AgoraRtmLogoutErrorCode errorCode) {

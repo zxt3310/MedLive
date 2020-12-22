@@ -14,11 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LiveView : UIView
 
-@property (weak) AgoraRtcVideoCanvas *videoCanvas;
+@property (nonatomic)AgoraRtcVideoCanvas *videoCanvas;
 
-@property (strong,readonly) UIView *videoView;
+@property (nonatomic,strong) UIView *videoView;
 
-@property NSInteger uid;
+@property (nonatomic) NSInteger uid;
+
+- (void)renewVideoView;
 
 @end
 

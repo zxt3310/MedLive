@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)leaveChannel;
 - (void)sendTextMessage:(NSString *)text Success:(void(^)(void))result;
 - (void)sendRawMessage:(NSData *)msgData Completion:(void(^)(void)) success;
+//获取所有人
+- (void)TotalMembersOfChannel:(void(^)(NSArray <NSString*>* members))result;
 @end
 
 NS_ASSUME_NONNULL_END
