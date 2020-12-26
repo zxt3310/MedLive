@@ -248,6 +248,7 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
             }
             //纯拉流
             else{
+                NSInteger curId = pushView.uid;
                 pushView.uid = signal.targetid.integerValue;
                 //移除小窗口
                 [pushView removeRemoteStream:signal.targetid.integerValue];
@@ -257,7 +258,7 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
                 
                 //重新放置小窗口
                 __weak LiveManager *weakManager = liveManager;
-                [pushView addRemoteStream:signal.targetid.integerValue result:^(__kindof LiveView * view) {
+                [pushView addRemoteStream:curId result:^(__kindof LiveView * view) {
                     [weakManager setupVideoRemoteView:view];
                 }];
             }
