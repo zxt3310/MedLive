@@ -79,6 +79,7 @@ typedef enum : NSUInteger {
 
 @end
 
+#pragma MaskViewImp
 @implementation LiveRenderMaskView
 {
     CGPoint touchBeganPoint;

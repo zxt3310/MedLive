@@ -101,6 +101,8 @@
     contentLabel.text = message.text;
     if (!KIsBlankString(message.peerHeadPic)) {
         headerView.yy_imageURL = [NSURL URLWithString:message.peerHeadPic];
+    }else{
+        headerView.image = [UIImage imageNamed:@"head"];
     }
     
     [containorView layoutIfNeeded];

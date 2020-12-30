@@ -125,6 +125,10 @@
 
 - (void)removeRemoteStream:(NSInteger)uid{
     __block NSInteger index = 0;
+    //由于主播未开摄像头，在离开的时候依然会收到退出消息，所以做个处理
+    if (remoteArray.count == 0) {
+        return;
+    }
     [remoteArray enumerateObjectsUsingBlock:^(LiveVideoRemoteWidget *obj, NSUInteger idx, BOOL *stop) {
         if (obj.uid == uid) {
             index = idx;
