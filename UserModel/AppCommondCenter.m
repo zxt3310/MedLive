@@ -9,6 +9,7 @@
 #import "AppCommondCenter.h"
 #import "MedLiveFetchUserInfoRequest.h"
 #import "IMManager.h"
+#import <YYModel.h>
 
 NSString *const RTMEngineDidReceiveMessage = @"RTMEngineDidReceiveMessage";
 NSString *const RTMEngineDidReceiveSignal = @"RTMEngineDidReceiveSignal";
@@ -65,8 +66,7 @@ static AppCommondCenter *center = nil;
 - (void)fetchUserInfo:(NSString *)uid{
     MedLiveFetchUserInfoRequest *req = [[MedLiveFetchUserInfoRequest alloc] initWithUid:uid];
     [req fetchInfo:^(NSDictionary * infoDic) {
-        MedLiveUserModel *user = [[MedLiveUserModel alloc] init];
-        [user setWithDictionary:infoDic];
+        MedLiveUserModel *user = [MedLiveUserModel yy_modelWithDictionary:infoDic];
         self.currentUser = user;
         [self.currentUser save];
     }];

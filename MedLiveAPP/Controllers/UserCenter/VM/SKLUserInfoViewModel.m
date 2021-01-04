@@ -10,14 +10,15 @@
 #import "MedLiveFetchUserInfoRequest.h"
 #import "MedLiveUpdateUserInfoRequest.h"
 #import "MedUploadPhotoRequest.h"
+#import <YYModel.h>
 
 @implementation SKLUserInfoViewModel
 
 - (void)fetchInfoWithComplete:(void(^)(MedLiveUserModel *user))res{
     MedLiveFetchUserInfoRequest *req = [[MedLiveFetchUserInfoRequest alloc] initWithUid:[AppCommondCenter sharedCenter].currentUser.uid];
     [req fetchInfo:^(NSDictionary * infoDic) {
-        MedLiveUserModel *user = [[MedLiveUserModel alloc] init];
-        [user setWithDictionary:infoDic];
+        MedLiveUserModel *user = [MedLiveUserModel yy_modelWithDictionary:infoDic];
+        [user save];
         res(user);
     }];
 }

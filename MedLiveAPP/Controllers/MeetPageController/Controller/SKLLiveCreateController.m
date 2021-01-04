@@ -24,6 +24,9 @@
     UIView *coverPicView;
     NSString *coverPicUrl;
     NSMutableArray <UIView*> *introPicsMutable;
+    FlexTouchView *liveBtn;
+    
+    NSMutableDictionary *tempDic;
 }
 @end
 
@@ -32,6 +35,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"创建直播";
+    
+    tempDic = [NSMutableDictionary dictionary];
     
     viewModel = [[SKLLiveCreateViewModel alloc] init];
     
@@ -83,6 +88,7 @@
                                               picUrl:coverPicUrl
                                            introPics:[picAry copy]
                                             Complete:^(NSString *channelId, NSString *title, NSString *roomId) {
+                
                 if(completeBlock){
                     completeBlock(channelId,title,roomId);
                 }else{
@@ -98,17 +104,21 @@
 }
 
 - (void)onlyCreate{
-    [self createPlanWithComplate:nil];
+    __weak FlexTouchView *weakBtn = liveBtn;
+    [self createPlanWithComplate:^(NSString *channelId, NSString *title, NSString *roomId) {
+        [tempDic setObject:roomId forKey:@"roomId"];
+        weakBtn.userInteractionEnabled = YES;
+        [weakBtn setViewAttrStrings:@[@"bgColor",@"#6F6AE8"]];
+    }];
 }
 
 - (void)liveDirectly{
-    [self createPlanWithComplate:^(NSString *channelId, NSString *title, NSString *roomId) {
+    if([tempDic objectForKey:@"roomId"]){
+        NSString *roomId = [tempDic objectForKey:@"roomId"];
         MedLiveController *liveController = [[MedLiveController alloc] init];
-        liveController.channelId = channelId;
-        liveController.titleName = title;
         liveController.roomId = roomId;
         [self.navigationController pushViewController:liveController animated:YES];
-    }];
+    }
 }
 
 - (void)selectIntoPics{
