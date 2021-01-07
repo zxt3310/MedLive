@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "shezhi1-2.png",
+      "filename" : "setting.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "shezhi1-2@2x.png",
+      "filename" : "setting (1).png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "shezhi1-2@3x.png",
+      "filename" : "setting (2).png",
       "idiom" : "universal",
       "scale" : "3x"
     }

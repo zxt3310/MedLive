@@ -12,6 +12,7 @@
 #import "SKLMeetController.h"
 #import "SKLTeamController.h"
 #import "SKLUserCenterController.h"
+#import "MedLiveWebContoller.h"
 
 @interface MainTabController ()<AxcAE_TabBarDelegate>
 
@@ -27,6 +28,9 @@
     SKLMainPageController *mainPage = [[SKLMainPageController alloc] init];
     SKLMeetController *meetting = [[SKLMeetController alloc] init];
     SKLTeamController *proTeam = [[SKLTeamController alloc] init];
+//    MedLiveWebContoller *proTeam = [[MedLiveWebContoller alloc] init];
+//    proTeam.urlStr = @"http://dev.saikang.ranknowcn.com/h5/expert_list";
+    
     SKLUserCenterController *userCenter = [[SKLUserCenterController alloc] init];
 
     self.viewControllers = @[mainPage,meetting,proTeam,userCenter];

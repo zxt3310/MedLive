@@ -2,14 +2,14 @@
 <UIView layout="flex:1" attr="bgColor:white">
     <FlexScrollView layout="flex:1" attr="vertScroll:true">
         <UIView class="" layout="paddingHorizontal:20" attr="">
-            <UIView class="" layout="flexDirection:row,paddingVertical:15" attr="">
+            <UIView class="" layout="flexDirection:row,paddingVertical:20" attr="">
                 <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:直播主题"/>
                 <UITextField name="titleField" class="" layout="flex:1,marginLeft:20" attr="fontSize:14,color:black,textAlign:left,placeholder:请输入,text:"/>
             </UIView>
 
-            <UIView class="" layout="height:1" attr="bgColor:#d0d0d0"/>
+            <UIView class="" layout="height:1" attr="bgColor:#F2F1F1"/>
 
-            <UIView class="" layout="flexDirection:row,paddingVertical:15,justifyContent:space-between" attr="">
+            <UIView class="" layout="flexDirection:row,paddingVertical:20,justifyContent:space-between" attr="">
                 <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:直播时间"/>
                 <FlexTouchView onPress="selectDate" layout="flexDirection:row" attr="">
                     <UILabel name="dateLabel" class="" layout="" attr="fontSize:12,color:#2B7BF6,lineBreakMode:truncatingTail,linesNum:1,text:请选择"/>
@@ -17,16 +17,16 @@
                 </FlexTouchView>
             </UIView>
 
-            <UIView class="" layout="height:1" attr="bgColor:#d0d0d0"/>
+            <UIView class="" layout="height:1" attr="bgColor:#F2F1F1"/>
 
-            <UIView class="" layout="paddingVertical:15" attr="">
+            <UIView class="" layout="paddingVertical:20" attr="">
                 <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:直播简介"/>
                 <FlexTextView name="introField" class="" layout="" attr="fontSize:14,color:black,textAlign:left,placeholder:请输入"/>
             </UIView>
 
-            <UIView class="" layout="height:1" attr="bgColor:#d0d0d0"/>
+            <UIView class="" layout="height:1" attr="bgColor:#F2F1F1"/>
 
-            <UIView class="" layout="flexDirection:row,justifyContent:space-between,paddingVertical:15" attr="">
+            <UIView class="" layout="flexDirection:row,justifyContent:space-between,paddingVertical:20" attr="">
                 <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:直播介绍图片"/>
                 <FlexTouchView onPress="selectIntoPics" layout="flexDirection:row" attr="">
                     <UILabel name="" class="" layout="" attr="fontSize:12,color:#2B7BF6,lineBreakMode:truncatingTail,linesNum:1,text:请选择"/>
@@ -36,9 +36,9 @@
 
             <UIView name="introPicView" layout="flexDirection:row,flexWrap:wrap" attr=""></UIView>
         
-            <UIView class="" layout="height:1" attr="bgColor:#d0d0d0"/>
+            <UIView class="" layout="height:1" attr="bgColor:#F2F1F1"/>
 
-            <UIView class="" layout="flexDirection:row,justifyContent:space-between,paddingVertical:15" attr="">
+            <UIView class="" layout="flexDirection:row,justifyContent:space-between,paddingVertical:20" attr="">
                 <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:封面图片"/>
                 <FlexTouchView onPress="selectCoverPic" layout="flexDirection:row" attr="">
                     <UILabel name="" class="" layout="" attr="fontSize:12,color:#2B7BF6,lineBreakMode:truncatingTail,linesNum:1,text:请选择"/>
@@ -48,13 +48,13 @@
 
             <UIView name="coverPicView" layout="" attr=""></UIView>
             
-            <UIView class="" layout="height:1" attr="bgColor:#d0d0d0"/>
+            <UIView class="" layout="height:1" attr="bgColor:#F2F1F1"/>
         </UIView>
-        <UIView class="" layout="height:200,flexDirection:row,justifyContent:space-evenly,alignItems:center" attr="">
-            <FlexTouchView onPress="onlyCreate" layout="height:50,aspectRatio:1,justifyContent:center,alignItems:center" attr="bgColor:#2B7BF6,borderRadius:25">
+        <UIView class="" layout="height:200,flexDirection:row,justifyContent:flex-end,alignItems:center" attr="">
+            <FlexTouchView onPress="onlyCreate" layout="height:50,aspectRatio:1,justifyContent:center,alignItems:center,marginRight:30" attr="bgColor:#2B7BF6,borderRadius:25">
                 <UILabel name="" class="" layout="" attr="fontSize:14,color:white,text:创建"/>
             </FlexTouchView>
-            <FlexTouchView name="liveBtn" onPress="liveDirectly" layout="height:40,width:120,justifyContent:center,alignItems:center" attr="bgColor:lightGray,userInteractionEnabled:false,borderRadius:5">
+            <FlexTouchView name="liveBtn" onPress="liveDirectly" layout="height:40,width:120,justifyContent:center,alignItems:center,marginRight:40" attr="bgColor:lightGray,userInteractionEnabled:false,borderRadius:5">
                 <UILabel name="" class="" layout="" attr="fontSize:14,color:white,lineBreakMode:truncatingTail,linesNum:1,text:立即开播"/>
             </FlexTouchView>
         </UIView>

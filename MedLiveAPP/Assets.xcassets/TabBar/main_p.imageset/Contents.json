@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "zhuye.png",
+      "filename" : "画板备份 4.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "zhuye-2.png",
+      "filename" : "画板备份 4@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "zhuye-3.png",
+      "filename" : "画板备份 4@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

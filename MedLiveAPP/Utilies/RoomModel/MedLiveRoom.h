@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString *endTime;
 @property NSString *roomTitle;
 @property NSInteger status;
+@property NSInteger favor;
 @end
 
 NS_ASSUME_NONNULL_END

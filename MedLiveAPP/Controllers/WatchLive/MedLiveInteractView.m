@@ -20,6 +20,7 @@
     UIButton *chatBtn;
     UIButton *infoBtn;
     UIScrollView *horizonScroll;
+    UIButton *loveBtn;
     //文本输入区域
     UIView *chatTextView;
     UIView *chatScroll;
@@ -30,6 +31,8 @@
     UITableView *chatTable;
     
     NSMutableArray <MedChannelChatMessage *> *dataAry;
+    
+    BOOL isFavor;
 }
 
 - (instancetype)initWithViewDelegate:(id<interactViewDelegate>)delegate
@@ -55,7 +58,7 @@
     //详情button
     infoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [infoBtn setTitle:@"详情" forState:UIControlStateNormal];
-    [infoBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [infoBtn setTitleColor:[UIColor ColorFromHex:0xff59AC13] forState:UIControlStateNormal];
     [infoBtn addTarget:self action:@selector(infoBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [infoBarView addSubview:infoBtn];
     //互动button
@@ -65,7 +68,7 @@
     [chatBtn addTarget:self action:@selector(chatBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [infoBarView addSubview:chatBtn];
     //收藏button
-    UIButton *loveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    loveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [loveBtn setImage:[UIImage imageNamed:@"love_n"] forState:UIControlStateNormal];
     [loveBtn addTarget:self action:@selector(loveTap) forControlEvents:UIControlEventTouchUpInside];
     [infoBarView addSubview:loveBtn];
@@ -76,7 +79,7 @@
     [infoBarView addSubview:shareBtn];
     //按钮 标志线
     line = [[UIView alloc] init];
-    line.backgroundColor = [UIColor blackColor];
+    line.backgroundColor = [UIColor ColorFromHex:0xff59ac13];
     [infoBarView addSubview:line];
     
     //布局
@@ -202,17 +205,19 @@
 
 - (void)setupIntorduceScroll{
     if (self.viewDelegate) {
-        [self.viewDelegate interactViewNeedSetupIntroduce:^(NSString *title,NSString* startTime, NSString * introStr, NSArray<NSString *> *pics) {
-            [self setupIntroduce:title Start:startTime Intro:introStr Pics:pics];
+        [self.viewDelegate interactViewNeedSetupIntroduce:^(NSString *title,NSString* startTime, NSString * introStr,BOOL isFavor, NSArray<NSString *> *pics) {
+            [self setupIntroduce:title Start:startTime Intro:introStr Favor:isFavor Pics:pics];
         }];
     }
 }
 
-- (void)setupIntroduce:(NSString*)title Start:(NSString *)startTime Intro:(NSString *)introStr Pics:(NSArray <NSString*>*) pics{
+- (void)setupIntroduce:(NSString*)title Start:(NSString *)startTime Intro:(NSString *)introStr Favor:(BOOL)isFavor Pics:(NSArray <NSString*>*) pics{
+    self->isFavor = isFavor;
+    [loveBtn setImage:[UIImage imageNamed:isFavor?@"love_p":@"love_n"] forState:UIControlStateNormal];
     //主题
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.text = title;
-    titleLabel.font = [UIFont systemFontOfSize:15];
+    titleLabel.font = [UIFont systemFontOfSize:18];
     titleLabel.numberOfLines = 0;
     [infoScroll addSubview:titleLabel];
     //时间
@@ -223,7 +228,7 @@
     [infoScroll addSubview:timeLabel];
     //介绍
     UILabel *introLabel = [[UILabel alloc] init];
-    introLabel.font = [UIFont systemFontOfSize:12];
+    introLabel.font = [UIFont systemFontOfSize:14];
     introLabel.numberOfLines = 0;
     introLabel.text = introStr;
     [infoScroll addSubview:introLabel];
@@ -333,11 +338,15 @@
 - (void)infoBtnAction:(UIButton *)sender{
     [self followInfoBtn];
     [horizonScroll setContentOffset:CGPointZero animated:YES];
+    [infoBtn setTitleColor:[UIColor ColorFromHex:0xff59AC13] forState:UIControlStateNormal];
+    [chatBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 }
 
 - (void)chatBtnAction:(UIButton *)sender{
     [self followChatBtn];
     [horizonScroll setContentOffset:CGPointMake(horizonScroll.bounds.size.width, 0) animated:YES];
+    [chatBtn setTitleColor:[UIColor ColorFromHex:0xff59AC13] forState:UIControlStateNormal];
+    [infoBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 }
 //分享
 - (void)shareTap{
@@ -351,7 +360,11 @@
 //收藏
 - (void)loveTap{
     if (self.viewDelegate) {
-        [self.viewDelegate interactViewDidStoreLove:NO];
+        [self.viewDelegate interactViewDidStoreLove:!isFavor result:^{
+            isFavor = !isFavor;
+            [loveBtn setImage:[UIImage imageNamed:isFavor?@"love_p":@"love_n"] forState:UIControlStateNormal];
+            [MedLiveAppUtilies showErrorTip:isFavor?@"已收藏":@"取消收藏"];
+        }];
     }
 }
 
@@ -361,6 +374,7 @@
         make.height.mas_equalTo(2);
         make.top.equalTo(infoBtn.mas_bottom);
     }];
+    
 }
 
 - (void)followChatBtn{

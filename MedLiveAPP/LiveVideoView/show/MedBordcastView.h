@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol BordcastViewDelegate <NSObject>
 @optional
-- (void)bordcastViewDidEnd;
+- (void)bordcastViewDidEnd:(BOOL)endLive;
 @end
 
 @interface MedBordcastView :LiveView

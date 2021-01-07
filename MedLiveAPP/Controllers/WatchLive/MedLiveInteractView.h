@@ -17,8 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)interactViewDidSendmessage:(NSString *)text Complete:(void(^)(MedChannelChatMessage* msg))result;
 - (void)interactViewDidShareWithUrl:(void(^)(void))result;
-- (void)interactViewDidStoreLove:(BOOL)cancel;
-- (void)interactViewNeedSetupIntroduce:(void(^)(NSString *title,NSString* startTime, NSString * introStr, NSArray<NSString *> *pics))callBack;
+- (void)interactViewDidStoreLove:(BOOL)cancel result:(void(^)(void))res;
+- (void)interactViewNeedSetupIntroduce:(void(^)(NSString *title,NSString* startTime, NSString * introStr,BOOL isFavor,NSArray<NSString *> *pics))callBack;
 @end
 
 @interface MedLiveInteractView : UIView

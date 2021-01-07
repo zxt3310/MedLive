@@ -12,6 +12,7 @@
 #import "MedLiveRoomInfoRequest.h"
 #import "MedLiveRoomBoardcast.h"
 #import "MedLiveRoleStateRequest.h"
+#import "MedLiveAddFavorite.h"
 #import <YYModel.h>
 #import <LGAlertView.h>
 
@@ -102,48 +103,52 @@
     result();
 }
 
-- (void)interactViewNeedSetupIntroduce:(void(^)(NSString *title,NSString* startTime, NSString * introStr, NSArray<NSString *> *pics))callBack{
+- (void)interactViewNeedSetupIntroduce:(void(^)(NSString *title,NSString* startTime, NSString * introStr,BOOL isFavor, NSArray<NSString *> *pics))callBack{
     NSString *json = boardRoom.introPicsJosn;
     if (json) {
         NSArray *jsonObj = (NSArray *)[MedLiveAppUtilies stringToJsonDic:json];
         if (jsonObj) {
-            callBack(boardRoom.roomTitle,boardRoom.startTime,boardRoom.desc,jsonObj);
+            callBack(boardRoom.roomTitle,boardRoom.startTime,boardRoom.desc,boardRoom.favor==0?NO:YES,jsonObj);
         }
     }
 }
 
-- (void)interactViewDidStoreLove:(BOOL)cancel{
-//    if (!cancel) {
-//        MedChannelSignalMessage *signal = [[MedChannelSignalMessage alloc] initWithMessageSignal:SKLMessageSignal_Pointmain Target:@"14"];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:RTMEngineDidReceiveSignal object:signal];
-//    }
+- (void)interactViewDidStoreLove:(BOOL)favor result:(void(^)(void))res{
+    //模拟小助手
+//    __weak IMChannelManager *weakManager = manager;
+//    [manager TotalMembersOfChannel:^(NSArray<NSString *> *members) {
+//        __block MedChannelSignalMessage *msg;
+//        __block NSInteger commond = 0;
 //
-    __weak IMChannelManager *weakManager = manager;
-    [manager TotalMembersOfChannel:^(NSArray<NSString *> *members) {
-        __block MedChannelSignalMessage *msg;
-        __block NSInteger commond = 0;
-        
-        LGAlertView *alertOut = [LGAlertView alertViewWithTitle:@"选择" message:nil style:LGAlertViewStyleActionSheet buttonTitles:@[@"上麦",@"下麦",@"指定主讲人"] cancelButtonTitle:nil destructiveButtonTitle:nil];
-        LGAlertView *alertIn = [LGAlertView alertViewWithTitle:@"参会人员" message:nil style:LGAlertViewStyleActionSheet buttonTitles:members cancelButtonTitle:nil destructiveButtonTitle:nil];
-        alertOut.actionHandler = ^(LGAlertView * alertView, NSUInteger index, NSString *title) {
-            commond = index;
-            [alertIn showAnimated];
-        };
-        alertIn.actionHandler = ^(LGAlertView * _Nonnull alertView, NSUInteger index, NSString * _Nullable title) {
-            if (commond == 0) {
-                msg = [[MedChannelSignalMessage alloc] initWithMessageSignal:SKLMessageSignal_VideoGrant Target:[members objectAtIndex:index]];
-            }else if(commond == 1){
-                msg = [[MedChannelSignalMessage alloc] initWithMessageSignal:SKLMessageSignal_VideoDenied Target:[members objectAtIndex:index]];
-            }else{
-                msg = [[MedChannelSignalMessage alloc] initWithMessageSignal:SKLMessageSignal_Pointmain Target:[members objectAtIndex:index]];
-            }
-            
-            [weakManager sendTextMessage:[msg yy_modelToJSONString] Success:^{
-                NSLog(@"命令发送成功");
-            }];
-        };
-        [alertOut showAnimated];
-    }];
+//        LGAlertView *alertOut = [LGAlertView alertViewWithTitle:@"选择" message:nil style:LGAlertViewStyleActionSheet buttonTitles:@[@"上麦",@"下麦",@"指定主讲人"] cancelButtonTitle:nil destructiveButtonTitle:nil];
+//        LGAlertView *alertIn = [LGAlertView alertViewWithTitle:@"参会人员" message:nil style:LGAlertViewStyleActionSheet buttonTitles:members cancelButtonTitle:nil destructiveButtonTitle:nil];
+//        alertOut.actionHandler = ^(LGAlertView * alertView, NSUInteger index, NSString *title) {
+//            commond = index;
+//            [alertIn showAnimated];
+//        };
+//        alertIn.actionHandler = ^(LGAlertView * _Nonnull alertView, NSUInteger index, NSString * _Nullable title) {
+//            if (commond == 0) {
+//                msg = [[MedChannelSignalMessage alloc] initWithMessageSignal:SKLMessageSignal_VideoGrant Target:[members objectAtIndex:index]];
+//            }else if(commond == 1){
+//                msg = [[MedChannelSignalMessage alloc] initWithMessageSignal:SKLMessageSignal_VideoDenied Target:[members objectAtIndex:index]];
+//            }else{
+//                msg = [[MedChannelSignalMessage alloc] initWithMessageSignal:SKLMessageSignal_Pointmain Target:[members objectAtIndex:index]];
+//            }
+//
+//            [weakManager sendTextMessage:[msg yy_modelToJSONString] Success:^{
+//                NSLog(@"命令发送成功");
+//            }];
+//        };
+//        [alertOut showAnimated];
+//    }];
+    
+    if (favor) {
+        MedLiveAddFavorite *requset = [[MedLiveAddFavorite alloc] initWithUid:[AppCommondCenter sharedCenter].currentUser.uid RoomId:boardRoom.roomId];
+        [requset addFavorWithSuccess:res];
+    }else{
+        MedLiveRemoveFavorite *request = [[MedLiveRemoveFavorite alloc] initWithUid:[AppCommondCenter sharedCenter].currentUser.uid RoomId:boardRoom.roomId];
+        [request removeFavorWithSuccess:res];
+    }
     
 }
 

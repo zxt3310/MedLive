@@ -8,7 +8,7 @@
     <UIView class="" layout="height:1" attr="bgColor:#d0d0d0"/>
 
     <UIView class="" layout="height:30%,justifyContent:center,alignItems:center" attr="">
-        <FlexTouchView onPress="joinMeetJoin" layout="height:45,width:120,justifyContent:center,alignItems:center" attr="bgColor:blue">
+        <FlexTouchView onPress="joinMeetJoin" layout="height:40,width:120,justifyContent:center,alignItems:center" attr="bgColor:#2B7BF6,borderRadius:5">
             <UILabel name="" class="" layout="" attr="fontSize:14,color:white,text:加入会议"/>
         </FlexTouchView>
     </UIView>

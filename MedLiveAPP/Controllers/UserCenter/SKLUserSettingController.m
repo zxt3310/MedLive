@@ -36,8 +36,14 @@
     
     alert.actionHandler = ^(LGAlertView *alertView, NSUInteger index, NSString *title) {
         [[AppCommondCenter sharedCenter] logout];
+        [self.navigationController popViewControllerAnimated:YES];
     };
     [alert showAnimated];
+}
+
+- (void)dealloc
+{
+    
 }
 
 @end

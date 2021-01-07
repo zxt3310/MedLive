@@ -13,7 +13,7 @@
 #import "SKLMeetJoinMeetController.h"
 #import <WebKit/WebKit.h>
 
-@interface MedLiveWebContoller ()<WKScriptMessageHandler,WKNavigationDelegate>
+@interface MedLiveWebContoller ()<WKScriptMessageHandler,WKUIDelegate,WKNavigationDelegate>
 
 @end
 
@@ -34,23 +34,28 @@
     
     webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
     webView.navigationDelegate = self;
+    webView.UIDelegate = self;
     [self.view addSubview:webView];
     [webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.layoutView);
     }];
     
+    if (self.urlStr) {
+        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.urlStr]]];
+    }
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    if (self.urlStr) {
-        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.urlStr]]];
-    }
+    
     [webView.configuration.userContentController addScriptMessageHandler:self name:@"channelInfo"];
+    [webView.configuration.userContentController addScriptMessageHandler:self name:@"doctorVerify"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [webView.configuration.userContentController removeScriptMessageHandlerForName:@"channelInfo"];
+    [webView.configuration.userContentController removeScriptMessageHandlerForName:@"doctorVerify"];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -89,6 +94,9 @@
                 [self.navigationController pushViewController:liveVC animated:YES];
             }
         }
+    }else if([name isEqualToString:@"doctorVerify"]){
+        [AppCommondCenter sharedCenter];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
@@ -103,6 +111,16 @@
         [self.navigationController pushViewController:webVC animated:YES];
         decisionHandler(WKNavigationActionPolicyCancel);
     }
+}
+
+- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:message preferredStyle:UIAlertControllerStyleAlert];
+
+        [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            completionHandler();
+        }]];
+        [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)dealloc

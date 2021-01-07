@@ -28,6 +28,8 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
+    self.title = @"概述";
+    
     MedLiveRoomInfoRequest *request = [[MedLiveRoomInfoRequest alloc] initWithRoomId:self.roomId];
     [request fetchWithComplete:^(__kindof MedLiveRoom *room) {
         if (![room isMemberOfClass:[MedLiveRoomMeetting class]] && ![room isMemberOfClass:[MedLiveRoomConsultation class]]) {

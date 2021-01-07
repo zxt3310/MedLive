@@ -34,6 +34,7 @@
     UILabel *micLabel;
     UILabel *cameraLabel;
     UIView *toolsView;
+    UIView *toolBar;
     
     UILabel *memberCountLabel;//频道人员计数
 }
@@ -54,6 +55,7 @@
         [viewModel fetchRoomInfoWithRoomId:self.roomId Complete:^(MedLiveRoomMeetting *room) {
             [viewModel joinMeetting:room.channelId];
         }];
+        [toolsView setLayoutAttrStrings:@[@"bottom",[NSString stringWithFormat:@"%f",(toolBar.frame.size.height + 5)]]];
     });
 }
 
@@ -272,6 +274,7 @@
 - (void)viewDidDisappear:(BOOL)animated{
     
 }
+
 
 - (void)dealloc
 {

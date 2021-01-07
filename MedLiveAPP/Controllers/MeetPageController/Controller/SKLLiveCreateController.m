@@ -91,10 +91,9 @@
                 
                 if(completeBlock){
                     completeBlock(channelId,title,roomId);
-                }else{
-                    NSLog(@"创建成功,频道号：%@， 标题：%@， 房间号%@",channelId,title,roomId);
-                    [MedLiveAppUtilies showErrorTip:@"创建成功"];
                 }
+                NSLog(@"创建成功,频道号：%@， 标题：%@， 房间号%@",channelId,title,roomId);
+                [MedLiveAppUtilies showErrorTip:@"创建成功"];
             }];
         }else{
             NSLog(@"%@",alertStr);

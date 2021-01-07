@@ -8,6 +8,7 @@
 
 #import "LiveVideoRenderView.h"
 #import "LiveVideoRemoteWidget.h"
+#import <YYWebImage.h>
 
 @implementation LiveVideoRenderView
 {
@@ -16,6 +17,8 @@
     //占位视图
     UIView *placeView;
     UILabel *tipLabel;
+    UIImageView *coverPic;
+    UIView *tipMask;
     
     NSMutableArray <LiveVideoRemoteWidget *> *remoteArray;
 }
@@ -41,9 +44,19 @@
         //占位视图  初始化隐藏
         placeView = [[UIView alloc] init];
         placeView.backgroundColor = [UIColor lightGrayColor];
+        
+        //占位封面
+        coverPic = [[UIImageView alloc] init];
+        [placeView addSubview:coverPic];
+        //遮罩
+        tipMask = [[UIView alloc] init];
+        tipMask.backgroundColor = [UIColor ColorWithRGB:5 Green:5 Blue:5 Alpha:0.2];
+        [placeView addSubview:tipMask];
+        
         //占位文字
         tipLabel = [[UILabel alloc] init];
-        [placeView addSubview:tipLabel];
+        [tipMask addSubview:tipLabel];
+        
         maskView = [[LiveRenderMaskView alloc] initWithFrame:CGRectZero];
         
         [self addSubview:_videoView];
@@ -79,6 +92,9 @@
     [tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self);
     }];
+    [coverPic mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(placeView);
+    }];
     [maskView mas_makeConstraints:^(MASConstraintMaker *make){
         make.edges.equalTo(self);
     }];
@@ -88,10 +104,13 @@
     [maskView fillTitle:title];
 }
 
-- (void)showPlaceView:(BOOL)show CenterTip:(NSString *)tip{
+- (void)showPlaceView:(BOOL)show CenterTip:(NSString *)tip coverPic:(NSString *)img{
     placeView.hidden = !show;
     if (show) {
         tipLabel.text = tip;
+        if (img) {
+            coverPic.yy_imageURL = [NSURL URLWithString:img];
+        }
     }
 }
 #pragma 远程流 布局

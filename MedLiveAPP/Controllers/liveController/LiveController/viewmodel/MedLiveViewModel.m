@@ -12,10 +12,16 @@
 #import "MedChannelStateRequest.h"
 #import "LiveManager.h"
 #import "MedLiveRoomInfoRequest.h"
+#import "IMChannelManager.h"
+
+@interface MedLiveViewModel()<IMChannelDelegate>
+
+@end
 
 @implementation MedLiveViewModel
 {
     LiveManager *liveManager;
+    IMChannelManager *channelManager;
     NSString *roomId;
 }
 - (instancetype)init
@@ -26,6 +32,14 @@
         [liveManager setRole:AgoraClientRoleBroadcaster];
     }
     return self;
+}
+
+- (void)joinRtmChannelWithId:(NSString *)channelId{
+    if (!channelManager) {
+        channelManager = [[IMChannelManager alloc] initWithId:channelId];
+        channelManager.channelDelegate = self;
+        [channelManager rtmJoinChannel];
+    }
 }
 
 - (void)setupLocalView:(__kindof UIView *)view{
@@ -76,8 +90,18 @@
 }
 
 - (void)stopLive{
+    [channelManager leaveChannel];
     [liveManager leaveRoom];
 }
+
+- (void)channelDidReceiveMessage:(MedChannelChatMessage *)message{
+    [[NSNotificationCenter defaultCenter] postNotificationName:RTMEngineDidReceiveMessage object:message];
+}
+
+- (void)channelDidReceiveSignal:(nonnull MedChannelSignalMessage *)signal {
+    
+}
+
 
 - (void)dealloc{
     NSLog(@"");

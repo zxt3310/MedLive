@@ -54,10 +54,10 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
         [interactView setupIntorduceScroll];
         self.channelId = room.channelId;
         [pushView fillTitle:room.roomTitle];
-        if (room.status == 1) {
-            [pushView showPlaceView:YES CenterTip:@"直播未开始"];
+        if (room.status == 1 || room.status == 2) {
+            [pushView showPlaceView:YES CenterTip:@"直播未开始" coverPic:[NSString stringWithFormat:@"%@%@",Cdn_domain,room.coverPic]];
         }else if (room.status == 3){
-            [pushView showPlaceView:YES CenterTip:@"直播已结束"];
+            [pushView showPlaceView:YES CenterTip:@"直播已结束" coverPic:nil];
         }
         [self getStart];
     }];
@@ -141,7 +141,7 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
     if (pushView.uid == 0) {
         pushView.uid = uid;
         [liveManager setupVideoRemoteView:pushView];
-        [pushView showPlaceView:NO CenterTip:nil];
+        [pushView showPlaceView:NO CenterTip:nil coverPic:nil];
     }else{
         __weak LiveManager *weakManager = liveManager;
         [pushView addRemoteStream:uid result:^(__kindof LiveView *remoteView) {
@@ -156,7 +156,7 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
 - (void)didRemoteLeave:(NSInteger)uid{
     if (uid == pushView.uid) {
         [MedLiveAppUtilies showErrorTip:@"主播已下播"];
-        [pushView showPlaceView:YES CenterTip:@"主播已下播"];
+        [pushView showPlaceView:YES CenterTip:@"主播已下播" coverPic:nil];
     }else{
         [pushView removeRemoteStream:uid];
     }
@@ -233,7 +233,7 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
                 [weakManager setupVideoLocalView:view];
                 [weakManager enableVideo];
             }];
-            [pushView showPlaceView:NO CenterTip:nil];
+            [pushView showPlaceView:NO CenterTip:nil coverPic:nil];
         }
         
         if ([signal.signal isEqualToString:SKLMessageSignal_VideoDenied]) {

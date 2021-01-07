@@ -26,7 +26,7 @@
 }
 
 - (id)requestArgument{
-    return [NSDictionary dictionaryWithObject:roomId forKey:@"room_id"];
+    return [NSDictionary dictionaryWithObjectsAndKeys:roomId,@"room_id",[AppCommondCenter sharedCenter].currentUser.uid,@"user_id",nil];
 }
 - (RequestMethodType)requestMethod{
     return RequestMethodTypePOST;

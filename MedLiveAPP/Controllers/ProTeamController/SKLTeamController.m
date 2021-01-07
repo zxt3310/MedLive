@@ -57,7 +57,7 @@
     
 }
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler{
-    if ([navigationAction.request.URL.absoluteString isEqualToString:@"http://dev.saikang.ranknowcn.com/h5/expert_list"]) {
+    if ([navigationAction.request.URL.absoluteString isEqualToString:@"http://dev.saikang.ranknowcn.com/h5/expert_list"] || [navigationAction.request.URL.absoluteString containsString:@"jump_new_page=no"]) {
         decisionHandler(WKNavigationActionPolicyAllow);
     }else{
         MedLiveWebContoller *webVC = [[MedLiveWebContoller alloc] init];

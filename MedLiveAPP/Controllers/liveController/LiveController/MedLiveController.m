@@ -15,6 +15,7 @@
 @interface MedLiveController ()<BordcastViewDelegate>
 {
     MedLiveViewModel *viewModel;
+    
 }
 @end
 
@@ -22,6 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     viewModel = [[MedLiveViewModel alloc] init];
     
     MedBordcastView *bordView = [[MedBordcastView alloc] init];
@@ -37,30 +39,38 @@
         [viewModel createRoomWithTitle:self.title ChannelId:self.channelId Complate:^(NSString *chanlToken) {
             [viewModel joinChannel:self.channelId Token:chanlToken];
         }];
+        [viewModel joinRtmChannelWithId:self.channelId];
     }];
+    
+    
 }
 
 
-- (void)bordcastViewDidEnd{
-    LGAlertView *alert = [LGAlertView alertViewWithTitle:@"退出直播"
-                                                  message:@"主播退出,直播即结束"
-                                                   style:LGAlertViewStyleAlert
-                                            buttonTitles:@[@"确定"]
-                                       cancelButtonTitle:@"取消"
-                                  destructiveButtonTitle:nil];
-    alert.messageTextColor = [UIColor redColor];
-    
-    __weak MedLiveViewModel *weakModel = viewModel;
-    WeakSelf
-    alert.actionHandler= ^(LGAlertView *alertView, NSUInteger index, NSString *title){
-        [weakModel stopLive];
-        //发送下播信号
-        [weakModel sendLiveState:MedLiveRoomStateEnd
-                          UserId:[AppCommondCenter sharedCenter].currentUser.uid];
-        [weakSelf.navigationController popViewControllerAnimated:YES];
-    };
-    
-    [alert showAnimated];
+- (void)bordcastViewDidEnd:(BOOL) endLive{
+    if (endLive) {
+        LGAlertView *alert = [LGAlertView alertViewWithTitle:@"退出直播"
+                                                      message:@"主播退出,直播即结束"
+                                                       style:LGAlertViewStyleAlert
+                                                buttonTitles:@[@"确定"]
+                                           cancelButtonTitle:@"取消"
+                                      destructiveButtonTitle:nil];
+        alert.messageTextColor = [UIColor redColor];
+        
+        __weak MedLiveViewModel *weakModel = viewModel;
+        WeakSelf
+        alert.actionHandler= ^(LGAlertView *alertView, NSUInteger index, NSString *title){
+            [weakModel stopLive];
+            //发送下播信号
+            [weakModel sendLiveState:MedLiveRoomStateEnd
+                              UserId:[AppCommondCenter sharedCenter].currentUser.uid];
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        };
+        
+        [alert showAnimated];
+    }else{
+        [viewModel stopLive];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)dealloc{

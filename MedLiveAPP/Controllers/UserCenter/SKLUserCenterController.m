@@ -23,6 +23,8 @@ char *const USERINFO_OBSERVER = "user_info_has_changed";
     UIView *infoView;
     UIView *vipView;
     UIImageView *headImgView;
+    UILabel *stateLabel;
+    UILabel *uidLabel;
 }
 @end
 
@@ -115,6 +117,22 @@ char *const USERINFO_OBSERVER = "user_info_has_changed";
     }
 }
 
+- (void)goToFavor{
+    if (![MedLiveAppUtilies needLogin]) {
+        NSString *url = [NSString stringWithFormat:@"%@/h5/favorite_list?user_id=%@",Domain,[AppCommondCenter sharedCenter].currentUser.uid];
+        [self pushWebVC:url Type:@"watchLive" Title:@"我的收藏"];
+    }
+}
+
+- (void)doctorVarify{
+    if(![MedLiveAppUtilies needLogin] &&
+       ([AppCommondCenter sharedCenter].currentUser.doctorAuditState == DocAuditStateNotyet||
+       [AppCommondCenter sharedCenter].currentUser.doctorAuditState == DocAuditStateDiend)){
+        NSString *url = [NSString stringWithFormat:@"%@/h5/doctor_update_info?user_id=%@",Domain,[AppCommondCenter sharedCenter].currentUser.uid];
+        [self pushWebVC:url Type:nil Title:@"医生认证"];
+    }
+}
+
 - (void)pushWebVC:(NSString *)url Type:(NSString *)type Title:(NSString *)title{
     MedLiveWebContoller *webVC = [[MedLiveWebContoller alloc] init];
     webVC.roomType = type;
@@ -131,15 +149,33 @@ char *const USERINFO_OBSERVER = "user_info_has_changed";
             loginEntry.hidden = YES;
             infoView.hidden = NO;
             mobileLabel.text = [object valueForKeyPath:@"currentUser.mobile"];
+            uidLabel.text = [object valueForKeyPath:@"currentUser.uid"];
         }else{
             loginEntry.hidden = NO;
             infoView.hidden = YES;
+            headImgView.image = [UIImage imageNamed:@"header"];
         }
     }else if(context == USERINFO_OBSERVER){
         MedLiveUserModel *newUser = (MedLiveUserModel *)[change valueForKey:@"new"];
         mobileLabel.text = KIsBlankString(newUser.userName)?newUser.mobile:newUser.userName;
+        uidLabel.text = [NSString stringWithFormat:@"ID：%@",newUser.uid];
         if (!KIsBlankString(newUser.headerImgUrl)) {
             headImgView.yy_imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Cdn_domain,newUser.headerImgUrl]];
+        }
+        
+        switch (newUser.doctorAuditState) {
+            case DocAuditStateIng:
+                [stateLabel setViewAttrStrings:@[@"text",@"审核中",@"color",@"#333333"]];
+                break;
+            case DocAuditStateDone:
+                [stateLabel setViewAttrStrings:@[@"text",@"已认证",@"color",@"green"]];
+                break;
+            case DocAuditStateDiend:
+                [stateLabel setViewAttrStrings:@[@"text",@"已拒绝",@"color",@"red"]];
+                break;
+            default:
+                [stateLabel setViewAttrStrings:@[@"text",@"",@"color",@"#333333"]];
+                break;
         }
     }
     else {

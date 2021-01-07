@@ -57,8 +57,13 @@ NSString *const MED_USER_DOCTOR = @"doctor";
     };
 }
 
+
 - (void)save{
-    NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:NO error:nil];
+    NSError *err;
+    NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:NO error:&err];
+    if (err) {
+        NSLog(@"%@",err.description);
+    }
     if (userData) {
         [[NSUserDefaults standardUserDefaults] setObject:userData forKey:LOCALUSERINFO_STORAGE_KEY];
     }
@@ -67,7 +72,11 @@ NSString *const MED_USER_DOCTOR = @"doctor";
 + (instancetype)loadFromUserDefaults{
     NSData *userData = [[NSUserDefaults standardUserDefaults] objectForKey:LOCALUSERINFO_STORAGE_KEY];
     if (userData) {
-        MedLiveUserModel *user = [NSKeyedUnarchiver unarchivedObjectOfClass:[self class] fromData:userData error:nil];
+        NSError *err;
+        MedLiveUserModel *user = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSObject class] fromData:userData error:&err];
+        if (err) {
+            NSLog(@"%@",err.description);
+        }
         if (user) {
             return user;
         }

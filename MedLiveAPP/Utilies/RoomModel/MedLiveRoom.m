@@ -19,7 +19,8 @@
         @"endTime":@"end_time",
         @"roomTitle":@"name",
         @"status":@"status",
-        @"owner":@"creator_id"
+        @"owner":@"creator_id",
+        @"favor":@"is_favorite"
     };
 }
 @end

@@ -2,22 +2,22 @@
 <UIView layout="flex:1" attr="bgColor:white">
     <FlexScrollView layout="flex:1" attr="vertScroll:true">
         <UIView class="" layout="padding:20" attr="">
-            <UIView class="" layout="flexDirection:row,paddingVertical:10" attr="">
+            <UIView class="" layout="flexDirection:row,paddingVertical:20" attr="">
                 <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:会议主题"/>
                 <UITextField name="titleField" class="" layout="flex:1,marginLeft:20" attr="fontSize:14,color:black,textAlign:left,placeholder:请输入,text:"/>
             </UIView>
 
-            <UIView class="" layout="height:1" attr="bgColor:#d0d0d0"/>
+            <UIView class="" layout="height:1" attr="bgColor:#F2F1F1"/>
 
-            <UIView class="" layout="flexDirection:row,paddingVertical:15,justifyContent:space-between" attr="">
+            <UIView class="" layout="flexDirection:row,paddingVertical:20,justifyContent:space-between" attr="">
                 <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:开始时间"/>
                 <FlexTouchView onPress="selectStartDate:" layout="flexDirection:row" attr="">
-                    <UILabel name="startDateLabel" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:请选择"/>
+                    <UILabel name="startDateLabel" class="" layout="" attr="fontSize:14,color:#2B7BF6,lineBreakMode:truncatingTail,linesNum:1,text:请选择"/>
                     <UIImageView layout="" attr="source:right"/>
                 </FlexTouchView>
             </UIView>
 
-            <UIView class="" layout="height:1" attr="bgColor:#d0d0d0"/>
+            <UIView class="" layout="height:1" attr="bgColor:#F2F1F1"/>
 
 <!--            <UIView class="" layout="flexDirection:row,paddingVertical:15,justifyContent:space-between" attr="">-->
 <!--                <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:结束时间"/>-->
@@ -28,39 +28,39 @@
 <!--            </UIView>-->
 <!--            <UIView class="" layout="height:1" attr="bgColor:#d0d0d0"/>-->
 
-            <UIView class="" layout="flexDirection:row,paddingVertical:10,justifyContent:space-between" attr="">
+            <UIView class="" layout="flexDirection:row,paddingVertical:20,justifyContent:space-between" attr="">
                 <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:入会密码"/>
                 <UISwitch name="enablePasswordSW" layout="height:30" attr="on:false"/>
             </UIView>
 
-            <UIView name="codeView" class="" layout="flexDirection:row,paddingVertical:10" attr="hidden:true">
+            <UIView name="codeView" class="" layout="flexDirection:row,paddingVertical:20" attr="hidden:true">
                 <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:密码"/>
                 <UITextField name="passwordField" class="" layout="flex:1,marginLeft:20" attr="fontSize:14,color:black,textAlign:left,placeholder:请输入,text:"/>
             </UIView>
 
-            <UIView class="" layout="height:1" attr="bgColor:#d0d0d0"/>
+            <UIView class="" layout="height:1" attr="bgColor:#F2F1F1"/>
 
-            <UIView class="" layout="flexDirection:row,paddingVertical:15,justifyContent:space-between" attr="">
+            <UIView class="" layout="flexDirection:row,paddingVertical:20,justifyContent:space-between" attr="">
                 <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:文档"/>
                 <FlexTouchView onPress="selectUploadFile" layout="flexDirection:row" attr="">
-                    <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:点击添加"/>
+                    <UILabel name="" class="" layout="" attr="fontSize:14,color:#2B7BF6,lineBreakMode:truncatingTail,linesNum:1,text:点击添加"/>
                     <UIImageView layout="" attr="source:right"/>
                 </FlexTouchView>
             </UIView>
 
             <UIView name="filesView" layout="" attr=""></UIView>
             
-            <UIView class="" layout="height:1" attr="bgColor:#d0d0d0"/>
+            <UIView class="" layout="height:1" attr="bgColor:#F2F1F1"/>
             
-            <UIView class="" layout="flexDirection:row,paddingVertical:10,justifyContent:space-between" attr="">
+            <UIView class="" layout="flexDirection:row,paddingVertical:20,justifyContent:space-between" attr="">
                 <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:允许会员上传文档"/>
                 <UISwitch name="enableUploadSW" layout="height:30" attr="on:false"/>
             </UIView>
 
-            <UIView class="" layout="height:1" attr="bgColor:#d0d0d0"/>
+            <UIView class="" layout="height:1" attr="bgColor:#F2F1F1"/>
 
             <UIView class="" layout="height:150,justifyContent:center,alignItems:center" attr="">
-                <FlexTouchView onPress="createMeetting" layout="justifyContent:center,alignItems:center,width:150,height:50" attr="underlayColor:darkGray,bgColor:lightGray">
+                <FlexTouchView onPress="createMeetting" layout="justifyContent:center,alignItems:center,width:150,height:40" attr="bgColor:#2B7BF6,borderRadius:5">
                     <UILabel name="" class="" layout="" attr="fontSize:14,color:white,lineBreakMode:truncatingTail,linesNum:1,text:创建会议"/>
                 </FlexTouchView>
             </UIView>

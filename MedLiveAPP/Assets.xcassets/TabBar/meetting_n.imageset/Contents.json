@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "huiyi.png",
+      "filename" : "画板备份 5.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "huiyi-2.png",
+      "filename" : "画板备份 5@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "huiyi-3.png",
+      "filename" : "画板备份 5@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

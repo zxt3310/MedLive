@@ -29,10 +29,19 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.backgroundColor = [UIColor clearColor];
         [self setupContent];
         
     }
     return self;
+}
+
+- (void)setBoardcastStyle{
+    nameLabel.backgroundColor = contentView.backgroundColor = [UIColor ColorWithRGB:5 Green:5 Blue:5 Alpha:0.2];
+    nameLabel.layer.cornerRadius = 5;
+    contentView.layer.borderColor = [UIColor whiteColor].CGColor;
+    nameLabel.textColor = [UIColor whiteColor];
+    contentLabel.textColor = [UIColor whiteColor];
 }
 
 - (void)setupContent{

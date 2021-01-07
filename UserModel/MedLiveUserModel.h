@@ -17,6 +17,7 @@ typedef enum : NSUInteger {
     DocAuditStateIng,
     DocAuditStateDone,
     DocAuditStateDiend,
+    DocAuditStateNotyet
 } DocAuditState;
 
 @class MedDoctorModel;

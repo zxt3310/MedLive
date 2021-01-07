@@ -48,7 +48,7 @@
 
 - (void)setupVideoView{
     _videoView = [[UIView alloc] init];
-    _videoView.backgroundColor = [UIColor yellowColor];
+    _videoView.backgroundColor = [UIColor whiteColor];
     [_videoView enableFlexLayout:YES];
     [_videoView setLayoutAttrStrings:@[
         @"flex",@"1"
