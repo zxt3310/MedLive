@@ -273,7 +273,7 @@
                 [imageView mas_updateConstraints:^(MASConstraintMaker *make) {
                     CGFloat oriWidth = image.size.width;
                     CGFloat oriHei = image.size.height;
-                    make.height.mas_equalTo(oriHei/oriWidth*(kScreenWidth - 40));
+                    make.height.mas_equalTo(oriHei/oriWidth*(kScreenWidth - 40)).priorityHigh();
                 }];
 //                [imageView.superview layoutIfNeeded];
                 [imageView.superview setNeedsLayout];

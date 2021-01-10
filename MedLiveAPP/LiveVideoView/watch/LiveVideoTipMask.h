@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LiveVideoTipMask : UIView
-
+- (void)countWithStartTime:(NSString *)start State:(MedLiveRoomState)state;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString *startTime;
 @property NSString *endTime;
 @property NSString *roomTitle;
-@property NSInteger status;
+@property MedLiveRoomState status;
 @property NSInteger favor;
 @end
 

@@ -8,6 +8,7 @@
 
 #import "LiveVideoRenderView.h"
 #import "LiveVideoRemoteWidget.h"
+#import "LiveVideoTipMask.h"
 #import <YYWebImage.h>
 
 @implementation LiveVideoRenderView
@@ -16,9 +17,9 @@
     LiveRenderMaskView *maskView;
     //占位视图
     UIView *placeView;
-    UILabel *tipLabel;
+    //UILabel *tipLabel;
     UIImageView *coverPic;
-    UIView *tipMask;
+    LiveVideoTipMask *tipMask;
     
     NSMutableArray <LiveVideoRemoteWidget *> *remoteArray;
 }
@@ -49,13 +50,8 @@
         coverPic = [[UIImageView alloc] init];
         [placeView addSubview:coverPic];
         //遮罩
-        tipMask = [[UIView alloc] init];
-        tipMask.backgroundColor = [UIColor ColorWithRGB:5 Green:5 Blue:5 Alpha:0.2];
+        tipMask = [[LiveVideoTipMask alloc] init];
         [placeView addSubview:tipMask];
-        
-        //占位文字
-        tipLabel = [[UILabel alloc] init];
-        [tipMask addSubview:tipLabel];
         
         maskView = [[LiveRenderMaskView alloc] initWithFrame:CGRectZero];
         
@@ -89,10 +85,11 @@
     [placeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
-    [tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self);
-    }];
+
     [coverPic mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(placeView);
+    }];
+    [tipMask mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(placeView);
     }];
     [maskView mas_makeConstraints:^(MASConstraintMaker *make){
@@ -104,10 +101,11 @@
     [maskView fillTitle:title];
 }
 
-- (void)showPlaceView:(BOOL)show CenterTip:(NSString *)tip coverPic:(NSString *)img{
+- (void)showPlaceView:(BOOL)show Start:(NSString *)startTime State:(MedLiveRoomState)state coverPic:(NSString *)img{
     placeView.hidden = !show;
     if (show) {
-        tipLabel.text = tip;
+        //tipLabel.text = tip;
+        [tipMask countWithStartTime:startTime State:state];
         if (img) {
             coverPic.yy_imageURL = [NSURL URLWithString:img];
         }
