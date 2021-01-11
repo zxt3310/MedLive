@@ -19,11 +19,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)RenderMaskDidSwitchScreenStateComplate;
 // Back button click callback if in full_screen state switch normal or Pop back
 - (void)RenderMasekDidTapBack:(void(^)(MedLiveScreenState))block;
+//开关摄像头
+- (void)switchCamara:(void(^)(BOOL enable,BOOL isFirst))res;
+//开关麦克风
+- (void)switchMic:(void(^)(BOOL enable))res;
 @end
 
 @interface LiveRenderMaskView : UIButton
 @property (weak) id<RenderMaseDelegate> maskDelegate;
 - (void)fillTitle:(NSString *)title;
+- (void)enableSideBar:(BOOL) enable;
 @end
 
 NS_ASSUME_NONNULL_END

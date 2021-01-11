@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @required
 - (void)channelDidReceiveMessage:(MedChannelChatMessage *)message;
 - (void)channelDidReceiveSignal:(MedChannelSignalMessage *)signal;
+- (void)channelDidChangeAttribute:(NSDictionary *)attribute;
 @optional
 @end
 

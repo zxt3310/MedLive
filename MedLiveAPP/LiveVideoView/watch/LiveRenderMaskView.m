@@ -97,6 +97,12 @@ typedef enum : NSUInteger {
     
     //开始暂停 清晰度
     UIView *bottomBar;
+    //摄像头 麦克风 下麦
+    UIView *sideBar;
+    UIButton *camaraBtn;
+    UIButton *micBtn;
+    UIButton *cancelBtn;
+    
     UIButton *playBtn;
     UIButton *screenScaleBtn;
     
@@ -189,6 +195,23 @@ typedef enum : NSUInteger {
              forControlEvents:UIControlEventTouchUpInside];
     [bottomBar addSubview:screenScaleBtn];
     
+    //加载sideBar 上麦功能条
+    sideBar = [[UIView alloc] init];
+    //sideBar.hidden = YES;
+    sideBar.backgroundColor = [UIColor ColorWithRGB:5 Green:5 Blue:5 Alpha:0.5];
+    [self addSubview:sideBar];
+    camaraBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [camaraBtn setImage:[UIImage imageNamed:@"func_cam_off"] forState:UIControlStateNormal];
+    [camaraBtn addTarget:self action:@selector(enableCamara:) forControlEvents:UIControlEventTouchUpInside];
+    [sideBar addSubview:camaraBtn];
+    micBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [micBtn setImage:[UIImage imageNamed:@"func_mic_off"] forState:UIControlStateNormal];
+    [micBtn addTarget:self action:@selector(enableMic:) forControlEvents:UIControlEventTouchUpInside];
+    [sideBar addSubview:micBtn];
+    cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [cancelBtn setImage:[UIImage imageNamed:@"call_off"] forState:UIControlStateNormal];
+//    [sideBar addSubview:cancelBtn];
+    
     //布局
     [titleBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
@@ -225,6 +248,25 @@ typedef enum : NSUInteger {
     }];
     titleBar.alpha = 0;
     bottomBar.alpha = 0;
+    
+    [sideBar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.mas_centerY);
+        make.right.equalTo(self.mas_right).with.offset(-5);
+        make.width.equalTo(@40);
+    }];
+    NSArray *btnAry = @[camaraBtn,micBtn];
+    [btnAry mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(30, 30));
+        make.centerX.equalTo(sideBar.mas_centerX);
+    }];
+    [btnAry mas_distributeViewsAlongAxis:MASAxisTypeVertical withFixedSpacing:10 leadSpacing:10 tailSpacing:10];
+}
+
+- (void)layoutMarginsDidChange{
+    [super layoutMarginsDidChange];
+    [sideBar mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.mas_right).with.offset(-5 - self.safeAreaInsets.right);
+    }];
 }
 
 - (void)fillTitle:(NSString *)title{
@@ -365,6 +407,37 @@ typedef enum : NSUInteger {
         bottomBar.alpha = 0;
         isShow = NO;
         NSLog(@"隐藏");
+    }
+}
+
+//处理上麦功能条
+- (void)enableSideBar:(BOOL) enable{
+    sideBar.hidden = !enable;
+}
+- (void)enableCamara:(UIButton *)sender{
+    if (self.maskDelegate && [self.maskDelegate respondsToSelector:@selector(switchCamara:)]) {
+        [self.maskDelegate switchCamara:^(BOOL enable, BOOL isFirst) {
+            if (enable) {
+                [sender setImage:[UIImage imageNamed:@"func_cam_on"] forState:UIControlStateNormal];
+            }else{
+                [sender setImage:[UIImage imageNamed:@"func_cam_off"] forState:UIControlStateNormal];
+            }
+            
+            if (isFirst) {
+                [self enableMic:micBtn];
+            }
+        }];
+    }
+}
+- (void)enableMic:(UIButton *)sender{
+    if (self.maskDelegate && [self.maskDelegate respondsToSelector:@selector(switchMic:)]) {
+        [self.maskDelegate switchMic:^(BOOL enable) {
+            if (enable) {
+                [sender setImage:[UIImage imageNamed:@"func_mic_on"] forState:UIControlStateNormal];
+            }else{
+                [sender setImage:[UIImage imageNamed:@"func_mic_off"] forState:UIControlStateNormal];
+            }
+        }];
     }
 }
 

@@ -93,7 +93,7 @@
     }];
 }
 
-#pragma interactViewDelegate IMP
+#pragma mark interactViewDelegate IMP
 - (void)interactViewDidSendmessage:(NSString *)text Complete:(void (^)(MedChannelChatMessage* msg))result{
     [self sendMsg:text result:result];
 }

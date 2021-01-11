@@ -154,7 +154,18 @@
 }
 //频道属性变更回调
 - (void)channel:(AgoraRtmChannel *)channel attributeUpdate:(NSArray<AgoraRtmChannelAttribute *> *)attributes{
-    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    for (AgoraRtmChannelAttribute *attr in attributes) {
+        if (attr.key == SKLMessageSignal_VideoGrant) {
+            NSString *attrStr = attr.value;
+            NSDictionary *value = [MedLiveAppUtilies stringToJsonDic:attrStr];
+            [dic setValue:value forKey:attr.key];
+        }
+        else if(attr.key == SKLMessageSignal_Pointmain){
+            NSString *attrStr = attr.value;
+            [dic setValue:attrStr forKey:attr.key];
+        }
+    }
 }
 
 - (void)channel:(AgoraRtmChannel *)channel memberJoined:(AgoraRtmMember *)member{

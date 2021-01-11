@@ -61,6 +61,7 @@
         
         maskView.maskDelegate = delegate;
         _videoView.backgroundColor = [UIColor ColorWithRGB:44 Green:123 Blue:246 Alpha:1];
+        
     }
     return self;
 }
@@ -99,6 +100,10 @@
 
 - (void)fillTitle:(NSString *)title{
     [maskView fillTitle:title];
+}
+
+- (void)enableSideBar:(BOOL)enable{
+    [maskView enableSideBar:enable];
 }
 
 - (void)showPlaceView:(BOOL)show Start:(NSString *)startTime State:(MedLiveRoomState)state coverPic:(NSString *)img{

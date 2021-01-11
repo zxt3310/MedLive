@@ -34,10 +34,21 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
     AgoraRtcVideoCanvas *remoteArea;
     NSMutableArray<UIView *> *videoCollection;
     BOOL showBar;
+    
+    //上麦状态位
+    BOOL enableCamara;
+    BOOL enableMic;
+    BOOL isFirst;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //状态位初始化
+    enableCamara = NO;
+    enableMic = NO;
+    isFirst = YES;
+    
+    //加载通知监听
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RTMDidReceiveSignal:) name:RTMEngineDidReceiveSignal object:nil];
     viewModel = [[MedLiveWatchViewModel alloc] init];
     videoCollection = [NSMutableArray array];
@@ -185,6 +196,7 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
+#pragma mark RenderMaskDelegate Imp
 - (void)RenderMaskDidSwitchPlayStateComplate:(void (^)(MedLiveState))block{
     static MedLiveState originState = MedLiveStatePlaying;
     originState = [liveManager pauseOrPlay:originState];
@@ -221,21 +233,42 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
     }
 }
 
+- (void)switchCamara:(void (^)(BOOL,BOOL))res{
+    enableCamara = !enableCamara;
+    if (isFirst) {
+        __weak LiveManager *weakManager = liveManager;
+        [pushView addRemoteStream:[AppCommondCenter sharedCenter].currentUser.uid.integerValue result:^(LiveView * view) {
+            [weakManager setRole:AgoraClientRoleBroadcaster];
+            [weakManager setupVideoLocalView:view];
+            [weakManager enableVideo];
+        }];
+        [pushView showPlaceView:NO Start:nil State:MedLiveRoomStateStart coverPic:nil];
+        res(enableCamara,isFirst);
+        isFirst = NO;
+    }else{
+        [liveManager disableLocalCamera:enableCamara];
+        res(enableCamara,isFirst);
+    }
+    
+}
+
+- (void)switchMic:(void (^)(BOOL))res{
+    enableMic = !enableMic;
+    [liveManager muteLocalMic:!enableMic];
+    res(enableMic);
+}
+
 #pragma Signal Notification
 - (void)RTMDidReceiveSignal:(NSNotification *)notify{
     MedChannelSignalMessage *signal = (MedChannelSignalMessage *)notify.object;
     if ([signal.targetid isEqualToString:[AppCommondCenter sharedCenter].currentUser.uid]) {
         if ([signal.signal isEqualToString:SKLMessageSignal_VideoGrant]) {
-            __weak LiveManager *weakManager = liveManager;
-            [pushView addRemoteStream:signal.targetid.integerValue result:^(LiveView * view) {
-                [weakManager setRole:AgoraClientRoleBroadcaster];
-                [weakManager setupVideoLocalView:view];
-                [weakManager enableVideo];
-            }];
-            [pushView showPlaceView:NO Start:nil State:MedLiveRoomStateStart coverPic:nil];
+            [pushView enableSideBar:YES];
         }
         
         if ([signal.signal isEqualToString:SKLMessageSignal_VideoDenied]) {
+            isFirst = YES;
+            [pushView enableSideBar:NO];
             [liveManager disableVideo];
             [pushView removeRemoteStream:signal.targetid.integerValue];
         }
@@ -248,22 +281,26 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
             //纯拉流
             else{
                 NSInteger curId = pushView.uid;
-                pushView.uid = signal.targetid.integerValue;
-                //移除小窗口
-                [pushView removeRemoteStream:signal.targetid.integerValue];
-                //加载大窗口
-                [pushView renewVideoView];
-                [liveManager setupVideoRemoteView:pushView];
-                
-                //重新放置小窗口
-                __weak LiveManager *weakManager = liveManager;
-                [pushView addRemoteStream:curId result:^(__kindof LiveView * view) {
-                    [weakManager setupVideoRemoteView:view];
-                }];
+                if(curId != signal.targetid.integerValue){
+                    pushView.uid = signal.targetid.integerValue;
+                    //移除小窗口
+                    [pushView removeRemoteStream:signal.targetid.integerValue];
+                    //加载大窗口
+                    [pushView renewVideoView];
+                    [liveManager setupVideoRemoteView:pushView];
+                    
+                    //重新放置小窗口
+                    __weak LiveManager *weakManager = liveManager;
+                    [pushView addRemoteStream:curId result:^(__kindof LiveView * view) {
+                        [weakManager setupVideoRemoteView:view];
+                    }];
+                }
             }
         }
     }
 }
+
+
 
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];

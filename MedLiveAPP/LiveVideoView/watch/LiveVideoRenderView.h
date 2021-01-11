@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showPlaceView:(BOOL)show Start:(nullable NSString *)startTime State:(MedLiveRoomState)state coverPic:(nullable NSString *)img;
 - (void)addRemoteStream:(NSInteger)uid result:(void(^)(__kindof LiveView*))res;
 - (void)removeRemoteStream:(NSInteger)uid;
+- (void)enableSideBar:(BOOL) enable;
 @end
 
 NS_ASSUME_NONNULL_END
