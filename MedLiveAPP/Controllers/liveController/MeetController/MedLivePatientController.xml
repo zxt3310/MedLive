@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UIView layout="flex:1" attr="bgColor:white">
+    <UIView class="" layout="padding:20" attr="">
+        <UILabel name="" class="" layout="" attr="fontSize:16,color:#333333,text:基本信息"/>
+        <UIView class="" layout="flexDirection:row" attr="">
+            <UIImageView name="headerView" layout="width:80,height:80" attr="source:header"/>
+            <UIView class="" layout="flexDirection:row,padding:10" attr="">
+                <UILabel name="nameLb" class="" layout="width:100" attr="fontSize:14,color:#333333,text:"/>
+                <UILabel name="sexLb" class="" layout="width:50" attr="fontSize:14,color:#333333,text:"/>
+                <UILabel name="ageLb" class="" layout="width:50" attr="fontSize:14,color:#333333,text:"/>
+            </UIView>
+        </UIView>
+    </UIView>
+
+    <UIView class="" layout="height:1" attr="bgColor:#9a9b9a"/>
+
+    <UIView class="" layout="padding:20" attr="">
+        <UILabel name="" class="" layout="" attr="fontSize:16,color:#333333,text:症状描述"/>
+        <UILabel name="illLb" class="" layout="marginTop:8" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:0,text:"/>
+    </UIView>
+
+    <UIView class="" layout="height:1" attr="bgColor:#9a9b9a"/>
+
+    <UIView class="" layout="padding:20" attr="">
+        <UIView class="" layout="flexDirection:row" attr="">
+            <UILabel name="" class="" layout="" attr="fontSize:16,color:#333333,text:图片资料"/>
+            <UILabel name="" class="" layout="marginLeft:8" attr="fontSize:13,color:gray,text:点击查看大图"/>
+        </UIView>
+        <UIView name="contentView" layout="flexDirection:row,flexWrap:wrap,padding:10" attr="">
+        
+        </UIView>
+    </UIView>
+
+</UIView>

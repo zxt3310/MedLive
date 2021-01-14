@@ -26,6 +26,9 @@
 }
 
 + (id)stringToJsonDic:(NSString *)jsonString{
+    if (!jsonString) {
+        return nil;
+    }
     NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     NSError *error;
     id obj = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];

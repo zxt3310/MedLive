@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UIView layout="flexDirection:row,padding:20/10/20/10,alignItems:center" attr="bgColor:white">
+    <UIImageView name="headerView" layout="width:80,height:80" attr="source:header,borderRadius:40,clipsToBounds:true"/>
+    <UIView class="" layout="flex:1,flexDirection:row,padding:10" attr="">
+        <UILabel name="nameLb" class="" layout="width:100" attr="fontSize:14,color:#333333,text:"/>
+        <UILabel name="sexLb" class="" layout="width:50" attr="fontSize:14,color:#333333,text:"/>
+        <UILabel name="ageLb" class="" layout="width:50" attr="fontSize:14,color:#333333,text:"/>
+        <!-- <UILabel name="illLb" class="" layout="" attr="fontSize:14,color:#333333,text:苦苦嘁嘁嘁"/> -->
+    </UIView>
+
+        <UIImageView layout="width:20,height:20" attr="source:right"/>
+
+</UIView>

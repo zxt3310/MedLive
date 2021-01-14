@@ -51,6 +51,11 @@
         }else
         {
             liveRoom = [MedLiveRoomConsultation yy_modelWithDictionary:obj];
+            id obj = dic[@"data"][@"consultation_user_list"];
+            NSArray *patients = [NSArray yy_modelArrayWithClass:[Patient class] json:obj];
+            if(patients){
+                [liveRoom setValue:patients forKey:@"patients"];
+            }
         }
         
         if (liveRoom) {

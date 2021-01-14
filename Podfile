@@ -23,6 +23,7 @@ target 'MedLiveAPP' do
   pod 'LGAlertView'
   pod 'TZImagePickerController'
   pod 'SVProgressHUD'
+  pod 'YBImageBrowser'
 #  pod 'AliyunOSSiOS'
 
   # Pods for MedLiveAPP

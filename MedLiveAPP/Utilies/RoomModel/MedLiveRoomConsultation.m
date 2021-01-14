@@ -11,3 +11,22 @@
 @implementation MedLiveRoomConsultation
 
 @end
+
+@implementation Patient
+
++ (NSDictionary<NSString *,id> *)modelCustomPropertyMapper{
+    return @{
+        @"pId":@"id",
+        @"cId":@"consultation_id",
+        @"uId":@"user_id",
+        @"sex":@"sex",
+        @"age":@"age",
+        @"name":@"name",
+        @"resource":@"patient_resouce",
+        @"symptom":@"symptom",
+        @"roomId":@"room_id",
+        @"createTime":@"created_at"
+    };
+}
+
+@end

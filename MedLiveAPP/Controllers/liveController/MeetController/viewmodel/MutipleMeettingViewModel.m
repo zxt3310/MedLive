@@ -10,9 +10,12 @@
 #import "LiveManager.h"
 #import "MedChannelTokenRequest.h"
 #import "MedLiveRoomInfoRequest.h"
-#import "MedLiveRoomMeetting.h"
+#import "MedLiveRoomConsultation.h"
 #import "MedLiveRoleStateRequest.h"
 #import "MedChannelStateRequest.h"
+#import "MedLivePatientCell.h"
+
+
 
 @interface MutipleMeettingViewModel()<LiveManagerRemoteCanvasProvideDelegate>
 @property LiveManager *manager;
@@ -131,7 +134,7 @@
     }];
 }
 
-#pragma viewModel delegate imp
+#pragma mark viewModel delegate imp
 - (void)didAddRemoteMember:(NSUInteger)uid{
     if (self.meettingDelegate) {
         [self.meettingDelegate meetingDidJoinMember:uid];
@@ -161,6 +164,28 @@
     if (self.meettingDelegate) {
         [self.meettingDelegate meetMemberBecomeActive:uid];
     }
+}
+#pragma mark tableViewDelegate Imp
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    MedLiveRoomConsultation *room = (MedLiveRoomConsultation *)roomMeet;
+    return room.patients.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    MedLivePatientCell *cell = (MedLivePatientCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (!cell) {
+        cell = [[MedLivePatientCell alloc] initWithFlex:nil reuseIdentifier:@"cell"];
+    }
+    MedLiveRoomConsultation *room = (MedLiveRoomConsultation *)roomMeet;
+    [cell setPatient:room.patients[indexPath.item] forIndex:indexPath.item];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    MedLiveRoomConsultation *room = (MedLiveRoomConsultation *)roomMeet;
+    Patient *patient = [room.patients objectAtIndex:indexPath.item];
+    [[NSNotificationCenter defaultCenter] postNotificationName:PatientInfoPushNotification object:patient];
 }
 
 - (void)dealloc

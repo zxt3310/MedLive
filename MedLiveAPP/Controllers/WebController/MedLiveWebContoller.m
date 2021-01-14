@@ -60,6 +60,10 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
+}
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
     WeakSelf
     [webView evaluateJavaScript:@"document.title" completionHandler:^(NSString *title, NSError *error) {
         if (!error) {
@@ -79,14 +83,11 @@
                 MedLiveController *liveCtr = [[MedLiveController alloc] init];
                 liveCtr.roomId = obj[@"room_id"];
                 [self.navigationController pushViewController:liveCtr animated:YES];
-            }else if ([self.roomType isEqualToString: @"meeting"])
+            }else if ([self.roomType isEqualToString: @"meeting"] || [self.roomType isEqualToString: @"consultation"])
             {
                 SKLMeetJoinMeetController *joinMeetVC = [[SKLMeetJoinMeetController alloc] init];
                 joinMeetVC.roomId = obj[@"room_id"];
                 [self.navigationController pushViewController:joinMeetVC animated:YES];
-            }else if ([self.roomType isEqualToString: @"consultation"])
-            {
-                
             }
             else{
                 ViewController *liveVC = [[ViewController alloc] init];

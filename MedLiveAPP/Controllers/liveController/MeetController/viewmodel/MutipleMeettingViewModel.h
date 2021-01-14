@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#define PatientInfoPushNotification @"show_patient"
 
 NS_ASSUME_NONNULL_BEGIN
 @class MedLiveRoomMeetting;
@@ -19,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)meetMemberBecomeActive:(NSInteger)uid;
 @end
 
-@interface MutipleMeettingViewModel : NSObject
+@interface MutipleMeettingViewModel : NSObject <UITableViewDelegate,UITableViewDataSource>
 @property (weak) id<MedMutipleMeetingDelegate> meettingDelegate;
 - (void)fetchRoomInfoWithRoomId:(NSString *)roomId Complete:(void(^)(MedLiveRoomMeetting* ))res;
 - (void)setupLocalView:(__kindof UIView *)localView;

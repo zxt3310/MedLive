@@ -9,7 +9,8 @@
 #import "MedMultipleMeettingController.h"
 #import "MutipleMeettingViewModel.h"
 #import "MutipleView.h"
-#import "MedLiveRoomMeetting.h"
+#import "MedLiveRoomConsultation.h"
+#import "MedLivePatientController.h"
 #import <LGAlertView.h>
 
 #define HoritonSpace 5.0
@@ -37,11 +38,20 @@
     UIView *toolBar;
     
     UILabel *memberCountLabel;//频道人员计数
+    
+    //会诊时展现
+//    FlexModalView *doctosModel;
+    FlexTouchView *patientBtn;
+    FlexModalView *patientModel;
+    UITableView *patientTable;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view enableFlexLayout:YES];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showPatientInfoVC:) name:PatientInfoPushNotification object:nil];
+    
     memberAry = [NSMutableArray array];
     
     viewModel = [[MutipleMeettingViewModel alloc] init];
@@ -52,8 +62,12 @@
     //为了等待初始化结束  延迟两秒执行布局
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self layoutMemberWindow];
+        WeakSelf
         [viewModel fetchRoomInfoWithRoomId:self.roomId Complete:^(MedLiveRoomMeetting *room) {
             [viewModel joinMeetting:room.channelId];
+            if([room isMemberOfClass:[MedLiveRoomConsultation class]]){
+                [weakSelf setupPatientsModel];
+            }
         }];
         [toolsView setLayoutAttrStrings:@[@"bottom",[NSString stringWithFormat:@"%f",(toolBar.frame.size.height + 5)]]];
     });
@@ -69,6 +83,29 @@
     [streamView addSubview:view];
     [memberAry addObject:view];
     [viewModel setupLocalView:view];
+}
+
+- (void)setupPatientsModel{
+    patientTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    patientTable.delegate = viewModel;
+    patientTable.dataSource = viewModel;
+    patientTable.rowHeight = UITableViewAutomaticDimension;
+    patientBtn.hidden = NO;
+}
+
+#pragma mark 会诊功能
+- (void)showPatient{
+    [patientModel showModalInView:self.view Anim:YES];
+}
+
+- (void)showPatientInfoVC:(NSNotification *)notify{
+    Patient *patient = notify.object;
+    MedLivePatientController *patientVC = [[MedLivePatientController alloc] init];
+    patientVC.patient = patient;
+    
+    [patientModel hideModal:YES];
+    
+    [self.navigationController pushViewController:patientVC animated:YES];
 }
 
 - (void)viewDidLayoutSubviews{
@@ -271,12 +308,8 @@
     toolsView.hidden = !toolsView.hidden;
 }
 
-- (void)viewDidDisappear:(BOOL)animated{
-    
-}
-
-
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 @end

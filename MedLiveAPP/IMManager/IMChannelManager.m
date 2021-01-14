@@ -159,12 +159,17 @@
         if (attr.key == SKLMessageSignal_VideoGrant) {
             NSString *attrStr = attr.value;
             NSDictionary *value = [MedLiveAppUtilies stringToJsonDic:attrStr];
-            [dic setValue:value forKey:attr.key];
+            if (value) {
+                [dic setValue:value forKey:attr.key];
+            }
         }
         else if(attr.key == SKLMessageSignal_Pointmain){
             NSString *attrStr = attr.value;
             [dic setValue:attrStr forKey:attr.key];
         }
+    }
+    if(self.channelDelegate && [self.channelDelegate respondsToSelector:@selector(channelDidChangeAttribute:)]){
+        [self.channelDelegate channelDidChangeAttribute:[dic copy]];
     }
 }
 
