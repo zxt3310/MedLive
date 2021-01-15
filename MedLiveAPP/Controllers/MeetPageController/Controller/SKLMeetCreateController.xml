@@ -12,7 +12,7 @@
             <UIView class="" layout="flexDirection:row,paddingVertical:20,justifyContent:space-between" attr="">
                 <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:1,text:开始时间"/>
                 <FlexTouchView onPress="selectStartDate:" layout="flexDirection:row" attr="">
-                    <UILabel name="startDateLabel" class="" layout="" attr="fontSize:14,color:#2B7BF6,lineBreakMode:truncatingTail,linesNum:1,text:请选择"/>
+                    <UILabel name="startDateLabel" class="" layout="" attr="fontSize:12,color:#2B7BF6,lineBreakMode:truncatingTail,linesNum:1,text:请选择"/>
                     <UIImageView layout="" attr="source:right"/>
                 </FlexTouchView>
             </UIView>

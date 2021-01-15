@@ -30,6 +30,8 @@ UIKIT_EXTERN NSString *const MedRtmRejoinCall;
 @property (weak) id<ThirdPlatDelegate> evocateDelegate;
 + (instancetype)sharedCenter;
 
+- (void)fetchUserInfo:(NSString *)uid;
+
 - (void)updateUserInfo:(MedLiveUserModel *)newUser;
 
 - (void)loginWithUid:(NSString *)uid;

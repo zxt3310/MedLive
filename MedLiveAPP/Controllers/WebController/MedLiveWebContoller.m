@@ -96,7 +96,7 @@
             }
         }
     }else if([name isEqualToString:@"doctorVerify"]){
-        [AppCommondCenter sharedCenter];
+        [[AppCommondCenter sharedCenter] fetchUserInfo:[AppCommondCenter sharedCenter].currentUser.uid];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }

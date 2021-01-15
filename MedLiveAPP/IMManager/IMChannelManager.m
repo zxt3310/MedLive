@@ -156,14 +156,14 @@
 - (void)channel:(AgoraRtmChannel *)channel attributeUpdate:(NSArray<AgoraRtmChannelAttribute *> *)attributes{
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     for (AgoraRtmChannelAttribute *attr in attributes) {
-        if (attr.key == SKLMessageSignal_VideoGrant) {
+        if ([attr.key isEqualToString:SKLMessageSignal_VideoGrant]) {
             NSString *attrStr = attr.value;
             NSDictionary *value = [MedLiveAppUtilies stringToJsonDic:attrStr];
             if (value) {
                 [dic setValue:value forKey:attr.key];
             }
         }
-        else if(attr.key == SKLMessageSignal_Pointmain){
+        else if([attr.key isEqualToString:SKLMessageSignal_Pointmain]){
             NSString *attrStr = attr.value;
             [dic setValue:attrStr forKey:attr.key];
         }

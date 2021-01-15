@@ -49,7 +49,7 @@
     UILabel *live_title = [[UILabel alloc] init];
     live_title.text = @"创建直播";
     UILabel *join_title = [[UILabel alloc] init];
-    join_title.text = @"加入直播";
+    join_title.text = @"快速加入";
     
     meet_title.font = live_title.font = join_title.font = [UIFont systemFontOfSize:12];
     meet_title.textAlignment = live_title.textAlignment = join_title.textAlignment = NSTextAlignmentCenter;

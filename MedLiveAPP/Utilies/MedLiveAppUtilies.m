@@ -42,7 +42,7 @@
 
 + (void)checkForm:(NSArray <NSString *> *)formAry Aleart:(NSArray <NSString *>*)alearAry Complate:(void(^)(BOOL, NSString * _Nullable))result{
     if (formAry.count != alearAry.count) {
-        result(NO,@"参数有误，有nil");
+        result(NO,@"请补全内容再提交");
         return;
     }
     __block BOOL res = YES;
