@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LiveVideoRemoteWidget : LiveView
-
+- (void)hidePlaceholder:(BOOL) hide;
 @end
 
 NS_ASSUME_NONNULL_END

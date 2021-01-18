@@ -92,6 +92,28 @@
     }];
 }
 
+- (void)getChannelAttributes{
+    [[IMManager sharedManager] getChannelAllAttributes:channelId completion:^(NSArray<AgoraRtmChannelAttribute *> * _Nullable attributes, AgoraRtmProcessAttributeErrorCode errorCode) {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        for (AgoraRtmChannelAttribute *attr in attributes) {
+            if ([attr.key isEqualToString:SKLMessageSignal_VideoGrant]) {
+                NSString *attrStr = attr.value;
+                NSDictionary *value = [MedLiveAppUtilies stringToJsonDic:attrStr];
+                if (value) {
+                    [dic setValue:value forKey:attr.key];
+                }
+            }
+            else if([attr.key isEqualToString:SKLMessageSignal_Pointmain]){
+                NSString *attrStr = attr.value;
+                [dic setValue:attrStr forKey:attr.key];
+            }
+        }
+        if(self.channelDelegate && [self.channelDelegate respondsToSelector:@selector(channelDidChangeAttribute:)]){
+            [self.channelDelegate channelDidChangeAttribute:[dic copy]];
+        }
+    }];
+}
+
 //发送图片消息  预留
 - (void)sendImageMessage:(UIImage *)img text:(NSString*) info{
     

@@ -197,7 +197,7 @@ typedef enum : NSUInteger {
     
     //加载sideBar 上麦功能条
     sideBar = [[UIView alloc] init];
-    //sideBar.hidden = YES;
+    sideBar.hidden = YES;
     sideBar.backgroundColor = [UIColor ColorWithRGB:5 Green:5 Blue:5 Alpha:0.5];
     [self addSubview:sideBar];
     camaraBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -386,7 +386,7 @@ typedef enum : NSUInteger {
         titleBar.alpha = 1;
         bottomBar.alpha = 1;
         isShow = YES;
-        funcBarHide = 3;
+        funcBarHide = 5;
         if (!timer) {
             timer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer *timer) {
                 funcBarHide--;
@@ -413,7 +413,16 @@ typedef enum : NSUInteger {
 //处理上麦功能条
 - (void)enableSideBar:(BOOL) enable{
     sideBar.hidden = !enable;
+    if (!enable) {
+        [camaraBtn setImage:[UIImage imageNamed:@"func_cam_off"] forState:UIControlStateNormal];
+        [micBtn setImage:[UIImage imageNamed:@"func_mic_off"] forState:UIControlStateNormal];
+    }
 }
+//被动触发上麦（设备全开）
+- (void)openDeviceOnForce{
+    [self enableCamara:camaraBtn];
+}
+
 - (void)enableCamara:(UIButton *)sender{
     if (self.maskDelegate && [self.maskDelegate respondsToSelector:@selector(switchCamara:)]) {
         [self.maskDelegate switchCamara:^(BOOL enable, BOOL isFirst) {

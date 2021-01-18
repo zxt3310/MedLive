@@ -104,6 +104,10 @@ static IMManager *manager = nil;
     }];
 }
 
+- (void)getChannelAllAttributes:(NSString *)channelId completion:(void(^)(NSArray<AgoraRtmChannelAttribute *> * _Nullable attributes, AgoraRtmProcessAttributeErrorCode errorCode))block{
+    [self.rtmEngine getChannelAllAttributes:channelId completion:block];
+}
+
 #pragma AgoraRtmDelegate Imp
 
 - (void)rtmKit:(AgoraRtmKit *)kit connectionStateChanged:(AgoraRtmConnectionState)state reason:(AgoraRtmConnectionChangeReason)reason{

@@ -23,16 +23,22 @@
 {
     IMChannelManager *manager;
     MedLiveRoomBoardcast *boardRoom;
+    BOOL isMediaOn;
+    dispatch_source_t timer;
+    NSMutableArray <MedLiveSignelQueueModel *> *signalQueue;
 }
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
+        isMediaOn = NO;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(rejoinRtmJoinChannel)
                                                      name:MedRtmRejoinCall
                                                    object:nil];
+        signalQueue = [NSMutableArray array];
+        [self createSingalQueue];
     }
     return self;
 }
@@ -56,6 +62,11 @@
 
 - (void)rejoinRtmJoinChannel{
     [manager rejoinChannel];
+}
+
+//拉取频道attribute
+- (void)getAttrbuite{
+    [manager getChannelAttributes];
 }
 
 - (void)sendMsg:(NSString *)text result:(void(^)(MedChannelChatMessage * msg)) result{
@@ -114,34 +125,6 @@
 }
 
 - (void)interactViewDidStoreLove:(BOOL)favor result:(void(^)(void))res{
-    //模拟小助手
-//    __weak IMChannelManager *weakManager = manager;
-//    [manager TotalMembersOfChannel:^(NSArray<NSString *> *members) {
-//        __block MedChannelSignalMessage *msg;
-//        __block NSInteger commond = 0;
-//
-//        LGAlertView *alertOut = [LGAlertView alertViewWithTitle:@"选择" message:nil style:LGAlertViewStyleActionSheet buttonTitles:@[@"上麦",@"下麦",@"指定主讲人"] cancelButtonTitle:nil destructiveButtonTitle:nil];
-//        LGAlertView *alertIn = [LGAlertView alertViewWithTitle:@"参会人员" message:nil style:LGAlertViewStyleActionSheet buttonTitles:members cancelButtonTitle:nil destructiveButtonTitle:nil];
-//        alertOut.actionHandler = ^(LGAlertView * alertView, NSUInteger index, NSString *title) {
-//            commond = index;
-//            [alertIn showAnimated];
-//        };
-//        alertIn.actionHandler = ^(LGAlertView * _Nonnull alertView, NSUInteger index, NSString * _Nullable title) {
-//            if (commond == 0) {
-//                msg = [[MedChannelSignalMessage alloc] initWithMessageSignal:SKLMessageSignal_VideoGrant Target:[members objectAtIndex:index]];
-//            }else if(commond == 1){
-//                msg = [[MedChannelSignalMessage alloc] initWithMessageSignal:SKLMessageSignal_VideoDenied Target:[members objectAtIndex:index]];
-//            }else{
-//                msg = [[MedChannelSignalMessage alloc] initWithMessageSignal:SKLMessageSignal_Pointmain Target:[members objectAtIndex:index]];
-//            }
-//
-//            [weakManager sendTextMessage:[msg yy_modelToJSONString] Success:^{
-//                NSLog(@"命令发送成功");
-//            }];
-//        };
-//        [alertOut showAnimated];
-//    }];
-    
     if (favor) {
         MedLiveAddFavorite *requset = [[MedLiveAddFavorite alloc] initWithUid:[AppCommondCenter sharedCenter].currentUser.uid RoomId:boardRoom.roomId];
         [requset addFavorWithSuccess:res];
@@ -150,6 +133,49 @@
         [request removeFavorWithSuccess:res];
     }
     
+}
+
+- (void)createSingalQueue{
+    dispatch_queue_t signal_queue = dispatch_queue_create("com.saikanglive.app", DISPATCH_QUEUE_CONCURRENT);
+    timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, signal_queue);
+    dispatch_source_set_timer(timer, DISPATCH_TIME_NOW, 1.5*NSEC_PER_SEC, 0);
+    __weak NSMutableArray *queueAry = signalQueue;
+    WeakSelf
+    dispatch_source_set_event_handler(timer, ^{
+        @synchronized (queueAry) {
+            if (queueAry.count) {
+                MedLiveSignelQueueModel *model = [queueAry firstObject];
+                if (model.validate >2) {
+                    [queueAry removeObject:model];
+                    NSLog(@"指令失效，从队列中移除");
+                }else{
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        [weakSelf commitSignal:model res:^(BOOL success) {
+                            if (success) {
+                                [queueAry removeObject:model];
+                                NSLog(@"指令生效");
+                            }else{
+                                [model validateGrow];
+                                NSLog(@"指令未处理，保存队列");
+                            }
+                        }];
+                    });
+
+                }
+            }
+        }
+    });
+    dispatch_resume(timer);
+}
+
+- (void)commitSignal:(MedLiveSignelQueueModel *)model res:(void(^)(BOOL success))succesed{
+    if ([model.notificationName isEqualToString:SKLMessageSignal_VideoGrant]) {
+        [self.signalDelegate RTMDidReceiveVideoGrantRes:succesed];
+    }else if ([model.notificationName isEqualToString:SKLMessageSignal_VideoDenied]){
+        [self.signalDelegate RTMDidReceiveVideoDeniedRes:succesed];
+    }else if([model.notificationName isEqualToString:SKLMessageSignal_Pointmain]){
+        [self.signalDelegate RTMDidReceivePointMain:[model.value integerValue] res:succesed];
+    }
 }
 
 #pragma IMChannelDelegate IMP
@@ -162,8 +188,45 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:RTMEngineDidReceiveSignal object:signal];
 }
 
+- (void)channelDidChangeAttribute:(NSDictionary *)attribute{
+    NSDictionary *authorMap = [attribute objectForKey:SKLMessageSignal_VideoGrant];
+    id videoSignal = [authorMap valueForKey:[AppCommondCenter sharedCenter].currentUser.uid];
+    if (videoSignal) {
+        if ([videoSignal boolValue] != isMediaOn) {
+//            [[NSNotificationCenter defaultCenter] postNotificationName:
+//                                                                !isMediaOn?
+//                                                                      SKLMessageSignal_VideoGrant
+//                                                                      :SKLMessageSignal_VideoDenied
+//                                                                object:nil];
+            MedLiveSignelQueueModel *model = [[MedLiveSignelQueueModel alloc] init];
+            model.notificationName = !isMediaOn ? SKLMessageSignal_VideoGrant : SKLMessageSignal_VideoDenied;
+            [signalQueue addObject:model];
+            isMediaOn = !isMediaOn;
+        }
+    }
+    
+    NSString *target = [attribute objectForKey:SKLMessageSignal_Pointmain];
+    if (target) {
+        MedLiveSignelQueueModel *model = [[MedLiveSignelQueueModel alloc] init];
+        model.notificationName = SKLMessageSignal_Pointmain;
+        model.value = target;
+        [signalQueue addObject:model];
+        //[[NSNotificationCenter defaultCenter] postNotificationName:SKLMessageSignal_Pointmain object:target];
+    }
+}
+
 - (void)dealloc
 {
+    dispatch_source_cancel(timer);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+@end
+
+
+@implementation MedLiveSignelQueueModel
+
+- (void)validateGrow{
+    _validate++;
+}
+
 @end

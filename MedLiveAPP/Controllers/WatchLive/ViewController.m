@@ -19,7 +19,7 @@ NSString *const SKLMessageSignal_VideoGrant = @"video_grant";
 NSString *const SKLMessageSignal_VideoDenied = @"video_denied";
 NSString *const SKLMessageSignal_Pointmain = @"point_main";
 
-@interface ViewController ()<LiveManagerRemoteCanvasProvideDelegate,RenderMaseDelegate>
+@interface ViewController ()<LiveManagerRemoteCanvasProvideDelegate,RenderMaseDelegate,SignalDelegate>
 @end
 
 @implementation ViewController
@@ -32,7 +32,6 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
     LiveManager *liveManager;
     AgoraRtcVideoCanvas *localArea;
     AgoraRtcVideoCanvas *remoteArea;
-    NSMutableArray<UIView *> *videoCollection;
     BOOL showBar;
     
     //上麦状态位
@@ -50,8 +49,10 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
     
     //加载通知监听
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RTMDidReceiveSignal:) name:RTMEngineDidReceiveSignal object:nil];
+    
     viewModel = [[MedLiveWatchViewModel alloc] init];
-    videoCollection = [NSMutableArray array];
+    viewModel.signalDelegate = self;
+    
     self.view.backgroundColor = [UIColor whiteColor];
     [self setupViewArea];
     [self setupLocalVideo];
@@ -98,16 +99,12 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
     }];
 }
 
-- (void)viewSafeAreaInsetsDidChange{
-    [super viewSafeAreaInsetsDidChange];
-    UIEdgeInsets safeArea = self.view.safeAreaInsets;
-    [interactView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view).offset(-safeArea.bottom);
-    }];
-}
-
 - (void)getStart{
+    //必须在初始化时调用，不然远端流不会接收
     [liveManager enableVideo];
+    //直播状态下 初始禁用摄像头 禁用麦克
+    [liveManager disableLocalCamera:NO];
+    
     MedChannelTokenRequest *req = [[MedChannelTokenRequest alloc] initWithRoomId:self.channelId Uid:[AppCommondCenter sharedCenter].currentUser.uid];
     __weak typeof(self) weakSelf = self;
     __weak MedLiveWatchViewModel *weakModel = viewModel;
@@ -117,6 +114,8 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
                                        Uid:[AppCommondCenter sharedCenter].currentUser.uid success:^{
             //改变状态
             [weakModel changeRoleState:MedLiveRoleStateJoin];
+            //拉取频道属性
+            [weakModel getAttrbuite];
         }];
     }];
     
@@ -238,17 +237,20 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
     if (isFirst) {
         __weak LiveManager *weakManager = liveManager;
         [pushView addRemoteStream:[AppCommondCenter sharedCenter].currentUser.uid.integerValue result:^(LiveView * view) {
-            [weakManager setRole:AgoraClientRoleBroadcaster];
             [weakManager setupVideoLocalView:view];
-            [weakManager enableVideo];
+            [weakManager disableLocalCamera:YES];
         }];
         [pushView showPlaceView:NO Start:nil State:MedLiveRoomStateStart coverPic:nil];
+        //第一次开启摄像头时，会强制开麦，如果麦克已经开启，则先将麦克状态位复原，再触发开麦，便于走通联动逻辑
+        enableMic = NO;
         res(enableCamara,isFirst);
         isFirst = NO;
     }else{
         [liveManager disableLocalCamera:enableCamara];
         res(enableCamara,isFirst);
     }
+    
+    [pushView remote:[AppCommondCenter sharedCenter].currentUser.uid.integerValue DidEnabledCamara:enableCamara];
     
 }
 
@@ -300,12 +302,70 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
     }
 }
 
+- (void)renewMainPoint:(NSString *)targetId{
+    NSInteger curId = pushView.uid;
+    if(curId != targetId.integerValue){
+        pushView.uid = targetId.integerValue;
+        //移除小窗口
+        [pushView removeRemoteStream:targetId.integerValue];
+        //加载大窗口
+        [pushView renewVideoView];
+        [liveManager setupVideoRemoteView:pushView];
+        
+        //重新放置小窗口
+        __weak LiveManager *weakManager = liveManager;
+        [pushView addRemoteStream:curId result:^(__kindof LiveView * view) {
+            [weakManager setupVideoRemoteView:view];
+        }];
+    }
+}
 
+#pragma mark 处理信令新协议通知
+//收到上麦邀请
+- (void)RTMDidReceiveVideoGrantRes:(void(^)(BOOL succesed))success{
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"通知" message:@"主播邀请您上麦,点击“接受”自动开启摄像头,“忽略”可由您自行操作" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"接受" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        //调用非公开函数
+        [pushView performSelector:@selector(deviceOnForce)];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"忽略" style:UIAlertActionStyleCancel handler:nil];
+    [alertVC addAction:confirm];
+    [alertVC addAction:cancel];
+    
+    [self presentViewController:alertVC animated:YES completion:^{
+        [liveManager setRole:AgoraClientRoleBroadcaster];
+        [pushView enableSideBar:YES];
+    }];
+    success(YES);
+}
+//收到下麦通知
+- (void)RTMDidReceiveVideoDeniedRes:(void(^)(BOOL succesed))success{
+    [liveManager setRole:AgoraClientRoleAudience];
+    [pushView enableSideBar:NO];
+    enableCamara = NO;
+    enableMic = NO;
+    isFirst = YES;
+    [pushView removeRemoteStream:[AppCommondCenter sharedCenter].currentUser.uid.integerValue];
+    [MedLiveAppUtilies showErrorTip:@"您已被主播下麦"];
+    success(YES);
+}
+//收到主讲人通知
+- (void)RTMDidReceivePointMain:(NSInteger) targetId res:(void(^)(BOOL succesed))success{
+    success(NO);
+}
 
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
 }
-    
+
+- (void)viewSafeAreaInsetsDidChange{
+    [super viewSafeAreaInsetsDidChange];
+    UIEdgeInsets safeArea = self.view.safeAreaInsets;
+    [interactView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view).offset(-safeArea.bottom);
+    }];
+}
+
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     NSLog(@"controller dealloc ok!");

@@ -19,7 +19,7 @@
     //每次启动时如果已登录，刷新 user info
     MedLiveUserModel *user = [AppCommondCenter sharedCenter].currentUser;
     if ([AppCommondCenter sharedCenter].hasLogin) {
-        [[AppCommondCenter sharedCenter] updateUserInfo:user];
+        [[AppCommondCenter sharedCenter] fetchUserInfo:user.uid];
     }
 }
 

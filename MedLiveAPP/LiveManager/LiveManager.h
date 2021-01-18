@@ -27,9 +27,11 @@ NS_ASSUME_NONNULL_BEGIN
 //设置使用场景
 - (void)settingEnvtype:(MedLiveType) type;
 //开启视频采集
-- (void)enableVideo;
+- (int)enableVideo;
 //关闭视频采集
-- (void)disableVideo;
+- (int)disableVideo;
+//关闭音频采集
+- (int)disableAudio;
 //加载本地流视图
 - (void)setupVideoLocalView:(__kindof LiveView *) view;
 //加入频道

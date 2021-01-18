@@ -70,12 +70,16 @@
     [self.agorEngine setupRemoteVideo:remoteArea];
 }
 //启动本地视频采集
-- (void)enableVideo{
-    [self.agorEngine enableVideo];
+- (int)enableVideo{
+    return [self.agorEngine enableVideo];
 }
 //停用本地视频采集
-- (void)disableVideo{
-    [self.agorEngine disableVideo];
+- (int)disableVideo{
+    return [self.agorEngine disableVideo];
+}
+//停用本地音频采集
+- (int)disableAudio{
+    return [self.agorEngine disableAudio];
 }
 //本地静音
 - (void)muteLocalMic:(BOOL)mute{
@@ -109,6 +113,11 @@
     [self.agorEngine leaveChannel:^(AgoraChannelStats * _Nonnull stat) {
         
     }];
+}
+
+- (void)rtcEngine:(AgoraRtcEngineKit *)engine didClientRoleChanged:(AgoraClientRole)oldRole newRole:(AgoraClientRole)newRole{
+    
+    [self.agorEngine muteLocalAudioStream:YES];
 }
 
 //视频通话有远端用户进入（互相可见）

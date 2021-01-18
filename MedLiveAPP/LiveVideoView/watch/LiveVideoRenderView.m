@@ -187,4 +187,20 @@
     }
 }
 
+//设置关闭摄像头的远端流 为默认画面 返回是否找到该流
+- (BOOL)remote:(NSInteger)uid DidEnabledCamara:(BOOL)enabled{
+    for (LiveVideoRemoteWidget *widget in remoteArray) {
+        if (widget.uid == uid) {
+            [widget hidePlaceholder:enabled];
+            return YES;
+        }
+    }
+    return NO;
+}
+
+//私有函数 被动触发 强制开启摄像头和麦克风 （上麦弹窗的接受选项）
+- (void)deviceOnForce{
+    [maskView openDeviceOnForce];
+}
+
 @end

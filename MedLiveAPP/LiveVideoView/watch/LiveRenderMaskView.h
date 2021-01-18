@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak) id<RenderMaseDelegate> maskDelegate;
 - (void)fillTitle:(NSString *)title;
 - (void)enableSideBar:(BOOL) enable;
+//强制开启设备（被动触发）
+- (void)openDeviceOnForce;
 @end
 
 NS_ASSUME_NONNULL_END
