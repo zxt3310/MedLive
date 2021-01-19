@@ -12,6 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LiveVideoRenderView : LiveView
+@property (nonatomic) CGFloat remoteWidgetBottom;
 
 -(id)initWithMaskDelegate:(id <RenderMaseDelegate>)delegate;
 - (void)fillTitle:(NSString *)title;

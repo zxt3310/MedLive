@@ -14,7 +14,7 @@
 #import "MedLiveRoleStateRequest.h"
 #import "MedChannelStateRequest.h"
 #import "MedLivePatientCell.h"
-
+#import "IMManager.h"
 
 
 @interface MutipleMeettingViewModel()<LiveManagerRemoteCanvasProvideDelegate>
@@ -24,6 +24,7 @@
 @implementation MutipleMeettingViewModel
 {
     MedLiveRoomMeetting *roomMeet;
+    NSMutableDictionary <NSString*,NSDictionary*> *memberMap;
 }
 - (instancetype)init
 {
@@ -34,8 +35,19 @@
         [_manager settingEnvtype:MedLiveTypeMeetting];
         _manager.role = AgoraClientRoleBroadcaster;
         [_manager settingOpenVolumeIndication:YES];
+        
+        memberMap = [NSMutableDictionary dictionary];
     }
     return self;
+}
+
+- (void)membersAdd:(NSInteger)uid{
+    //增员
+    __weak NSMutableDictionary *weakDic = memberMap;
+    [self getMemberInfo:uid complete:^(NSDictionary *member) {
+        [weakDic setObject:member forKey:[NSString stringWithFormat:@"%ld",(long)uid]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:MemberDidChangeNotification object:nil];
+    }];
 }
 
 - (void)fetchRoomInfoWithRoomId:(NSString *)roomId Complete:(void(^)(MedLiveRoomMeetting* ))res{
@@ -55,6 +67,7 @@
 
 - (void)joinMeetting:(NSString *)channelId{
     NSString *uid =[AppCommondCenter sharedCenter].currentUser.uid;
+    [self membersAdd:uid.integerValue];
     WeakSelf
     __weak MedLiveRoomMeetting *weakRoom = roomMeet;
     MedChannelTokenRequest *request = [[MedChannelTokenRequest alloc] initWithRoomId:channelId Uid:uid];
@@ -68,6 +81,7 @@
                 [weakSelf changeRoleState:MedLiveRoleStateJoin];
             }
         }];
+        [self.manager muteLocalMic:NO];
     }];
 }
 
@@ -134,16 +148,32 @@
     }];
 }
 
+- (void)getMemberInfo:(NSInteger)uid complete:(void(^)(NSDictionary *))res{
+    NSString *Uid = [NSString stringWithFormat:@"%ld",(long)uid];
+    [[IMManager sharedManager] getUserAttributeWithId:Uid Suc:^(NSString *name, NSString *picUrl) {
+        if (uid == [AppCommondCenter sharedCenter].currentUser.uid.integerValue) {
+            name = [name stringByAppendingString:@"（我）"];
+        }
+        res([NSDictionary dictionaryWithObjectsAndKeys:name,@"name",picUrl,@"url", nil]);
+    }];
+}
+
 #pragma mark viewModel delegate imp
 - (void)didAddRemoteMember:(NSUInteger)uid{
     if (self.meettingDelegate) {
         [self.meettingDelegate meetingDidJoinMember:uid];
     }
+    
+    //增员
+    [self membersAdd:uid];
 }
 - (void)didRemoteLeave:(NSInteger) uid{
     if (self.meettingDelegate) {
         [self.meettingDelegate meetingDidLeaveMember:uid];
     }
+    //减员
+    [memberMap removeObjectForKey:[NSString stringWithFormat:@"%ld",(long)uid]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MemberDidChangeNotification object:nil];
 }
 
 - (void)didReceiveRemoteAudio:(NSArray<AgoraRtcAudioVolumeInfo *> *)speakers{
@@ -168,24 +198,45 @@
 #pragma mark tableViewDelegate Imp
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    MedLiveRoomConsultation *room = (MedLiveRoomConsultation *)roomMeet;
-    return room.patients.count;
+    if ([tableView.uniTag isEqualToString:@"patient"]) {
+        MedLiveRoomConsultation *room = (MedLiveRoomConsultation *)roomMeet;
+        return room.patients.count;
+    }else{
+        return memberMap.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MedLivePatientCell *cell = (MedLivePatientCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
-    if (!cell) {
-        cell = [[MedLivePatientCell alloc] initWithFlex:nil reuseIdentifier:@"cell"];
+    if ([tableView.uniTag isEqualToString:@"patient"]) {
+        MedLivePatientCell *cell = (MedLivePatientCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
+        if (!cell) {
+            cell = [[MedLivePatientCell alloc] initWithFlex:nil reuseIdentifier:@"cell"];
+        }
+        MedLiveRoomConsultation *room = (MedLiveRoomConsultation *)roomMeet;
+        [cell setPatient:room.patients[indexPath.item] forIndex:indexPath.item];
+        return cell;
+    }else{
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        }
+        cell.textLabel.text = [memberMap[memberMap.allKeys[indexPath.item]] objectForKey:@"name"];
+        return cell;
     }
-    MedLiveRoomConsultation *room = (MedLiveRoomConsultation *)roomMeet;
-    [cell setPatient:room.patients[indexPath.item] forIndex:indexPath.item];
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MedLiveRoomConsultation *room = (MedLiveRoomConsultation *)roomMeet;
-    Patient *patient = [room.patients objectAtIndex:indexPath.item];
-    [[NSNotificationCenter defaultCenter] postNotificationName:PatientInfoPushNotification object:patient];
+    if ([tableView.uniTag isEqualToString:@"patient"]) {
+        MedLiveRoomConsultation *room = (MedLiveRoomConsultation *)roomMeet;
+        Patient *patient = [room.patients objectAtIndex:indexPath.item];
+        [[NSNotificationCenter defaultCenter] postNotificationName:PatientInfoPushNotification object:patient];
+    }
+}
+
+- (NSArray *)getDocs{
+    NSString *json = roomMeet.docsJson;
+    NSArray *docs = [MedLiveAppUtilies stringToJsonDic:json];
+    return docs;
 }
 
 - (void)dealloc

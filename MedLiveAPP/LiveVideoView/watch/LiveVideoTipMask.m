@@ -107,6 +107,8 @@
             case MedLiveRoomStateEnd:
                 tipLabel.text = @"直播已结束";
                 break;;
+            case MedLiveRoomStateNoCamara:
+                tipLabel.text = @"摄像头未开启";
             default:
                 break;
         }

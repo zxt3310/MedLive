@@ -11,6 +11,7 @@
 #import "MutipleView.h"
 #import "MedLiveRoomConsultation.h"
 #import "MedLivePatientController.h"
+#import "MedMutipleDocumentViewController.h"
 #import <LGAlertView.h>
 
 #define HoritonSpace 5.0
@@ -25,7 +26,7 @@
     FlexScrollView *containor;
     MutipleMeettingViewModel *viewModel;
     NSMutableArray <MutipleView*> *memberAry; //参会人员视图
-    UIView *streamView;
+    //UIView *streamView;
     
     UIImageView *micOnImg;
     UIImageView *micOffImg;
@@ -38,9 +39,12 @@
     UIView *toolBar;
     
     UILabel *memberCountLabel;//频道人员计数
+    //参会人员
+    FlexTouchView *memberBtn;
+    FlexModalView *memberModel;
+    UITableView *memberTable;
     
     //会诊时展现
-//    FlexModalView *doctosModel;
     FlexTouchView *patientBtn;
     FlexModalView *patientModel;
     UITableView *patientTable;
@@ -51,6 +55,7 @@
     [self.view enableFlexLayout:YES];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showPatientInfoVC:) name:PatientInfoPushNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadMemberTable) name:MemberDidChangeNotification object:nil];
     
     memberAry = [NSMutableArray array];
     
@@ -58,6 +63,8 @@
     viewModel.meettingDelegate = self;
 
     [self setupLocalVideo];
+    //加载人员列表
+    [self setupMemberModel];
     
     //为了等待初始化结束  延迟两秒执行布局
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -80,19 +87,37 @@
 
     view.uid = [AppCommondCenter sharedCenter].currentUser.uid.integerValue;
 
-    [streamView addSubview:view];
+    [containor addSubview:view];
     [memberAry addObject:view];
     [viewModel setupLocalView:view];
 }
 
+- (void)setupMemberModel{
+    memberTable.uniTag = @"member";
+    memberTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    memberTable.delegate = viewModel;
+    memberTable.dataSource = viewModel;
+    memberTable.tableFooterView = [UIView new];
+    memberTable.rowHeight = UITableViewAutomaticDimension;
+}
+
 - (void)setupPatientsModel{
+    patientTable.uniTag = @"patient";
     patientTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     patientTable.delegate = viewModel;
     patientTable.dataSource = viewModel;
+    patientTable.tableFooterView = [UIView new];
     patientTable.rowHeight = UITableViewAutomaticDimension;
     patientBtn.hidden = NO;
 }
 
+- (void)reloadMemberTable{
+    [memberTable reloadData];
+}
+
+- (void)showMembers{
+    [memberModel showModalInView:self.view Anim:YES];
+}
 #pragma mark 会诊功能
 - (void)showPatient{
     [patientModel showModalInView:self.view Anim:YES];
@@ -125,7 +150,7 @@
     MutipleView *view = [[MutipleView alloc] init];
     view.uid = uid;
     [view enableFlexLayout:YES];
-    [streamView addSubview:view];
+    [containor addSubview:view];
     
     //插入视图表
     [memberAry addObject:view];
@@ -134,7 +159,7 @@
     //载入远端流
     [viewModel setupRemoteView:view];
     
-    __weak UIView *weakContainor = streamView;
+    __weak FlexScrollView *weakContainor = containor;
     __weak MutipleView *weakView = view;
     CGFloat newWidth = containor.bounds.size.width;
     CGFloat newHeight = containor.bounds.size.height;
@@ -149,7 +174,7 @@
                 @"position",@"absolute"
             ]];
             
-            [weakContainor markDirty];
+            [weakContainor.contentView markDirty];
             isFullScreen = YES;
             
         }else{
@@ -185,10 +210,11 @@
         [view setLayoutAttrStrings:@[
             @"width",[NSString stringWithFormat:@"%f",width],
             @"height",[NSString stringWithFormat:@"%f",height],
+            @"position",@"absolute",
             @"margin",@"0",
         ]];
     }
-    [streamView markDirty];
+    [containor.contentView markDirty];
 }
 
 #pragma viewModel Delegate
@@ -303,6 +329,12 @@
 
 - (void)switchCamera{
     [viewModel switchCamera];
+}
+
+- (void)showDocument{
+    MedMutipleDocumentViewController *docVC = [[MedMutipleDocumentViewController alloc] init];
+    docVC.documentUrls = [viewModel getDocs];
+    [self.navigationController pushViewController:docVC animated:YES];
 }
 - (void)otherFunc{
     toolsView.hidden = !toolsView.hidden;

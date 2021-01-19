@@ -198,6 +198,7 @@ typedef enum : NSUInteger {
     //加载sideBar 上麦功能条
     sideBar = [[UIView alloc] init];
     sideBar.hidden = YES;
+    sideBar.layer.cornerRadius = 7;
     sideBar.backgroundColor = [UIColor ColorWithRGB:5 Green:5 Blue:5 Alpha:0.5];
     [self addSubview:sideBar];
     camaraBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -387,6 +388,7 @@ typedef enum : NSUInteger {
         bottomBar.alpha = 1;
         isShow = YES;
         funcBarHide = 5;
+        self.bottomBarBlock(NO);
         if (!timer) {
             timer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer *timer) {
                 funcBarHide--;
@@ -396,6 +398,8 @@ typedef enum : NSUInteger {
                         bottomBar.alpha = 0;
                         titleBar.alpha = 0;
                         isShow = NO;
+                    } completion:^(BOOL finished) {
+                        self.bottomBarBlock(YES);
                     }];
                 }
             }];
@@ -406,6 +410,7 @@ typedef enum : NSUInteger {
         titleBar.alpha = 0;
         bottomBar.alpha = 0;
         isShow = NO;
+        self.bottomBarBlock(YES);
         NSLog(@"隐藏");
     }
 }

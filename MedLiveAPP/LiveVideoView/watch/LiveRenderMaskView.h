@@ -23,10 +23,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)switchCamara:(void(^)(BOOL enable,BOOL isFirst))res;
 //开关麦克风
 - (void)switchMic:(void(^)(BOOL enable))res;
+
 @end
 
+typedef void(^BBBlock)(BOOL hidden);
 @interface LiveRenderMaskView : UIButton
 @property (weak) id<RenderMaseDelegate> maskDelegate;
+@property BBBlock bottomBarBlock;
+
 - (void)fillTitle:(NSString *)title;
 - (void)enableSideBar:(BOOL) enable;
 //强制开启设备（被动触发）

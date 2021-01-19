@@ -60,7 +60,8 @@ typedef enum : NSUInteger {
 typedef enum : NSUInteger {
     MedLiveRoomStateCreated = 1,
     MedLiveRoomStateStart = 2,
-    MedLiveRoomStateEnd = 3
+    MedLiveRoomStateEnd = 3,
+    MedLiveRoomStateNoCamara = 999
 } MedLiveRoomState;
 
 typedef enum : NSUInteger {

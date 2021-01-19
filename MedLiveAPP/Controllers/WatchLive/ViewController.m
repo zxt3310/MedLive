@@ -67,7 +67,7 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
         self.channelId = room.channelId;
         [pushView fillTitle:room.roomTitle];
         
-        [pushView showPlaceView:YES Start:room.startTime State:room.status coverPic:[NSString stringWithFormat:@"%@%@",Cdn_domain,room.coverPic]];
+        [pushView showPlaceView:YES Start:room.startTime State:room.status coverPic:room.coverPic];
   
         [self getStart];
     }];
@@ -143,6 +143,8 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
 
 - (void)didAddRemoteMember:(NSUInteger) uid{
     if (pushView.uid == uid) {
+        MedLiveRoomBoardcast *room = [viewModel valueForKey:@"boardRoom"];
+        [pushView showPlaceView:NO Start:nil State:MedLiveRoomStateStart coverPic:room.coverPic];
         return;
     }
     //首次加载
@@ -236,16 +238,26 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
     enableCamara = !enableCamara;
     if (isFirst) {
         __weak LiveManager *weakManager = liveManager;
-        [pushView addRemoteStream:[AppCommondCenter sharedCenter].currentUser.uid.integerValue result:^(LiveView * view) {
-            [weakManager setupVideoLocalView:view];
-            [weakManager disableLocalCamera:YES];
-        }];
+        if (pushView.uid != [AppCommondCenter sharedCenter].currentUser.uid.integerValue) {
+            [pushView addRemoteStream:[AppCommondCenter sharedCenter].currentUser.uid.integerValue result:^(LiveView * view) {
+                [weakManager setupVideoLocalView:view];
+                [weakManager disableLocalCamera:YES];
+            }];
+        }
+        [liveManager disableLocalCamera:enableCamara];
         [pushView showPlaceView:NO Start:nil State:MedLiveRoomStateStart coverPic:nil];
         //第一次开启摄像头时，会强制开麦，如果麦克已经开启，则先将麦克状态位复原，再触发开麦，便于走通联动逻辑
         enableMic = NO;
         res(enableCamara,isFirst);
         isFirst = NO;
     }else{
+        if (pushView.uid == [AppCommondCenter sharedCenter].currentUser.uid.integerValue) {
+            if (!enableCamara) {
+                [pushView showPlaceView:YES Start:nil State:MedLiveRoomStateNoCamara coverPic:nil];
+            }else{
+                [pushView showPlaceView:NO Start:nil State:MedLiveRoomStateStart coverPic:nil];
+            }
+        }
         [liveManager disableLocalCamera:enableCamara];
         res(enableCamara,isFirst);
     }
@@ -260,64 +272,81 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
     res(enableMic);
 }
 
-#pragma Signal Notification
-- (void)RTMDidReceiveSignal:(NSNotification *)notify{
-    MedChannelSignalMessage *signal = (MedChannelSignalMessage *)notify.object;
-    if ([signal.targetid isEqualToString:[AppCommondCenter sharedCenter].currentUser.uid]) {
-        if ([signal.signal isEqualToString:SKLMessageSignal_VideoGrant]) {
-            [pushView enableSideBar:YES];
-        }
-        
-        if ([signal.signal isEqualToString:SKLMessageSignal_VideoDenied]) {
-            isFirst = YES;
-            [pushView enableSideBar:NO];
-            [liveManager disableVideo];
-            [pushView removeRemoteStream:signal.targetid.integerValue];
-        }
+- (void)remote:(NSInteger)uid DidDisabledCamera:(BOOL)disable{
+    if (uid == pushView.uid) {
+        [pushView showPlaceView:disable Start:nil State:MedLiveRoomStateNoCamara coverPic:nil];
     }else{
-        if ([signal.signal isEqualToString:SKLMessageSignal_Pointmain]) {
-            //如果目标是自己，说明
-            if ([signal.targetid isEqualToString:[AppCommondCenter sharedCenter].currentUser.uid]) {
-                
-            }
-            //纯拉流
-            else{
-                NSInteger curId = pushView.uid;
-                if(curId != signal.targetid.integerValue){
-                    pushView.uid = signal.targetid.integerValue;
-                    //移除小窗口
-                    [pushView removeRemoteStream:signal.targetid.integerValue];
-                    //加载大窗口
-                    [pushView renewVideoView];
-                    [liveManager setupVideoRemoteView:pushView];
-                    
-                    //重新放置小窗口
-                    __weak LiveManager *weakManager = liveManager;
-                    [pushView addRemoteStream:curId result:^(__kindof LiveView * view) {
-                        [weakManager setupVideoRemoteView:view];
-                    }];
-                }
-            }
-        }
+        [pushView remote:uid DidEnabledCamara:!disable];
     }
 }
 
-- (void)renewMainPoint:(NSString *)targetId{
+
+
+#pragma Signal Notification
+//备用
+- (void)RTMDidReceiveSignal:(NSNotification *)notify{
+//    MedChannelSignalMessage *signal = (MedChannelSignalMessage *)notify.object;
+//    if ([signal.targetid isEqualToString:[AppCommondCenter sharedCenter].currentUser.uid]) {
+//        if ([signal.signal isEqualToString:SKLMessageSignal_VideoGrant]) {
+//            [pushView enableSideBar:YES];
+//        }
+//
+//        if ([signal.signal isEqualToString:SKLMessageSignal_VideoDenied]) {
+//            isFirst = YES;
+//            [pushView enableSideBar:NO];
+//            [liveManager disableVideo];
+//            [pushView removeRemoteStream:signal.targetid.integerValue];
+//        }
+//    }else{
+//        if ([signal.signal isEqualToString:SKLMessageSignal_Pointmain]) {
+//            //如果目标是自己，说明
+//            if ([signal.targetid isEqualToString:[AppCommondCenter sharedCenter].currentUser.uid]) {
+//
+//            }
+//            //纯拉流
+//            else{
+//                NSInteger curId = pushView.uid;
+//                if(curId != signal.targetid.integerValue){
+//                    pushView.uid = signal.targetid.integerValue;
+//                    //移除小窗口
+//                    [pushView removeRemoteStream:signal.targetid.integerValue];
+//                    //加载大窗口
+//                    [pushView renewVideoView];
+//                    [liveManager setupVideoRemoteView:pushView];
+//
+//                    //重新放置小窗口
+//                    __weak LiveManager *weakManager = liveManager;
+//                    [pushView addRemoteStream:curId result:^(__kindof LiveView * view) {
+//                        [weakManager setupVideoRemoteView:view];
+//                    }];
+//                }
+//            }
+//        }
+//    }
+}
+
+- (void)renewMainPoint:(NSInteger )targetId{
     NSInteger curId = pushView.uid;
-    if(curId != targetId.integerValue){
-        pushView.uid = targetId.integerValue;
-        //移除小窗口
-        [pushView removeRemoteStream:targetId.integerValue];
-        //加载大窗口
-        [pushView renewVideoView];
+    pushView.uid = targetId;
+    //移除小窗口
+    [pushView removeRemoteStream:targetId];
+    //加载大窗口
+    [pushView renewVideoView];
+    if (targetId == [AppCommondCenter sharedCenter].currentUser.uid.integerValue) {
+        [liveManager setupVideoLocalView:pushView];
+    }else{
         [liveManager setupVideoRemoteView:pushView];
-        
-        //重新放置小窗口
-        __weak LiveManager *weakManager = liveManager;
-        [pushView addRemoteStream:curId result:^(__kindof LiveView * view) {
-            [weakManager setupVideoRemoteView:view];
-        }];
     }
+    
+    //重新放置小窗口
+    __weak LiveManager *weakManager = liveManager;
+    [pushView addRemoteStream:curId result:^(__kindof LiveView * view) {
+        if (curId == [AppCommondCenter sharedCenter].currentUser.uid.integerValue) {
+            [weakManager setupVideoLocalView:view];
+        }else{
+            [weakManager setupVideoRemoteView:view];
+        }
+    }];
 }
 
 #pragma mark 处理信令新协议通知
@@ -341,6 +370,9 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
 //收到下麦通知
 - (void)RTMDidReceiveVideoDeniedRes:(void(^)(BOOL succesed))success{
     [liveManager setRole:AgoraClientRoleAudience];
+    [liveManager disableLocalCamera:NO];
+    [liveManager muteLocalMic:YES];
+    
     [pushView enableSideBar:NO];
     enableCamara = NO;
     enableMic = NO;
@@ -351,6 +383,16 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
 }
 //收到主讲人通知
 - (void)RTMDidReceivePointMain:(NSInteger) targetId res:(void(^)(BOOL succesed))success{
+    if (targetId == 0) {
+        success(YES);
+        return;
+    }
+    //如果主窗口已经是目标 则忽略
+    if (targetId && targetId == pushView.uid) {
+        success(YES);
+        return;
+    }
+    [self renewMainPoint:targetId];
     success(NO);
 }
 

@@ -38,6 +38,8 @@
 -(id)initWithMaskDelegate:(id <RenderMaseDelegate>)delegate{
     self = [[LiveVideoRenderView alloc] init];
     if (self) {
+        //初始化小窗口底边距
+        self.remoteWidgetBottom = -5;
         //初始化小窗口集合
         remoteArray = [NSMutableArray array];
         //初始化video视图
@@ -61,6 +63,13 @@
         
         maskView.maskDelegate = delegate;
         _videoView.backgroundColor = [UIColor ColorWithRGB:44 Green:123 Blue:246 Alpha:1];
+        
+        WeakSelf
+        __weak NSMutableArray *weakAry = remoteArray;
+        maskView.bottomBarBlock = ^(BOOL hidden) {
+            weakSelf.remoteWidgetBottom = hidden? -5.0 : -40.0;
+            [weakSelf layoutRemotes:weakAry];
+        };
         
     }
     return self;
@@ -112,19 +121,19 @@
         //tipLabel.text = tip;
         [tipMask countWithStartTime:startTime State:state];
         if (img) {
-            coverPic.yy_imageURL = [NSURL URLWithString:img];
+            coverPic.yy_imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Cdn_domain,img]];
         }
     }
 }
 #pragma 远程流 布局
 - (void)addRemoteStream:(NSInteger)uid result:(void(^)(__kindof LiveView* remoteView))res{
-    __block BOOL isExist = NO;
-    [remoteArray enumerateObjectsUsingBlock:^(LiveVideoRemoteWidget *obj, NSUInteger idx, BOOL *stop) {
-        if (obj.uid == uid) {
+    BOOL isExist = NO;
+    for (LiveVideoRemoteWidget *view in remoteArray) {
+        if (view.uid == uid) {
             isExist = YES;
+            break;
         }
-        *stop = YES;
-    }];
+    }
     
     if (isExist) {
         res(nil);
@@ -146,17 +155,18 @@
 }
 
 - (void)removeRemoteStream:(NSInteger)uid{
-    __block NSInteger index = 0;
+    NSInteger index = 0;
     //由于主播未开摄像头，在离开的时候依然会收到退出消息，所以做个处理
     if (remoteArray.count == 0) {
         return;
     }
-    [remoteArray enumerateObjectsUsingBlock:^(LiveVideoRemoteWidget *obj, NSUInteger idx, BOOL *stop) {
-        if (obj.uid == uid) {
-            index = idx;
+    
+    for (int i=0; i<remoteArray.count; i++) {
+        LiveVideoRemoteWidget *view = remoteArray[i];
+        if (view.uid == uid) {
+            index = i;
         }
-        *stop = YES;
-    }];
+    }
     
     LiveVideoRemoteWidget *view = [remoteArray objectAtIndex:index];
     if (view.uid == uid) {
@@ -165,6 +175,7 @@
         view = nil;
         [self layoutRemotes:remoteArray];
     }
+    
 }
 
 - (void)layoutRemotes:(NSArray <LiveVideoRemoteWidget*>*) remotes{
@@ -176,7 +187,7 @@
         LiveVideoRemoteWidget *widget = [remoteArray objectAtIndex:i];
         [widget mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(with, height));
-            make.bottom.equalTo(self).offset(-40);
+            make.bottom.equalTo(self).offset(self.remoteWidgetBottom);
             if (i==0) {
                 make.right.equalTo(self).offset(-space);
             }else{
@@ -201,6 +212,10 @@
 //私有函数 被动触发 强制开启摄像头和麦克风 （上麦弹窗的接受选项）
 - (void)deviceOnForce{
     [maskView openDeviceOnForce];
+}
+
+- (void)dealloc{
+    NSLog(@"RenderView release ok");
 }
 
 @end

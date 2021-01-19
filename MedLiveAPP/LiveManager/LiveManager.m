@@ -116,8 +116,11 @@
 }
 
 - (void)rtcEngine:(AgoraRtcEngineKit *)engine didClientRoleChanged:(AgoraClientRole)oldRole newRole:(AgoraClientRole)newRole{
-    
     [self.agorEngine muteLocalAudioStream:YES];
+}
+
+- (void)rtcEngine:(AgoraRtcEngineKit *)engine didRejoinChannel:(NSString *)channel withUid:(NSUInteger)uid elapsed:(NSInteger)elapsed{
+    NSLog(@"");
 }
 
 //视频通话有远端用户进入（互相可见）
@@ -128,10 +131,6 @@
 }
 
 
-
-- (void)rtcEngine:(AgoraRtcEngineKit *)engine didRejoinChannel:(NSString *)channel withUid:(NSUInteger)uid elapsed:(NSInteger)elapsed{
-    
-}
 
 //远端视频状态改变 （失败 结束 延迟）
 - (void)rtcEngine:(AgoraRtcEngineKit *)engine remoteVideoStateChangedOfUid:(NSUInteger)uid state:(AgoraVideoRemoteState)state reason:(AgoraVideoRemoteStateReason)reason elapsed:(NSInteger)elapsed{

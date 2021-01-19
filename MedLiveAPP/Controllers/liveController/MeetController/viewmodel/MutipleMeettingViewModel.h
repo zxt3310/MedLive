@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #define PatientInfoPushNotification @"show_patient"
+#define MemberDidChangeNotification @"member_diffent"
 
 NS_ASSUME_NONNULL_BEGIN
 @class MedLiveRoomMeetting;
@@ -30,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)muteLocalMic:(BOOL) mute;
 - (void)disableLocalvideo:(BOOL)disable success:(void(^)(void))success;
 - (void)switchCamera;
+- (NSArray *)getDocs;
 @end
 
 NS_ASSUME_NONNULL_END

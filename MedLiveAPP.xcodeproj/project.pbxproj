@@ -82,6 +82,7 @@
 		586AF96C254BF57400B22AF3 /* MedCreateLiveRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 586AF96B254BF57400B22AF3 /* MedCreateLiveRequest.m */; };
 		586AF973254BF95000B22AF3 /* MedLiveViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 586AF972254BF95000B22AF3 /* MedLiveViewModel.m */; };
 		586AF97C254BFD9E00B22AF3 /* MedChannelTokenRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 586AF97B254BFD9E00B22AF3 /* MedChannelTokenRequest.m */; };
+		586D2FFD25B713EE005F323D /* MedMutipleDocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586D2FFC25B713EE005F323D /* MedMutipleDocumentViewController.m */; };
 		586E06AC2546BF0A008504E9 /* MedLiveLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586E06AB2546BF0A008504E9 /* MedLiveLoginController.m */; };
 		586E06B32546C2B1008504E9 /* MedLiveLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 586E06B22546C2B1008504E9 /* MedLiveLoginView.m */; };
 		58711DDF25527AB1007317B9 /* SKLMeetCreateController.xml in Resources */ = {isa = PBXBuildFile; fileRef = 58711DDD25527AB1007317B9 /* SKLMeetCreateController.xml */; };
@@ -297,6 +298,8 @@
 		586AF972254BF95000B22AF3 /* MedLiveViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedLiveViewModel.m; sourceTree = "<group>"; };
 		586AF97A254BFD9E00B22AF3 /* MedChannelTokenRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedChannelTokenRequest.h; sourceTree = "<group>"; };
 		586AF97B254BFD9E00B22AF3 /* MedChannelTokenRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedChannelTokenRequest.m; sourceTree = "<group>"; };
+		586D2FFB25B713EE005F323D /* MedMutipleDocumentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedMutipleDocumentViewController.h; sourceTree = "<group>"; };
+		586D2FFC25B713EE005F323D /* MedMutipleDocumentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedMutipleDocumentViewController.m; sourceTree = "<group>"; };
 		586E06AA2546BF0A008504E9 /* MedLiveLoginController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveLoginController.h; sourceTree = "<group>"; };
 		586E06AB2546BF0A008504E9 /* MedLiveLoginController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedLiveLoginController.m; sourceTree = "<group>"; };
 		586E06B12546C2B1008504E9 /* MedLiveLoginView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedLiveLoginView.h; sourceTree = "<group>"; };
@@ -660,6 +663,8 @@
 				58275F2525B063BF008C82AB /* MedLivePatientController.h */,
 				58275F2625B063BF008C82AB /* MedLivePatientController.xml */,
 				58275F2725B063BF008C82AB /* MedLivePatientController.m */,
+				586D2FFB25B713EE005F323D /* MedMutipleDocumentViewController.h */,
+				586D2FFC25B713EE005F323D /* MedMutipleDocumentViewController.m */,
 			);
 			path = MeetController;
 			sourceTree = "<group>";
@@ -1336,6 +1341,7 @@
 				584F57CE253401550013AF08 /* LiveVideoRenderView.m in Sources */,
 				585143B82547FF4C0080E65C /* UIControl+UniTag.m in Sources */,
 				584EE8FA255D2FF400563DBE /* MedMultipleMeettingController.m in Sources */,
+				586D2FFD25B713EE005F323D /* MedMutipleDocumentViewController.m in Sources */,
 				5853F23F25690F6A0032F1FC /* MedLiveRoomConsultation.m in Sources */,
 				5853F22F25690F470032F1FC /* MedLiveRoomBoardcast.m in Sources */,
 				5850A9F125590FD300FB7AD8 /* MedUploadPhotoRequest.m in Sources */,
@@ -1611,6 +1617,7 @@
 				CODE_SIGN_ENTITLEMENTS = MedLiveAPP/MedLiveAPP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 429WZWZX68;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SKLHeader.pch";
 				INFOPLIST_FILE = MedLiveAPP/Info.plist;
@@ -1635,6 +1642,7 @@
 				CODE_SIGN_ENTITLEMENTS = MedLiveAPP/MedLiveAPP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 429WZWZX68;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SKLHeader.pch";
 				INFOPLIST_FILE = MedLiveAPP/Info.plist;
