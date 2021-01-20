@@ -62,7 +62,10 @@
 
 - (void)sendTextMessage:(NSString *)text Success:(void(^)(void))result{
     AgoraRtmMessage *msg = [[AgoraRtmMessage alloc] initWithText:text];
-    [self.imChannel sendMessage:msg completion:^(AgoraRtmSendChannelMessageErrorCode errorCode) {
+    //记录历史消息
+    AgoraRtmSendMessageOptions *options = [[AgoraRtmSendMessageOptions alloc] init];
+    options.enableHistoricalMessaging = YES;
+    [self.imChannel sendMessage:msg sendMessageOptions:options completion:^(AgoraRtmSendChannelMessageErrorCode errorCode) {
         if (errorCode == AgoraRtmSendChannelMessageErrorOk) {
             result();
         }

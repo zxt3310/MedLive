@@ -11,6 +11,7 @@
 #define WeakSelf __weak typeof(self) weakSelf = self;
 //域名
 #define Domain @"http://dev.saikang.ranknowcn.com"
+#define Domain_HTTPS @"https://dev.saikang.ranknowcn.com"
 #define Cdn_domain [NSString stringWithFormat:@"%@:8081",Domain]
 
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width

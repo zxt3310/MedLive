@@ -160,7 +160,6 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
             }
         }];
     }
-    
 }
 
 - (void)didRemoteLeave:(NSInteger)uid{

@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <UIView layout="flex:1" attr="bgColor:white">
     <UIView class="" layout="padding:20,height:50%,justifyContent:space-around" attr="">
+        <UILabel name="welcomLabel" class="" layout="" attr="fontSize:16,color:#333333,hidden:true,text:"/>
         <UIView class="" layout="flexDirection:row" attr="">
             <UILabel name="" class="" layout="" attr="fontSize:16,color:#333333,text:会议主题："/>
             <UILabel name="titleLabel" class="" layout="" attr="fontSize:16,color:#333333,text:"/>
         </UIView>
         <UIView class="" layout="flexDirection:row" attr="">
-            <UILabel name="" class="" layout="" attr="fontSize:16,color:#333333,text:会 议 号："/>
-            <UILabel name="roomIdLabel" class="" layout="" attr="fontSize:16,color:#333333,text:"/>
-            <FlexTouchView onPress="pasteRoomid" layout="" attr="">
-                <UIImageView layout="width:20,height:20" attr="source:copy"/>
-            </FlexTouchView>
-        </UIView>
-        <UIView class="" layout="flexDirection:row" attr="">
-            <UILabel name="" class="" layout="" attr="fontSize:16,color:#333333,text:入会密码："/>
-            <UILabel name="pwdLabel" class="" layout="" attr="fontSize:16,color:#333333,text:"/>
-        </UIView>
-        <UIView class="" layout="flexDirection:row" attr="">
-            <UILabel name="" class="" layout="" attr="fontSize:16,color:#333333,text:开始时间："/>
+            <UILabel name="" class="" layout="" attr="fontSize:16,color:#333333,text:会议时间："/>
             <UILabel name="startTimeLabel" class="" layout="" attr="fontSize:16,color:#333333,text:"/>
         </UIView>
         <UIView class="" layout="" attr="">
             <UIView class="" layout="flexDirection:row" attr="">
                 <UILabel name="" class="" layout="" attr="fontSize:16,color:#333333,text:参会链接："/>
-                <FlexTouchView onPress="pasteLink" layout="" attr="">
-                    <UIImageView layout="width:20,height:20" attr="source:copy"/>
-                </FlexTouchView>
             </UIView>
             <UILabel name="linkLable" class="" layout="" attr="fontSize:16,color:#333333,linesNum:0,text:"/>
+        </UIView>
+        <UIView class="" layout="flexDirection:row" attr="">
+            <UILabel name="" class="" layout="" attr="fontSize:16,color:#333333,text:会议ID："/>
+            <UILabel name="roomIdLabel" class="" layout="" attr="fontSize:16,color:#333333,text:"/>
+        </UIView>
+        <UIView class="" layout="flexDirection:row" attr="">
+            <UILabel name="" class="" layout="" attr="fontSize:16,color:#333333,text:会议密码："/>
+            <UILabel name="pwdLabel" class="" layout="" attr="fontSize:16,color:#333333,text:"/>
         </UIView>
     </UIView>
     
     <FlexTouchView name="joinBtn" onPress="joinMeet" layout="height:40,width:180,justifyContent:center,alignItems:center,alignSelf:center" attr="bgColor:#2B7BF6,borderRadius:5">
         <UILabel name="" class="" layout="" attr="fontSize:16,color:white,text:加入会议"/>
+    </FlexTouchView>
+
+    <FlexTouchView name="" onPress="shareMeet" layout="height:40,width:180,marginTop:20,justifyContent:center,alignItems:center,alignSelf:center" attr="bgColor:#2B7BF6,borderRadius:5">
+        <UILabel name="" class="" layout="" attr="fontSize:16,color:white,text:复制并分享"/>
     </FlexTouchView>
 </UIView>

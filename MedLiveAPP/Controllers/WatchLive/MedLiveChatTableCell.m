@@ -61,6 +61,7 @@
     contentView = [[UIView alloc] init];
     contentView.layer.borderWidth = 1;
     contentView.layer.cornerRadius = 5;
+    contentView.layer.borderColor = colorFromString(@"#bababa", nil).CGColor;
     [containorView addSubview:contentView];
     
     contentLabel = [[UILabel alloc] init];

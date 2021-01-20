@@ -12,14 +12,14 @@
         </UIView>
     </UIView>
 
-    <UIView class="" layout="height:1" attr="bgColor:#9a9b9a"/>
+    <UIView class="" layout="height:1" attr="bgColor:#BABABA"/>
 
     <UIView class="" layout="padding:20" attr="">
         <UILabel name="" class="" layout="" attr="fontSize:16,color:#333333,text:症状描述"/>
         <UILabel name="illLb" class="" layout="marginTop:8" attr="fontSize:14,color:#333333,lineBreakMode:truncatingTail,linesNum:0,text:"/>
     </UIView>
 
-    <UIView class="" layout="height:1" attr="bgColor:#9a9b9a"/>
+    <UIView class="" layout="height:1" attr="bgColor:#BABABA"/>
 
     <UIView class="" layout="padding:20" attr="">
         <UIView class="" layout="flexDirection:row" attr="">

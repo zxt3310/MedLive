@@ -166,10 +166,12 @@
     
     chatField = [[UITextField alloc] init];
     chatField.layer.borderWidth = 1;
-    chatField.layer.cornerRadius = 12;
+    chatField.layer.cornerRadius = 8;
+    chatField.layer.borderColor = colorFromString(@"#BABABA", nil).CGColor;
     chatField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
     chatField.leftViewMode = UITextFieldViewModeAlways;
     chatField.placeholder = @"输入内容";
+    chatField.font = [UIFont systemFontOfSize:14];
     [chatTextView addSubview:chatField];
     
     sendBtn = [UIButton buttonWithType:UIButtonTypeCustom];

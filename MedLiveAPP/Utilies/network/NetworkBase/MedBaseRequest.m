@@ -18,6 +18,10 @@
     return nil;
 }
 
+- (BOOL)withBaseUrl{
+    return YES;
+}
+
 - (RequestMethodType)requestMethod{
     return RequestMethodTypeGET;
 }
@@ -31,6 +35,7 @@
     MedLiveNetManager* manager = [MedLiveNetManager defaultManager];
     if ([self requestMethod] == RequestMethodTypeGET) {
         [manager httpGetRequestWithUrl:[self requestUrl]
+                              WithBase:[self withBaseUrl]
                                 Header:[self requestHeader]
                                Success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
             [self loadTask:task res:responseObject error:nil];
@@ -50,6 +55,7 @@
     }
     else if([self requestMethod] == RequestMethodTypePOST){
         [manager httpPostRequestWithUrl:[self requestUrl]
+                               WithBase:[self withBaseUrl]
                                   Param:[self requestArgument]
                                  Header:[self requestHeader]
                                 Success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
@@ -76,6 +82,7 @@
     MedLiveNetManager *manager = [MedLiveNetManager defaultManager];
     [manager uploadImageWith:image
                          Url:[self requestUrl]
+                    WithBase:[self withBaseUrl]
                       Header:[self requestHeader]
                      Success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
         [self loadTask:task res:responseObject error:nil];
@@ -103,6 +110,7 @@
                    FileName:fileName
                    MimeType:mimeType
                         Url:[self requestUrl]
+                   WithBase:[self withBaseUrl]
                      Header:[self requestHeader]
                      Success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
         [self loadTask:task res:responseObject error:nil];

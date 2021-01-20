@@ -19,7 +19,7 @@
     
 }
 static IMManager *manager = nil;
-+ (id)sharedManager{
++ (instancetype)sharedManager{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [[[self class] alloc] init];
@@ -39,6 +39,11 @@ static IMManager *manager = nil;
 - (void)loginToAgoraServiceWithId:(NSString *)userId{
     MedRtmTokenRequest *request = [[MedRtmTokenRequest alloc] initWithUid:userId];
     [request startWithSucBlock:^(NSString * _Nonnull token) {
+        //存储token 获取历史消息时用
+        if (token) {
+            _rtmToken = token;
+        }
+        
         [self.rtmEngine loginByToken:token user:userId completion:^(AgoraRtmLoginErrorCode errorCode) {
             //登录结果
             if (errorCode == 0) {

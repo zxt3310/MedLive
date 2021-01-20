@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class MedLiveRoomMeetting;
 @interface SKLMeetJoinMeetController : MedLiveBaseFlexViewController
 @property NSString *roomId;
-
+@property (nonatomic) MedLiveRoomMeetting *room;
 @end

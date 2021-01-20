@@ -21,18 +21,13 @@
             <UILabel name="cameraLabel" layout="marginTop:5" attr="fontSize:12,color:#333333,text:关闭视频"/>
         </FlexTouchView>
 
-       <!-- <FlexTouchView name="doctorsModel" onPress="" layout="alignItems:center" attr="">
-           <UIImageView layout="width:30,aspectRatio:1" attr="source:doctors"/>
-           <UILabel name="" layout="marginTop:5" attr="fontSize:12,color:#333333,text:参会医生"/>
-       </FlexTouchView> -->
-
         <FlexTouchView name="patientBtn" onPress="showPatient" layout="alignItems:center" attr="hidden:true">
             <UIImageView layout="width:30,aspectRatio:1" attr="source:patients"/>
             <UILabel layout="marginTop:5" attr="fontSize:12,color:#333333,text:患者"/>
         </FlexTouchView>
 
         <FlexTouchView name="memberBtn" onPress="showMembers" layout="alignItems:center" attr="">
-            <UIImageView layout="width:30,aspectRatio:1" attr="source:patients"/>
+            <UIImageView layout="width:30,aspectRatio:1" attr="source:member"/>
             <UILabel layout="marginTop:5" attr="fontSize:12,color:#333333,text:参会人员"/>
         </FlexTouchView>
 

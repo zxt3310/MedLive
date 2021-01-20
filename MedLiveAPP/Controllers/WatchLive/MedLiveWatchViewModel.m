@@ -13,6 +13,7 @@
 #import "MedLiveRoomBoardcast.h"
 #import "MedLiveRoleStateRequest.h"
 #import "MedLiveAddFavorite.h"
+#import "MedLiveHistoryMsgRequest.h"
 #import <YYModel.h>
 #import <LGAlertView.h>
 
@@ -56,6 +57,7 @@
     [request fetchWithComplete:^(MedLiveRoomBoardcast *room) {
         self->boardRoom = room;
         [self joinRtmChannelWithId:room.channelId];
+        [self fetchHistoryMsg:room.channelId];
         res(room);
     }];
 }
@@ -101,6 +103,13 @@
         }else if(state == MedliveRoleStateLeave){
             [MedLiveAppUtilies showErrorTip:@"离开直播"];
         }
+    }];
+}
+
+- (void)fetchHistoryMsg:(NSString *)channelId{
+    MedLiveHistoryMsgRequest *request = [[MedLiveHistoryMsgRequest alloc] initWithChannelId:channelId];
+    [request startRequest:^(NSString * _Nonnull handleStr) {
+        
     }];
 }
 

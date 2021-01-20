@@ -117,11 +117,9 @@
             BoardVC.roomId = roomId;
             [self.navigationController pushViewController:BoardVC animated:YES];
         }else if ([roomType isEqualToString:@"meeting"]){
-            if(![MedLiveAppUtilies needLogin]){
-                SKLMeetJoinMeetController *joinMeetVC = [[SKLMeetJoinMeetController alloc] init];
-                joinMeetVC.roomId = roomId;
-                [self.navigationController pushViewController:joinMeetVC animated:YES];
-            }
+            SKLMeetJoinMeetController *joinMeetVC = [[SKLMeetJoinMeetController alloc] init];
+            joinMeetVC.roomId = roomId;
+            [self.navigationController pushViewController:joinMeetVC animated:YES];
         }else if ([roomType isEqualToString:@"consultation"]){
             
         }

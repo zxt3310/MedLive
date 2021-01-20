@@ -34,7 +34,7 @@ static NSString *BaseUrl = nil;
         afManager = [AFHTTPSessionManager manager];
         afManager.requestSerializer = [AFJSONRequestSerializer serializer];
         afManager.responseSerializer = [AFJSONResponseSerializer serializer];
-        afManager.responseSerializer.acceptableContentTypes =[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",nil];
+        afManager.responseSerializer.acceptableContentTypes =[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plan",nil];
     }
     return self;
 }
@@ -46,9 +46,9 @@ static NSString *BaseUrl = nil;
     }
 }
 
-- (void)httpGetRequestWithUrl:(NSString *)url Header:(NSDictionary *)header Success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success Failure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError* _Nullable))failure{
+- (void)httpGetRequestWithUrl:(NSString *)url WithBase:(BOOL)withBase Header:(NSDictionary *)header Success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success Failure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError* _Nullable))failure{
     NSString* finalUrl = url;
-    if (BaseUrl && BaseUrl.length>0) {
+    if (withBase && BaseUrl && BaseUrl.length>0) {
         finalUrl = [BaseUrl stringByAppendingPathComponent:url];
     }
     
@@ -66,9 +66,9 @@ static NSString *BaseUrl = nil;
     }];
 }
 
-- (void)httpPostRequestWithUrl:(NSString *)url Param:(id)param Header:(NSDictionary *)header Success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success Failure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError* _Nullable))failure{
+- (void)httpPostRequestWithUrl:(NSString *)url WithBase:(BOOL)withBase Param:(id)param Header:(NSDictionary *)header Success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success Failure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError* _Nullable))failure{
     NSString* finalUrl = url;
-    if (BaseUrl && BaseUrl.length>0) {
+    if (withBase && BaseUrl && BaseUrl.length>0) {
         finalUrl = [BaseUrl stringByAppendingPathComponent:url];
     }
     
@@ -86,16 +86,23 @@ static NSString *BaseUrl = nil;
     }];
 }
 
-- (void)uploadImageWith:(UIImage *)image Url:(NSString *)url Header:(NSDictionary *)header Success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success Failure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError* _Nullable))failure{
+- (void)uploadImageWith:(UIImage *)image Url:(NSString *)url WithBase:(BOOL)withBase Header:(NSDictionary *)header Success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success Failure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError* _Nullable))failure{
     
     NSData *imageData = UIImageJPEGRepresentation(image, 1);
-    [self uploadFileWith:imageData FileName:@"image.jpeg" MimeType:@"image/jpeg" Url:url Header:header Success:success Failure:failure];
+    [self uploadFileWith:imageData
+                FileName:@"image.jpeg"
+                MimeType:@"image/jpeg"
+                     Url:url
+                WithBase:withBase
+                  Header:header
+                 Success:success
+                 Failure:failure];
 }
 
 
-- (void)uploadFileWith:(NSData *)fileData FileName:(NSString*)fileName MimeType:(NSString *)mimeType Url:(NSString *)url Header:(NSDictionary *)header Success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success Failure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError* _Nullable))failure{
+- (void)uploadFileWith:(NSData *)fileData FileName:(NSString*)fileName MimeType:(NSString *)mimeType Url:(NSString *)url WithBase:(BOOL)withBase Header:(NSDictionary *)header Success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success Failure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError* _Nullable))failure{
     NSString* finalUrl = url;
-    if (BaseUrl && BaseUrl.length>0) {
+    if (withBase && BaseUrl && BaseUrl.length>0) {
         finalUrl = [BaseUrl stringByAppendingString:url];
     }
     
