@@ -46,7 +46,12 @@ static NSString *BaseUrl = nil;
     }
 }
 
-- (void)httpGetRequestWithUrl:(NSString *)url WithBase:(BOOL)withBase Header:(NSDictionary *)header Success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success Failure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError* _Nullable))failure{
+- (void)httpGetRequestWithUrl:(NSString *)url
+                     WithBase:(BOOL)withBase
+                       Header:(NSDictionary *)header
+                      Success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success
+                      Failure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError* _Nullable))failure
+{
     NSString* finalUrl = url;
     if (withBase && BaseUrl && BaseUrl.length>0) {
         finalUrl = [BaseUrl stringByAppendingPathComponent:url];
@@ -66,7 +71,13 @@ static NSString *BaseUrl = nil;
     }];
 }
 
-- (void)httpPostRequestWithUrl:(NSString *)url WithBase:(BOOL)withBase Param:(id)param Header:(NSDictionary *)header Success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success Failure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError* _Nullable))failure{
+- (void)httpPostRequestWithUrl:(NSString *)url
+                      WithBase:(BOOL)withBase
+                         Param:(id)param
+                        Header:(NSDictionary *)header
+                       Success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success
+                       Failure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError* _Nullable))failure
+{
     NSString* finalUrl = url;
     if (withBase && BaseUrl && BaseUrl.length>0) {
         finalUrl = [BaseUrl stringByAppendingPathComponent:url];
@@ -86,7 +97,13 @@ static NSString *BaseUrl = nil;
     }];
 }
 
-- (void)uploadImageWith:(UIImage *)image Url:(NSString *)url WithBase:(BOOL)withBase Header:(NSDictionary *)header Success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success Failure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError* _Nullable))failure{
+- (void)uploadImageWith:(UIImage *)image
+                    Url:(NSString *)url
+               WithBase:(BOOL)withBase
+                 Header:(NSDictionary *)header
+                Success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success
+                Failure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError* _Nullable))failure
+{
     
     NSData *imageData = UIImageJPEGRepresentation(image, 1);
     [self uploadFileWith:imageData
@@ -100,7 +117,12 @@ static NSString *BaseUrl = nil;
 }
 
 
-- (void)uploadFileWith:(NSData *)fileData FileName:(NSString*)fileName MimeType:(NSString *)mimeType Url:(NSString *)url WithBase:(BOOL)withBase Header:(NSDictionary *)header Success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success Failure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError* _Nullable))failure{
+- (void)uploadFileWith:(NSData *)fileData FileName:(NSString*)fileName
+              MimeType:(NSString *)mimeType Url:(NSString *)url
+              WithBase:(BOOL)withBase Header:(NSDictionary *)header
+               Success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success
+               Failure:(void (^)(NSURLSessionDataTask * _Nonnull, NSError* _Nullable))failure
+{
     NSString* finalUrl = url;
     if (withBase && BaseUrl && BaseUrl.length>0) {
         finalUrl = [BaseUrl stringByAppendingString:url];

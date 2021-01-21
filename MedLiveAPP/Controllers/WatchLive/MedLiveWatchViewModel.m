@@ -14,6 +14,7 @@
 #import "MedLiveRoleStateRequest.h"
 #import "MedLiveAddFavorite.h"
 #import "MedLiveHistoryMsgRequest.h"
+#import "MedLiveHistortyGetRequest.h"
 #import <YYModel.h>
 #import <LGAlertView.h>
 
@@ -109,7 +110,7 @@
 - (void)fetchHistoryMsg:(NSString *)channelId{
     MedLiveHistoryMsgRequest *request = [[MedLiveHistoryMsgRequest alloc] initWithChannelId:channelId];
     [request startRequest:^(NSString * _Nonnull handleStr) {
-        
+        [[[MedLiveHistortyGetRequest alloc] initWithHandle:handleStr] startRequestWithComplate];
     }];
 }
 

@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)didReceiveRemoteAudio:(NSArray <AgoraRtcAudioVolumeInfo*>*) speakers;
 - (void)remote:(NSInteger)uid DidDisabledCamera:(BOOL)disable;
 - (void)remoteBecomeActiveSpeaker:(NSInteger)uid;
+//token过期回调
+- (void)tokenWillExpireRetake:(void(^)(NSString *))fetchToken;
 @end
 
 @interface LiveManager : NSObject

@@ -172,6 +172,14 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
     }
 }
 
+- (void)tokenWillExpireRetake:(void (^)(NSString * _Nonnull))fetchToken{
+    MedChannelTokenRequest *request = [[MedChannelTokenRequest alloc] initWithRoomId:self.roomId
+                                                                                 Uid:[AppCommondCenter sharedCenter].currentUser.uid];
+    [request startWithSucBlock:^(NSString * _Nonnull token) {
+        fetchToken(token);
+    }];
+}
+
 //设定设备屏幕方向
 - (void)setNewOrientation:(BOOL)fullscreen{
     if (fullscreen) {

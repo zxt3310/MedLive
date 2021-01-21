@@ -24,6 +24,7 @@ target 'MedLiveAPP' do
   pod 'TZImagePickerController'
   pod 'SVProgressHUD'
   pod 'YBImageBrowser'
+  pod 'AgoraMediaPlayer_iOS', '1.2.2'
 #  pod 'AliyunOSSiOS'
 
   # Pods for MedLiveAPP

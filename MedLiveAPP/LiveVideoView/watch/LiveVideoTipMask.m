@@ -14,6 +14,7 @@
     UIView *countView;
     UILabel *countLabel;
     NSTimer *timer;
+    UIButton *backPlayBtn;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -31,6 +32,17 @@
         tipLabel.hidden = YES;
         tipLabel.text = @"加载中...";
         [mask addSubview:tipLabel];
+        
+        backPlayBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [backPlayBtn setTitle:@"观看回放" forState:UIControlStateNormal];
+        backPlayBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        backPlayBtn.titleLabel.textColor = [UIColor whiteColor];
+        backPlayBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+        backPlayBtn.layer.borderWidth = 1;
+        backPlayBtn.layer.cornerRadius = 10;
+        backPlayBtn.hidden = YES;
+        [backPlayBtn addTarget:self action:@selector(playVideo:) forControlEvents:UIControlEventTouchUpInside];
+        [mask addSubview:backPlayBtn];
         
         //倒计时view
         countView = [[UIView alloc] init];
@@ -67,6 +79,10 @@
         
     }
     return self;
+}
+
+- (void)playVideo:(UIButton *)sender{
+    
 }
 
 - (void)countWithStartTime:(NSString *)start State:(MedLiveRoomState)state{

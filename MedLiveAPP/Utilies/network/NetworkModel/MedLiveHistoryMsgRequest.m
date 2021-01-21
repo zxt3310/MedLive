@@ -48,7 +48,7 @@
         @"filter":@{
             @"destination":channelId,
             @"start_time":[self getUTCTime:[NSDate date]],
-            @"end_time":[self getUTCTime:[NSDate dateWithTimeIntervalSinceNow:3600*24]]
+            @"end_time":[self getUTCTime:[NSDate dateWithTimeIntervalSinceNow:3600*24*20]]
         },
         @"limit":[NSNumber numberWithInt:50]
     };
@@ -64,7 +64,11 @@
 - (void)startRequest:(void(^)(NSString *))handle{
     [self startRequestCompletionWithSuccess:^(__kindof MedBaseRequest * _Nonnull request) {
         id obj = request.responseObject;
-        NSLog(@"");
+        NSString *location = [obj valueForKey:@"location"];
+        if (location) {
+            NSArray *paths = [location componentsSeparatedByString:@"/"];
+            handle([paths lastObject]);
+        }
     } failure:^(__kindof MedBaseRequest * _Nonnull request) {
         
     }];

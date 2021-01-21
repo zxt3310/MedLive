@@ -34,4 +34,14 @@
 - (RequestMethodType)requestMethod{
     return RequestMethodTypeGET;
 }
+
+- (void)startRequestWithComplate{
+    [self startRequestCompletionWithSuccess:^(__kindof MedBaseRequest * _Nonnull request) {
+        id obj = request.responseObject;
+        NSLog(@"%@",obj);
+    } failure:^(__kindof MedBaseRequest * _Nonnull request) {
+        
+    }];
+}
+
 @end

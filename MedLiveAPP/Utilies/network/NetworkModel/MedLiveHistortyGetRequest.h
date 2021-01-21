@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MedLiveHistortyGetRequest : MedBaseRequest
-
+- (instancetype)initWithHandle:(NSString *)handleStr;
+- (void)startRequestWithComplate;
 @end
 
 NS_ASSUME_NONNULL_END

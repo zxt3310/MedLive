@@ -65,6 +65,7 @@
     //记录历史消息
     AgoraRtmSendMessageOptions *options = [[AgoraRtmSendMessageOptions alloc] init];
     options.enableHistoricalMessaging = YES;
+    
     [self.imChannel sendMessage:msg sendMessageOptions:options completion:^(AgoraRtmSendChannelMessageErrorCode errorCode) {
         if (errorCode == AgoraRtmSendChannelMessageErrorOk) {
             result();
@@ -130,7 +131,7 @@
 }
 
 #pragma AgoraRtmChannelDelegate Imp
-//张梨琼 14
+// 14
 - (void)channel:(AgoraRtmChannel *)channel messageReceived:(AgoraRtmMessage *)message fromMember:(AgoraRtmMember *)member{
     if (message.type == AgoraRtmMessageTypeText) {
         NSString *context = message.text;
@@ -213,6 +214,7 @@
 - (void)channel:(AgoraRtmChannel *)channel memberCount:(int)count{
     NSLog(@"频道成员数量%d",count);
 }
+
 
 - (void)dealloc{
     NSLog(@"IMChannel dealloc");

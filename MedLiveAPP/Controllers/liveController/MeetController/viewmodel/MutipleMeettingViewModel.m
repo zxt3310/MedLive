@@ -195,6 +195,14 @@
         [self.meettingDelegate meetMemberBecomeActive:uid];
     }
 }
+
+- (void)tokenWillExpireRetake:(void (^)(NSString * _Nonnull))fetchToken{
+    MedChannelTokenRequest *request = [[MedChannelTokenRequest alloc] initWithRoomId:roomMeet.roomId
+                                                                                 Uid:[AppCommondCenter sharedCenter].currentUser.uid];
+    [request startWithSucBlock:^(NSString * _Nonnull token) {
+        fetchToken(token);
+    }];
+}
 #pragma mark tableViewDelegate Imp
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

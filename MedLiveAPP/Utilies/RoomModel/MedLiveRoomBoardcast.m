@@ -16,6 +16,7 @@
     [mutableDic setValue:@"desc" forKey:@"desc"];
     [mutableDic setValue:@"cover_pic" forKey:@"coverPic"];
     [mutableDic setValue:@"introduce_pic" forKey:@"introPicsJosn"];
+    [mutableDic setValue:@"ori_cloud_video_path" forKey:@"backVideoPath"];
     return [mutableDic copy];
 }
 @end

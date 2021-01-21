@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString *desc;
 @property NSString *coverPic;
 @property NSString *introPicsJosn;
+@property NSString *backVideoPath;
 @end
 
 NS_ASSUME_NONNULL_END

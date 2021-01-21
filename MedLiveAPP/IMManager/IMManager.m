@@ -16,7 +16,7 @@
 
 @implementation IMManager
 {
-    
+    NSString *uId;
 }
 static IMManager *manager = nil;
 + (instancetype)sharedManager{
@@ -37,6 +37,9 @@ static IMManager *manager = nil;
 }
 
 - (void)loginToAgoraServiceWithId:(NSString *)userId{
+    //缓存uid
+    uId = userId;
+    
     MedRtmTokenRequest *request = [[MedRtmTokenRequest alloc] initWithUid:userId];
     [request startWithSucBlock:^(NSString * _Nonnull token) {
         //存储token 获取历史消息时用
@@ -119,8 +122,19 @@ static IMManager *manager = nil;
     NSLog(@"RTM连接状态发生改变");
 }
 
+//token过期处理
 - (void)rtmKitTokenDidExpire:(AgoraRtmKit *)kit{
+    NSString *rtm_id = uId?[AppCommondCenter sharedCenter].currentUser.uid:uId;
     NSLog(@"RTM Token已过期");
+    MedRtmTokenRequest *request = [[MedRtmTokenRequest alloc] initWithUid:rtm_id];
+    WeakSelf
+    [request startWithSucBlock:^(NSString * _Nonnull token) {
+        [kit renewToken:token completion:^(NSString *token, AgoraRtmRenewTokenErrorCode errorCode) {
+            if (errorCode != 0) {
+                [weakSelf loginToAgoraServiceWithId:rtm_id];
+            }
+        }];
+    }];
 }
 
 - (void)rtmKit:(AgoraRtmKit *)kit PeersOnlineStatusChanged:(NSArray<AgoraRtmPeerOnlineStatus *> *)onlineStatus{
@@ -134,9 +148,6 @@ static IMManager *manager = nil;
 - (void)rtmKit:(AgoraRtmKit *)kit imageMessageReceived:(AgoraRtmImageMessage *)message fromPeer:(NSString *)peerId{
     NSLog(@"收到图片消息，来自：%@",peerId);
 }
-
-
-
 
 
 

@@ -79,7 +79,7 @@ typedef enum : NSUInteger {
 
 @end
 
-#pragma MaskViewImp
+#pragma mark MaskViewImp
 @implementation LiveRenderMaskView
 {
     CGPoint touchBeganPoint;
@@ -157,6 +157,43 @@ typedef enum : NSUInteger {
     }];
     
     [self buildFounctionBar];
+    [self buildVideoSlider:100];
+}
+
+//播放进度条
+- (void)buildVideoSlider:(NSInteger)videoLength{
+    UISlider *videoSlider = [[UISlider alloc] init];
+    [bottomBar addSubview:videoSlider];
+    
+    videoSlider.minimumValue = 0;
+    videoSlider.maximumValue = videoLength;
+    videoSlider.value = 0;
+    [videoSlider setThumbImage:[UIImage imageNamed:@"sliderthumb"] forState:UIControlStateNormal];
+    //不连续报告进度
+    [videoSlider setContinuous:NO];
+    videoSlider.minimumTrackTintColor = [UIColor ColorWithRGB:44 Green:123 Blue:246 Alpha:1];
+    videoSlider.maximumTrackTintColor = [UIColor lightGrayColor];
+    [videoSlider addTarget:self action:@selector(sliderStartDrag:) forControlEvents:UIControlEventTouchDown];
+    [videoSlider addTarget:self action:@selector(sliderEndDrag:) forControlEvents:UIControlEventValueChanged];
+    [videoSlider mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(playBtn.mas_centerY);
+        make.left.equalTo(playBtn.mas_right).offset(10);
+        make.right.equalTo(screenScaleBtn.mas_left).offset(-10);
+    }];
+}
+
+- (void)sliderStartDrag:(UISlider *)sender{
+    NSLog(@"start Drag");
+    //停止计时 防隐藏
+    [timer setFireDate:[NSDate distantFuture]];
+}
+- (void)sliderEndDrag:(UISlider *)sender{
+    NSLog(@"end Drag");
+    if(self.maskDelegate && [self.maskDelegate respondsToSelector:@selector(videoSliderDidJump:)]){
+        [self.maskDelegate videoSliderDidJump:sender.value];
+    }
+    //开始计时
+    [timer setFireDate:[NSDate date]];
 }
 
 - (void)buildFounctionBar{

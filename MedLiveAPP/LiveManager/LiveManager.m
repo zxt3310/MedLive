@@ -190,6 +190,13 @@
     return stateBefore;
 }
 
+- (void)rtcEngine:(AgoraRtcEngineKit *)engine tokenPrivilegeWillExpire:(NSString *)token{
+    if(self.provideDelegate && [self.provideDelegate respondsToSelector:@selector(tokenWillExpireRetake:)]){
+        [self.provideDelegate tokenWillExpireRetake:^(NSString * token) {
+            [engine renewToken:token];
+        }];
+    }
+}
 
 - (void)dealloc{
     [AgoraRtcEngineKit destroy];

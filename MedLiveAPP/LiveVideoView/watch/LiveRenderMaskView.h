@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)switchCamara:(void(^)(BOOL enable,BOOL isFirst))res;
 //开关麦克风
 - (void)switchMic:(void(^)(BOOL enable))res;
+//播放进度条
+- (void)videoSliderDidJump:(NSInteger)point;
 
 @end
 
