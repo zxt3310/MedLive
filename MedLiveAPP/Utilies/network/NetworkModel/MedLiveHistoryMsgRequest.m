@@ -47,8 +47,8 @@
     return @{
         @"filter":@{
             @"destination":channelId,
-            @"start_time":[self getUTCTime:[NSDate date]],
-            @"end_time":[self getUTCTime:[NSDate dateWithTimeIntervalSinceNow:3600*24*20]]
+            @"start_time":[self getUTCTime:[NSDate dateWithTimeIntervalSinceNow:-3600*24*6]],
+            @"end_time":[self getUTCTime:[NSDate date]]
         },
         @"limit":[NSNumber numberWithInt:50]
     };

@@ -15,7 +15,7 @@ NSString *const RTMEngineDidReceiveMessage = @"RTMEngineDidReceiveMessage";
 NSString *const RTMEngineDidReceiveSignal = @"RTMEngineDidReceiveSignal";
 NSString *const MedLoginCall = @"MedAppShouldPresentLoginController";
 NSString *const MedRtmRejoinCall = @"MedRtmChannelRejoin";
-
+NSString *const MedLiveHistoryBackPlay = @"BackPlay_Notification";
 
 @implementation AppCommondCenter
 

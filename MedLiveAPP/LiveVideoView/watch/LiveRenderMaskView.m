@@ -111,6 +111,10 @@ typedef enum : NSUInteger {
     BOOL isShow;
     int funcBarHide;
     NSTimer *timer;
+    
+    //进度条时间
+    UISlider *videoSlider;
+    UILabel *curPrograssLabel;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -157,12 +161,14 @@ typedef enum : NSUInteger {
     }];
     
     [self buildFounctionBar];
-    [self buildVideoSlider:100];
 }
 
 //播放进度条
 - (void)buildVideoSlider:(NSInteger)videoLength{
-    UISlider *videoSlider = [[UISlider alloc] init];
+    if(videoSlider){
+        return;
+    }
+    videoSlider = [[UISlider alloc] init];
     [bottomBar addSubview:videoSlider];
     
     videoSlider.minimumValue = 0;
@@ -170,30 +176,69 @@ typedef enum : NSUInteger {
     videoSlider.value = 0;
     [videoSlider setThumbImage:[UIImage imageNamed:@"sliderthumb"] forState:UIControlStateNormal];
     //不连续报告进度
-    [videoSlider setContinuous:NO];
+    [videoSlider setContinuous:YES];
     videoSlider.minimumTrackTintColor = [UIColor ColorWithRGB:44 Green:123 Blue:246 Alpha:1];
     videoSlider.maximumTrackTintColor = [UIColor lightGrayColor];
-    [videoSlider addTarget:self action:@selector(sliderStartDrag:) forControlEvents:UIControlEventTouchDown];
-    [videoSlider addTarget:self action:@selector(sliderEndDrag:) forControlEvents:UIControlEventValueChanged];
+    [videoSlider addTarget:self action:@selector(sliderValurChanged:forEvent:) forControlEvents:UIControlEventValueChanged];
+    
+    UILabel *totalLabel = [[UILabel alloc] init];
+    totalLabel.textColor = [UIColor whiteColor];
+    totalLabel.font = [UIFont fontWithName:@"Helvetica" size:13];
+    totalLabel.text = [NSString stringWithFormat:@"/%@",[MedLiveAppUtilies secondToString:videoLength]];
+    [bottomBar addSubview:totalLabel];
+    
+    curPrograssLabel = [[UILabel alloc] init];
+    curPrograssLabel.textColor = [UIColor whiteColor];
+    curPrograssLabel.font = [UIFont fontWithName:@"Helvetica" size:13];
+    curPrograssLabel.text = [MedLiveAppUtilies secondToString:0];
+    [bottomBar addSubview:curPrograssLabel];
+    
+    [totalLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(playBtn.mas_centerY);
+        make.right.equalTo(screenScaleBtn.mas_left).offset(-5);
+    }];
+    
+    [curPrograssLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(playBtn.mas_centerY);
+        make.right.equalTo(totalLabel.mas_left);
+    }];
+    
     [videoSlider mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(playBtn.mas_centerY);
         make.left.equalTo(playBtn.mas_right).offset(10);
-        make.right.equalTo(screenScaleBtn.mas_left).offset(-10);
+        make.right.equalTo(curPrograssLabel.mas_left).offset(-5);
     }];
 }
 
-- (void)sliderStartDrag:(UISlider *)sender{
-    NSLog(@"start Drag");
-    //停止计时 防隐藏
-    [timer setFireDate:[NSDate distantFuture]];
+- (void)sliderValurChanged:(UISlider *)sender forEvent:(UIEvent *)event{
+    UITouch *touchEvent = [[event allTouches] anyObject];
+    switch (touchEvent.phase) {
+            case UITouchPhaseBegan:
+                NSLog(@"开始拖动");
+                //停止计时
+                [timer setFireDate:[NSDate distantFuture]];
+                break;
+            case UITouchPhaseMoved:
+                NSLog(@"正在拖动 %f",sender.value);
+                curPrograssLabel.text = [MedLiveAppUtilies secondToString:sender.value];
+                break;
+            case UITouchPhaseEnded:
+                NSLog(@"结束拖动");
+                if(self.maskDelegate && [self.maskDelegate respondsToSelector:@selector(videoSliderDidJump:)]){
+                    [self.maskDelegate videoSliderDidJump:sender.value];
+                }
+                //开始计时
+                [timer setFireDate:[NSDate date]];
+                break;
+            default:
+                break;
+        }
 }
-- (void)sliderEndDrag:(UISlider *)sender{
-    NSLog(@"end Drag");
-    if(self.maskDelegate && [self.maskDelegate respondsToSelector:@selector(videoSliderDidJump:)]){
-        [self.maskDelegate videoSliderDidJump:sender.value];
-    }
-    //开始计时
-    [timer setFireDate:[NSDate date]];
+
+//播放进度实时更新
+- (void)updateVideoPosition:(NSInteger)point{
+    [videoSlider setValue:point animated:NO];
+    curPrograssLabel.text = [MedLiveAppUtilies secondToString:point];
 }
 
 - (void)buildFounctionBar{
@@ -526,6 +571,16 @@ typedef enum : NSUInteger {
         [self.maskDelegate RenderMaskDidSwitchScreenStateComplate];
     }
     screenScaleBtn.hidden = YES;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (context == @"video_prograss") {
+        NSInteger value = [[change valueForKey:@"new"] integerValue];
+        curPrograssLabel.text = [MedLiveAppUtilies secondToString: value];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 - (void)dealloc{

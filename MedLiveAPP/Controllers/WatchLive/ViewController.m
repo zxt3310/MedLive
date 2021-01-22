@@ -14,12 +14,13 @@
 #import "MedLiveWatchViewModel.h"
 #import "MedLiveLoginController.h"
 #import "MedLiveRoomBoardcast.h"
+#import <AgoraMediaPlayer/AgoraMediaPlayer.h>
 
 NSString *const SKLMessageSignal_VideoGrant = @"video_grant";
 NSString *const SKLMessageSignal_VideoDenied = @"video_denied";
 NSString *const SKLMessageSignal_Pointmain = @"point_main";
 
-@interface ViewController ()<LiveManagerRemoteCanvasProvideDelegate,RenderMaseDelegate,SignalDelegate>
+@interface ViewController ()<LiveManagerRemoteCanvasProvideDelegate,RenderMaseDelegate,SignalDelegate,AgoraMediaPlayerDelegate>
 @end
 
 @implementation ViewController
@@ -38,6 +39,10 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
     BOOL enableCamara;
     BOOL enableMic;
     BOOL isFirst;
+    
+    //回放视频url
+    NSString *backPlayUrl;
+    AgoraMediaPlayer *player;
 }
 
 - (void)viewDidLoad {
@@ -49,6 +54,7 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
     
     //加载通知监听
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RTMDidReceiveSignal:) name:RTMEngineDidReceiveSignal object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LiveShouldPlayBackVideo) name:MedLiveHistoryBackPlay object:nil];
     
     viewModel = [[MedLiveWatchViewModel alloc] init];
     viewModel.signalDelegate = self;
@@ -63,13 +69,28 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
             [MedLiveAppUtilies showErrorTip:@"无效的房间号"];
             return;
         }
+        
+        //加载直播介绍
         [interactView setupIntorduceScroll];
+        
+        //保存房间  展示标题
         self.channelId = room.channelId;
         [pushView fillTitle:room.roomTitle];
-        
-        [pushView showPlaceView:YES Start:room.startTime State:room.status coverPic:room.coverPic];
-  
-        [self getStart];
+        //如果直播未开始，倒计时
+        if (room.status == MedLiveRoomStateCreated) {
+            [pushView showPlaceView:YES Start:room.startTime State:room.status coverPic:room.coverPic];
+        }
+        //如果直播已经结束
+        if(room.status == MedLiveRoomStateEnd){
+            [pushView showPlaceView:YES
+                              Start:nil
+                              State:room.backVideoPath?MedLiveRoomStateEndAndBackplay : MedLiveRoomStateEnd
+                           coverPic:room.coverPic];
+            self->backPlayUrl = room.backVideoPath;
+        }else{
+            [pushView showPlaceView:YES Start:nil State:room.status coverPic:room.coverPic];
+            [self getStart];
+        }
     }];
     
     WeakSelf
@@ -207,6 +228,23 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
 #pragma mark RenderMaskDelegate Imp
 - (void)RenderMaskDidSwitchPlayStateComplate:(void (^)(MedLiveState))block{
     static MedLiveState originState = MedLiveStatePlaying;
+    //播放器状态就不管直播了
+    if (player) {
+        if (originState == MedLiveStatePlaying) {
+            [player pause];
+            originState = MedLiveStatePausing;
+        }else{
+            if (player.state == AgoraMediaPlayerStatePlayBackCompleted) {
+                [player seekToPosition:1];
+            }else{
+                [player play];
+            }
+            originState = MedLiveStatePlaying;
+        }
+        block(originState);
+        return;
+    }
+    
     originState = [liveManager pauseOrPlay:originState];
     block(originState);
 }
@@ -227,6 +265,11 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
         [viewModel changeRoleState:MedliveRoleStateLeave];
         //离开聊天
         [viewModel leaveRtmChannel];
+        //销毁播放器
+        if (player) {
+            [player destroy];
+            player = nil;
+        }
         [self.navigationController popViewControllerAnimated:YES];
     }else{
         [self switchScreenRotation];
@@ -415,6 +458,44 @@ NSString *const SKLMessageSignal_Pointmain = @"point_main";
     }];
 }
 
+
+#pragma mark 直播回放
+- (void)LiveShouldPlayBackVideo{
+    [pushView showPlaceView:NO Start:nil State:MedLiveRoomStateEndAndBackplay coverPic:nil];
+    player = [[AgoraMediaPlayer alloc] initWithDelegate:self];
+    [player setRenderMode:AgoraMediaPlayerRenderModeHidden];
+    [player setView:pushView.videoView];
+    [player open:backPlayUrl startPos:0];
+}
+
+- (void)AgoraMediaPlayer:(AgoraMediaPlayer *)playerKit didChangedToPosition:(NSInteger)position{
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [pushView playingTrack:position];
+    });
+}
+- (void)AgoraMediaPlayer:(AgoraMediaPlayer *)playerKit didChangedToState:(AgoraMediaPlayerState)state error:(AgoraMediaPlayerError)error{
+    if (state == AgoraMediaPlayerStateOpenCompleted && state != AgoraMediaPlayerStatePlaying) {
+        NSInteger length = [player getDuration];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            [pushView installVideoSliderBarWithVideoLength:length];
+        });
+        [player play];
+    }
+
+    if (state == AgoraMediaPlayerStatePlayBackCompleted) {
+        NSLog(@"播完了");
+    }
+}
+
+- (void)AgoraMediaPlayer:(AgoraMediaPlayer *)playerKit didOccurEvent:(AgoraMediaPlayerEvent)event{
+    
+}
+#pragma mark 播放器 进度条 action
+- (void)videoSliderDidJump:(NSInteger)point{
+    [player seekToPosition:point];
+}
+                          
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     NSLog(@"controller dealloc ok!");

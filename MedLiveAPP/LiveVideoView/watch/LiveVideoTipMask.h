@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LiveVideoTipMask : UIView
+@property (nonatomic,strong,readonly) UIButton *backPlayBtn;
 - (void)countWithStartTime:(NSString *)start State:(MedLiveRoomState)state;
 @end
 

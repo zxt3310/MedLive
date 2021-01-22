@@ -37,6 +37,10 @@ typedef void(^BBBlock)(BOOL hidden);
 - (void)enableSideBar:(BOOL) enable;
 //强制开启设备（被动触发）
 - (void)openDeviceOnForce;
+//加载进度条
+- (void)buildVideoSlider:(NSInteger)videoLength;
+//播放进度实时更新
+- (void)updateVideoPosition:(NSInteger)point;
 @end
 
 NS_ASSUME_NONNULL_END

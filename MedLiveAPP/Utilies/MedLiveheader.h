@@ -62,6 +62,7 @@ typedef enum : NSUInteger {
     MedLiveRoomStateCreated = 1,
     MedLiveRoomStateStart = 2,
     MedLiveRoomStateEnd = 3,
+    MedLiveRoomStateEndAndBackplay = 998,
     MedLiveRoomStateNoCamara = 999
 } MedLiveRoomState;
 

@@ -20,7 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addRemoteStream:(NSInteger)uid result:(void(^)(__kindof LiveView*))res;
 - (void)removeRemoteStream:(NSInteger)uid;
 - (void)enableSideBar:(BOOL) enable;
-
+//播放器相关
+- (void)installVideoSliderBarWithVideoLength:(NSInteger) length;
+- (void)playingTrack:(NSInteger) point;
 //设置关闭摄像头的远端流 为默认画面 返回是否找到该流
 - (BOOL)remote:(NSInteger)uid DidEnabledCamara:(BOOL)enabled;
 @end

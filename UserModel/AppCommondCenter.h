@@ -14,6 +14,7 @@ UIKIT_EXTERN NSString *const RTMEngineDidReceiveMessage;
 UIKIT_EXTERN NSString *const RTMEngineDidReceiveSignal;
 UIKIT_EXTERN NSString *const MedLoginCall;
 UIKIT_EXTERN NSString *const MedRtmRejoinCall;
+UIKIT_EXTERN NSString *const MedLiveHistoryBackPlay;
 
 @protocol ThirdPlatDelegate <NSObject>
 @optional

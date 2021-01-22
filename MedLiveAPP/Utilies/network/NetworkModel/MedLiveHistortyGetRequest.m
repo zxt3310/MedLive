@@ -8,6 +8,7 @@
 
 #import "MedLiveHistortyGetRequest.h"
 #import "AgoraCenter.h"
+#import "IMManager.h"
 
 @implementation MedLiveHistortyGetRequest
 {
@@ -35,10 +36,27 @@
     return RequestMethodTypeGET;
 }
 
-- (void)startRequestWithComplate{
+- (NSDictionary *)requestHeader{
+    return @{
+        @"x-agora-token":[IMManager sharedManager].rtmToken,
+        @"x-agora-uid":[AppCommondCenter sharedCenter].currentUser.uid
+    };
+}
+
+- (void)startRequestWithComplate:(void(^)(NSArray *))comlete{
     [self startRequestCompletionWithSuccess:^(__kindof MedBaseRequest * _Nonnull request) {
         id obj = request.responseObject;
-        NSLog(@"%@",obj);
+        NSString *res = [obj valueForKey:@"code"];
+        if (![res isEqualToString:@"ok"]) {
+            [MedLiveAppUtilies showErrorTip:@"历史消息获取失败"];
+            return;
+        }
+        
+        NSArray *ary = [obj valueForKey:@"messages"];
+        if (ary) {
+            comlete(ary);
+        }
+        
     } failure:^(__kindof MedBaseRequest * _Nonnull request) {
         
     }];

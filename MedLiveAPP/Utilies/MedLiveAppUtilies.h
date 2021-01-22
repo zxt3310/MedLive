@@ -15,7 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)checkTelNumber:(NSString *)telNumber;
 + (BOOL)needLogin;
 + (void)showErrorTip:(NSString *) tip;
++ (void)showLoading:(NSString *)tip;
 + (id)stringToJsonDic:(NSString *)jsonString;
++ (NSString *)secondToString:(NSInteger)seconds;
 @end
 
 @interface NSString(ex)

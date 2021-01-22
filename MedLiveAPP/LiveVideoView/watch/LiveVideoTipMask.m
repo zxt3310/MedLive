@@ -14,9 +14,8 @@
     UIView *countView;
     UILabel *countLabel;
     NSTimer *timer;
-    UIButton *backPlayBtn;
 }
-
+//@synthesize backPlayBtn = _backPlayBtn;
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -33,16 +32,16 @@
         tipLabel.text = @"加载中...";
         [mask addSubview:tipLabel];
         
-        backPlayBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [backPlayBtn setTitle:@"观看回放" forState:UIControlStateNormal];
-        backPlayBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-        backPlayBtn.titleLabel.textColor = [UIColor whiteColor];
-        backPlayBtn.layer.borderColor = [UIColor whiteColor].CGColor;
-        backPlayBtn.layer.borderWidth = 1;
-        backPlayBtn.layer.cornerRadius = 10;
-        backPlayBtn.hidden = YES;
-        [backPlayBtn addTarget:self action:@selector(playVideo:) forControlEvents:UIControlEventTouchUpInside];
-        [mask addSubview:backPlayBtn];
+        _backPlayBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_backPlayBtn setTitle:@"观看回放" forState:UIControlStateNormal];
+        _backPlayBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        _backPlayBtn.titleLabel.textColor = [UIColor whiteColor];
+        _backPlayBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+        _backPlayBtn.layer.borderWidth = 1;
+        _backPlayBtn.layer.cornerRadius = 10;
+        _backPlayBtn.hidden = YES;
+        [_backPlayBtn addTarget:self action:@selector(playVideo:) forControlEvents:UIControlEventTouchUpInside];
+        [mask addSubview:_backPlayBtn];
         
         //倒计时view
         countView = [[UIView alloc] init];
@@ -65,6 +64,11 @@
         [tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(mask);
         }];
+        [_backPlayBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(mask);
+            make.centerY.equalTo(tipLabel).offset(50);
+            make.size.mas_equalTo(CGSizeMake(100, 35));
+        }];
         [countView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(mask);
             make.centerY.equalTo(mask).offset(-20);
@@ -82,7 +86,14 @@
 }
 
 - (void)playVideo:(UIButton *)sender{
+    sender.enabled = NO;
+    [MedLiveAppUtilies showLoading:@"加载中"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MedLiveHistoryBackPlay object:nil];
     
+    //防误触
+     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        sender.enabled = YES;
+    });
 }
 
 - (void)countWithStartTime:(NSString *)start State:(MedLiveRoomState)state{
@@ -115,6 +126,7 @@
     }else{
         countView.hidden = YES;
         tipLabel.hidden = NO;
+        _backPlayBtn.hidden = YES;
         switch (state) {
             case MedLiveRoomStateStart:
             case MedLiveRoomStateCreated:
@@ -122,9 +134,14 @@
                 break;
             case MedLiveRoomStateEnd:
                 tipLabel.text = @"直播已结束";
-                break;;
+                break;
             case MedLiveRoomStateNoCamara:
                 tipLabel.text = @"摄像头未开启";
+                break;
+            case MedLiveRoomStateEndAndBackplay:
+                tipLabel.text = @"直播已结束";
+                _backPlayBtn.hidden = NO;
+                break;
             default:
                 break;
         }

@@ -110,7 +110,17 @@
 - (void)fetchHistoryMsg:(NSString *)channelId{
     MedLiveHistoryMsgRequest *request = [[MedLiveHistoryMsgRequest alloc] initWithChannelId:channelId];
     [request startRequest:^(NSString * _Nonnull handleStr) {
-        [[[MedLiveHistortyGetRequest alloc] initWithHandle:handleStr] startRequestWithComplate];
+        [[[MedLiveHistortyGetRequest alloc] initWithHandle:handleStr] startRequestWithComplate:^(NSArray * originAry) {
+            for (NSDictionary *msg in originAry) {
+                NSString *str = [msg valueForKey:@"payload"];
+                id msgObj = [MedLiveAppUtilies stringToJsonDic:str];
+                MedChannelMessage *message = [MedChannelMessage yy_modelWithDictionary:msgObj];
+                if (message.type == MedChannelMessageTypeChat) {
+                    MedChannelChatMessage *chatMsg = [MedChannelChatMessage yy_modelWithDictionary:msgObj];
+                    [self channelDidReceiveMessage:chatMsg];
+                }
+            }
+        }];
     }];
 }
 

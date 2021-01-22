@@ -109,10 +109,10 @@
     _message = message;
     nameLabel.text = KIsBlankString(message.peerName)?message.peerId:message.peerName;
     contentLabel.text = message.text;
-    if (!KIsBlankString(message.peerHeadPic)) {
+    if (!KIsBlankString(message.peerHeadPic) && ![message.peerHeadPic containsString:@"null"]) {
         headerView.yy_imageURL = [NSURL URLWithString:message.peerHeadPic];
     }else{
-        headerView.image = [UIImage imageNamed:@"head"];
+        headerView.image = [UIImage imageNamed:@"header"];
     }
     
     [containorView layoutIfNeeded];

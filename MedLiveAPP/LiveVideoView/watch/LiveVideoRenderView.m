@@ -214,6 +214,26 @@
     [maskView openDeviceOnForce];
 }
 
+//处理回放按钮点击
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
+    if (!placeView.hidden && !tipMask.backPlayBtn.hidden) {
+        CGPoint targetPoint = [self convertPoint:point toView:tipMask.backPlayBtn];
+        if([tipMask.backPlayBtn pointInside:targetPoint withEvent:event]){
+            return tipMask.backPlayBtn;
+        }
+    }
+    return [super hitTest:point withEvent:event];
+}
+
+
+- (void)installVideoSliderBarWithVideoLength:(NSInteger) length{
+    [maskView buildVideoSlider:length];
+}
+
+- (void)playingTrack:(NSInteger) point{
+    [maskView updateVideoPosition:point];
+}
+
 - (void)dealloc{
     NSLog(@"RenderView release ok");
 }

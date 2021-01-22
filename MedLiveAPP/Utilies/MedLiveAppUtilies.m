@@ -17,12 +17,19 @@
     [SVProgressHUD setInfoImage:nil];
     [SVProgressHUD setBackgroundColor:[UIColor ColorWithRGB:0 Green:0 Blue:0 Alpha:0.4]];
     [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
-    [SVProgressHUD setOffsetFromCenter:UIOffsetMake(0, kScreenHeight/2-100)];
     [SVProgressHUD setMaximumDismissTimeInterval:2.5];
 }
 
 + (void)showErrorTip:(NSString *) tip{
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+    [SVProgressHUD setOffsetFromCenter:UIOffsetMake(0, kScreenHeight/2-100)];
     [SVProgressHUD showInfoWithStatus:tip];
+}
+
++ (void)showLoading:(NSString *)tip{
+    [SVProgressHUD setOffsetFromCenter:UIOffsetMake(0, -100)];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:tip];
 }
 
 + (id)stringToJsonDic:(NSString *)jsonString{
@@ -191,6 +198,17 @@
      return vc;
   }
  return nil;
+}
+
++ (NSString *)secondToString:(NSInteger)seconds{
+    NSInteger hour = seconds / 3600;
+    NSInteger minute = (seconds % 3600) / 60;
+    NSInteger second = (seconds % 3600) % 60;
+    if (hour > 0) {
+        return [NSString stringWithFormat:@"%02ld:%02ld:%02ld",hour,minute,second];
+    }else{
+        return[NSString stringWithFormat:@"%02ld:%02ld",minute,second];
+    }
 }
 
 @end
