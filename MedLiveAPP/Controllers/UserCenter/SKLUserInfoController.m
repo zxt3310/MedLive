@@ -27,6 +27,8 @@
     UILabel *hospitalLb;
     UILabel *levelLb;
     
+    UIView *doctorInfoView;
+    
     NSString *name;
     SKLUserInfoViewModel *viewModel;
 }
@@ -47,6 +49,10 @@
         }
         nameLb.text = Kstr(user.userName);
         mobileLb.text = Kstr(user.mobile);
+        if ([user.userType isEqualToString:MED_USER_DOCTOR]) {
+            doctorInfoView.hidden = NO;
+            levelLb.text = user.doctorInfo.title;
+        }
     }];
 }
 

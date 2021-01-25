@@ -6,16 +6,16 @@
             <UIImageView attr="source:right"/>
         </UIView>
         
-        <UIView class="" layout="height:1,width:90%,alignSelf:center" attr="bgColor:#dddddd"/>
+        <!-- <UIView class="" layout="height:1,width:90%,alignSelf:center" attr="bgColor:#dddddd"/> -->
         
-        <UIView class="" layout="flexDirection:row,padding:20,justifyContent:space-between" attr="">
+        <!-- <UIView class="" layout="flexDirection:row,padding:20,justifyContent:space-between" attr="">
             <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:账号绑定"/>
             <UIImageView attr="source:right"/>
-        </UIView>
+        </UIView> -->
     </UIView>
 
     <UIView class="" layout="marginTop:30" attr="bgColor:white,shadowRadius:4,shadowColor:black,shadowOpacity:0.2,borderRadius:10">
-        <UIView class="" layout="flexDirection:row,padding:20,justifyContent:space-between" attr="">
+        <!-- <UIView class="" layout="flexDirection:row,padding:20,justifyContent:space-between" attr="">
             <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:功能介绍"/>
             <UIImageView attr="source:right"/>
         </UIView>
@@ -25,9 +25,9 @@
         <UIView class="" layout="flexDirection:row,padding:20,justifyContent:space-between" attr="">
             <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:法律声明"/>
             <UIImageView attr="source:right"/>
-        </UIView>
+        </UIView> -->
 
-        <UIView class="" layout="height:1,width:90%,alignSelf:center" attr="bgColor:#dddddd"/>
+        <!-- <UIView class="" layout="height:1,width:90%,alignSelf:center" attr="bgColor:#dddddd"/> -->
         
         <UIView class="" layout="flexDirection:row,padding:20,justifyContent:space-between" attr="">
             <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:用户服务协议"/>

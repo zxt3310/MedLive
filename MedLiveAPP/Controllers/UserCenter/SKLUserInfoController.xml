@@ -30,21 +30,21 @@
         </UIView>
     </UIView>
 
-    <UIView class="" layout="paddingHorizontal:20,marginTop:30" attr="bgColor:white,shadowRadius:4,shadowColor:black,shadowOpacity:0.2,borderRadius:10">
-        <UIView class="" layout="flexDirection:row,paddingVertical:20,justifyContent:space-between" attr="">
+    <UIView name="doctorInfoView" class="" layout="paddingHorizontal:20,marginTop:30" attr="bgColor:white,shadowRadius:4,shadowColor:black,shadowOpacity:0.2,borderRadius:10,hidden:true">
+        <!-- <UIView class="" layout="flexDirection:row,paddingVertical:20,justifyContent:space-between" attr="">
             <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:身份证"/>
             <UIView class="" layout="flexDirection:row" attr="">
                 <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:身份证"/>
                 <UIImageView attr="source:right,alpha:0"/>
             </UIView>
-        </UIView>
+        </UIView> -->
 
          <UIView class="" layout="height:1" attr="bgColor:#dddddd"/>
 
          <UIView class="" layout="flexDirection:row,paddingVertical:20,justifyContent:space-between" attr="">
             <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:所在医院"/>
             <UIView class="" layout="flexDirection:row" attr="">
-                <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:所在医院"/>
+                <UILabel name="hospitalLb" class="" layout="" attr="fontSize:14,color:#333333,text:所在医院"/>
                 <UIImageView attr="source:right,alpha:0"/>
             </UIView>
         </UIView>
@@ -54,7 +54,7 @@
          <UIView class="" layout="flexDirection:row,paddingVertical:20,justifyContent:space-between" attr="">
             <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:职称"/>
             <UIView class="" layout="flexDirection:row" attr="">
-                <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:职称"/>
+                <UILabel name="levelLb" class="" layout="" attr="fontSize:14,color:#333333,text:职称"/>
                 <UIImageView attr="source:right,alpha:0"/>
             </UIView>
         </UIView>
