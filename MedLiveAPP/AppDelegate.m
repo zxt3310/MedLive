@@ -28,7 +28,7 @@
     [[self window] setRootViewController:root];
     [[self window] makeKeyAndVisible];
     return YES;
-}
+}		
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
     if(_allowRotation == YES){

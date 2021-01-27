@@ -8,6 +8,7 @@
 
 #import "SKLUserSettingController.h"
 #import "SKLUserInfoController.h"
+#import "MedLiveWebContoller.h"
 #import <LGAlertView.h>
 
 @interface SKLUserSettingController ()
@@ -39,6 +40,18 @@
         [self.navigationController popViewControllerAnimated:YES];
     };
     [alert showAnimated];
+}
+
+- (void)goToProtocal{
+    MedLiveWebContoller *web = [[MedLiveWebContoller alloc] init];
+    web.urlStr = [NSString stringWithFormat:@"%@/protocol.html",Domain];
+    [self.navigationController pushViewController:web animated:YES];
+}
+
+- (void)goToPrivate{
+    MedLiveWebContoller *web = [[MedLiveWebContoller alloc] init];
+    web.urlStr = [NSString stringWithFormat:@"%@/privacy.html",Domain];
+    [self.navigationController pushViewController:web animated:YES];
 }
 
 - (void)dealloc

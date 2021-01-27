@@ -29,14 +29,14 @@
 
         <!-- <UIView class="" layout="height:1,width:90%,alignSelf:center" attr="bgColor:#dddddd"/> -->
         
-        <UIView class="" layout="flexDirection:row,padding:20,justifyContent:space-between" attr="">
+        <UIView class="" onPress="goToProtocal" layout="flexDirection:row,padding:20,justifyContent:space-between" attr="">
             <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:用户服务协议"/>
             <UIImageView attr="source:right"/>
         </UIView>
 
         <UIView class="" layout="height:1,width:90%,alignSelf:center" attr="bgColor:#dddddd"/>
         
-        <UIView class="" layout="flexDirection:row,padding:20,justifyContent:space-between" attr="">
+        <UIView class="" onPress="goToPrivate" layout="flexDirection:row,padding:20,justifyContent:space-between" attr="">
             <UILabel name="" class="" layout="" attr="fontSize:14,color:#333333,text:隐私政策"/>
             <UIImageView attr="source:right"/>
         </UIView>

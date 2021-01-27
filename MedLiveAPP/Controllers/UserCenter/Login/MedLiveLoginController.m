@@ -11,6 +11,7 @@
 #import "MedLiveNetManager.h"
 #import "MedLiveSendMsgRequest.h"
 #import "MedLiveLoginRequest.h"
+#import "MedLiveWebContoller.h"
 
 @interface MedLiveLoginController ()<LoginViewDelegate>
 
@@ -46,7 +47,7 @@
     MedLiveLoginRequest *req = [[MedLiveLoginRequest alloc] init];
     [req requestLogin:^(MedLiveLoginRequest * _Nonnull request) {
         
-    }];
+    }]; 
 }
 
 - (void)loginView:(MedLiveLoginView *)view StartLoginWithMobile:(NSString *)mobile Code:(NSString *)code{
@@ -71,6 +72,12 @@
 
 - (void)loginViewShouldPop{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)loginViewShouldPushWeb:(NSString *)url{
+    MedLiveWebContoller *web = [[MedLiveWebContoller alloc] init];
+    web.urlStr = url;
+    [self.navigationController pushViewController:web animated:YES];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{

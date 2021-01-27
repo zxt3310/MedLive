@@ -8,7 +8,7 @@
 
 #import "MedLiveLoginView.h"
 
-@interface MedLiveLoginView()
+@interface MedLiveLoginView() <UITextViewDelegate>
 
 @end
 
@@ -99,6 +99,24 @@
     [loginBtn addTarget:self action:@selector(startLogin) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:loginBtn];
     
+    UITextView *privateLb = [[UITextView alloc] init];
+    privateLb.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+    privateLb.backgroundColor = [UIColor clearColor];
+    privateLb.delegate = self;
+    privateLb.editable = NO;
+    privateLb.scrollEnabled = NO;
+    [self addSubview:privateLb];
+    
+    NSString *protocalStr = @"登录即表示您已阅读并同意《 用户协议 》和《 隐私政策 》";
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:protocalStr];
+    [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, protocalStr.length)];
+    [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, protocalStr.length)];
+    [attrStr addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(14,4)];
+    [attrStr addAttribute:NSLinkAttributeName value:[NSString stringWithFormat:@"%@/protocol.html",Domain] range:NSMakeRange(14,4)];
+    [attrStr addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(23,4)];
+    [attrStr addAttribute:NSLinkAttributeName value:[NSString stringWithFormat:@"%@/privacy.html",Domain] range:NSMakeRange(23,4)];
+    [privateLb setAttributedText:[attrStr copy]];
+    
     [titleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).with.offset(30);
         make.top.equalTo(self.mas_top).with.offset(150);
@@ -156,6 +174,18 @@
         make.height.equalTo(codeFiled.mas_height);
     }];
     
+    [privateLb mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(loginBtn);
+        make.top.equalTo(loginBtn.mas_bottom).offset(15);
+        make.height.mas_equalTo(60);
+    }];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction{
+    if (self.loginDelegate) {
+        [self.loginDelegate loginViewShouldPushWeb:URL.absoluteString];
+    }
+    return NO;
 }
 
 - (void)textFieldDidEditingChange:(UITextField *)textField{
@@ -202,8 +232,8 @@
                     }
                 }];
 //#ifdef DEBUG
-                self->code = messageCode;
-                codeFiled.text = messageCode;
+//                self->code = messageCode;
+//                codeFiled.text = messageCode;
 //#endif
             }
         }];

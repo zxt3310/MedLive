@@ -232,8 +232,13 @@
     UILabel *introLabel = [[UILabel alloc] init];
     introLabel.font = [UIFont systemFontOfSize:14];
     introLabel.numberOfLines = 0;
-    introLabel.text = introStr;
+//    introLabel.text = introStr;
     [infoScroll addSubview:introLabel];
+    
+    NSMutableParagraphStyle *lineSpace = [[NSMutableParagraphStyle alloc] init];
+    [lineSpace setLineSpacing:5];
+    NSAttributedString *introAttr = [[NSAttributedString alloc] initWithString:introStr attributes:@{NSParagraphStyleAttributeName:lineSpace,NSForegroundColorAttributeName:[UIColor ColorFromHex:0x606060]}];
+    introLabel.attributedText = introAttr;
     
     UIView *picsView = [[UIView alloc] init];
     [infoScroll addSubview:picsView];

@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)loginView:(MedLiveLoginView *)view StartLoginWithMobile:(NSString *)mobile Code:(NSString *)code;
 
 - (void)loginViewShouldPop;
+
+- (void)loginViewShouldPushWeb:(NSString *)url;
 @end
 
 @interface MedLiveLoginView : UIView
